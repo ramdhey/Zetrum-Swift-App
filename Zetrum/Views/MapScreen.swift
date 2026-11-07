@@ -32,7 +32,6 @@ struct MapScreen: View {
             topControls
             sideControls
             bottomPanel
-            attribution
         }
         .sheet(item: $detail) { StationDetailScreen(place: $0) }
     }
@@ -104,22 +103,26 @@ struct MapScreen: View {
         .buttonStyle(.plain)
     }
 
+    /// Sumber petanya wajib terlihat. Ditempel di tepi atas panel supaya
+    /// posisinya ikut ke mana pun panelnya berhenti.
     private var attribution: some View {
         Text(store.tileStyle.attribution)
             .font(.system(size: 8.5, weight: .medium))
-            .foregroundStyle(Pal.ink.opacity(0.55))
-            .padding(.horizontal, 6).padding(.vertical, 3)
-            .background(Capsule().fill(Pal.void.opacity(0.55)))
+            .foregroundStyle(Pal.ink.opacity(0.6))
+            .padding(.horizontal, 7).padding(.vertical, 3)
+            .background(Capsule().fill(Pal.void.opacity(0.6)))
             .padding(.leading, 14)
-            .padding(.bottom, 4)
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
-            .padding(.bottom, panelHeight + 74)
+            .offset(y: -21)
             .allowsHitTesting(false)
     }
 
     // MARK: Panel bawah
 
-    private var panelHeight: CGFloat { expanded ? 420 : 236 }
+    /// Cuma daftarnya yang dipatok tingginya. Kartu pratinjau dibiarkan
+    /// mengikuti isinya supaya tidak ada ruang kosong di bawahnya.
+    private var listHeight: CGFloat { expanded ? 404 : 214 }
+    /// Ruang di dasar panel supaya isinya tidak tertutup bar bawah.
+    private let barInset: CGFloat = 88
 
     private var bottomPanel: some View {
         VStack(spacing: 0) {
@@ -163,11 +166,14 @@ struct MapScreen: View {
                     .padding(.bottom, 18)
                 }
                 .scrollIndicators(.hidden)
+                .frame(height: listHeight)
             }
         }
-        .frame(height: panelHeight)
+        .padding(.bottom, barInset)
         .frame(maxWidth: .infinity)
         .background {
+            // Latarnya diteruskan sampai tepi bawah layar, jadi panelnya
+            // duduk di dasar — bukan melayang di atas peta.
             UnevenRoundedRectangle(topLeadingRadius: 24, topTrailingRadius: 24, style: .continuous)
                 .fill(Pal.void.opacity(0.97))
                 .overlay(alignment: .top) {
@@ -175,7 +181,9 @@ struct MapScreen: View {
                         .stroke(Pal.line, lineWidth: 1)
                 }
                 .shadow(color: .black.opacity(0.5), radius: 18, y: -6)
+                .ignoresSafeArea(edges: .bottom)
         }
+        .overlay(alignment: .topLeading) { attribution }
         .gesture(
             DragGesture(minimumDistance: 12)
                 .onEnded { g in
@@ -185,7 +193,6 @@ struct MapScreen: View {
                     }
                 }
         )
-        .padding(.bottom, 74)
         .frame(maxHeight: .infinity, alignment: .bottom)
         .animation(.spring(response: 0.4, dampingFraction: 0.86), value: selectedID)
     }
