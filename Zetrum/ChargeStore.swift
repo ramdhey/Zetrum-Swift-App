@@ -323,7 +323,11 @@ final class ChargeStore: ObservableObject {
         do {
             activity = try Activity.request(
                 attributes: attributes(session),
-                content: .init(state: state, staleDate: Date().addingTimeInterval(180)),
+                // Basi tepat saat targetnya tercapai. Ini satu-satunya cara
+                // kartu bisa tahu pengisiannya selesai kalau iOS sudah
+                // mematikan prosesnya: sistem menggambar ulang di tanggal
+                // ini, dan widgetnya menghitung sendiri keadaan akhirnya.
+                content: .init(state: state, staleDate: session.finishAt),
                 pushType: nil
             )
             lastPushedSoC = state.soc
@@ -340,7 +344,7 @@ final class ChargeStore: ObservableObject {
         let state = contentState(session, soc: s)
         Task {
             await activity.update(.init(state: state,
-                                        staleDate: Date().addingTimeInterval(180)))
+                                        staleDate: state.isDone ? nil : session.finishAt))
         }
     }
 
@@ -362,9 +366,11 @@ final class ChargeStore: ObservableObject {
 
         if let session = active {
             announcedFull = Charge.isDone(session.plan, at: session.soc(at: Date()))
-            if let live = activity {
-                lastPushedSoC = live.content.state.soc
-                lastPushedAt = Date()
+            if activity != nil {
+                // Selama aplikasi tidur, kartunya berhenti di kabar terakhir.
+                // Begitu dibuka lagi, luruskan seketika — jangan tunggu
+                // detak berikutnya, apalagi kalau pengisiannya sudah selesai.
+                pushActivity(session, soc: session.soc(at: Date()))
             } else {
                 beginActivity(for: session)
             }

@@ -20,11 +20,12 @@ import WidgetKit
 struct ZetrumLiveActivity: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: ZetrumAttributes.self) { context in
-            LockScreenCard(attributes: context.attributes, state: context.state)
+            LockScreenCard(attributes: context.attributes,
+                           state: settled(context.state, stale: context.isStale))
                 .activityBackgroundTint(Pal.void.opacity(0.94))
                 .activitySystemActionForegroundColor(Pal.volt)
         } dynamicIsland: { context in
-            let s = context.state
+            let s = settled(context.state, stale: context.isStale)
             adoptLanguage(s.lang)
             let tint = s.isDone ? Pal.ion : Pal.volt
 
@@ -68,14 +69,67 @@ struct ZetrumLiveActivity: Widget {
             } compactLeading: {
                 CompactRing(state: s, tint: tint)
             } compactTrailing: {
-                Text("\(Energi.persen(s.soc))%")
-                    .font(.meter(13, .bold))
-                    .foregroundStyle(tint)
-                    .contentTransition(.numericText())
+                CompactValue(state: s, tint: tint)
             } minimal: {
                 CompactRing(state: s, tint: tint)
             }
             .keylineTint(tint)
+        }
+    }
+}
+
+// MARK: - Keadaan akhir yang dihitung sendiri
+
+/// Kalau iOS sudah mematikan aplikasinya, tidak ada lagi kabar yang masuk —
+/// persennya membeku di angka terakhir dan kartu tidak pernah tahu
+/// pengisiannya sudah selesai.
+///
+/// Jalan keluarnya: aplikasi memasang tanggal basi tepat di jam selesai.
+/// Sistem menggambar ulang kartunya di tanggal itu, dan di sini keadaan
+/// akhirnya **dihitung ulang**, bukan ditebak — rencana pengisiannya ikut
+/// dititipkan di tiap kabar, jadi persen, kWh dan rupiah terakhirnya persis
+/// sama dengan yang akan dihitung aplikasi kalau dia masih hidup.
+private func settled(_ s: ZetrumAttributes.ContentState,
+                     stale: Bool) -> ZetrumAttributes.ContentState {
+    guard stale, !s.isDone else { return s }
+    var out = s
+    let target = min(100, s.plan.targetSoC)
+    out.soc = target
+    out.energy = Charge.energy(s.plan, at: target)
+    out.cost = Charge.cost(s.plan, at: target)
+    out.power = 0
+    out.isDone = true
+    return out
+}
+
+// MARK: - Angka di pil kanan
+
+/// Persen tidak bisa berjalan sendiri di Live Activity — cuma tanggal yang
+/// bisa. Jadi selama mengisi yang ditampilkan hitung mundur, yang benar
+/// setiap detik tanpa aplikasi perlu bangun; persennya pindah ke tampilan
+/// melebar dan kartu layar kunci, tempat ada ruang untuk menyebut kapan
+/// angkanya terakhir diperbarui.
+private struct CompactValue: View {
+    let state: ZetrumAttributes.ContentState
+    let tint: Color
+
+    var body: some View {
+        if state.isDone {
+            Text("\(Energi.persen(state.soc))%")
+                .font(.meter(13, .bold))
+                .foregroundStyle(tint)
+                .contentTransition(.numericText())
+        } else if let finish = state.finishAt, finish > Date() {
+            Text(timerInterval: Date()...finish, countsDown: true)
+                .font(.meter(13, .bold))
+                .monospacedDigit()
+                .multilineTextAlignment(.trailing)
+                .foregroundStyle(tint)
+                .frame(width: 44)
+        } else {
+            Text("\(Energi.persen(state.soc))%")
+                .font(.meter(13, .bold))
+                .foregroundStyle(tint)
         }
     }
 }
