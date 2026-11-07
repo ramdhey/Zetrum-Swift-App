@@ -89,6 +89,20 @@ Contoh, BYD Atto 3 Superior (60,48 kWh) dari 20% ke 80%:
 | DC 60 kW | 60 kW | 36 m |
 | DC 200 kW | 88 kW | 24 m |
 
+### Pemadat waktu
+
+Angka di tabel itu waktu sungguhan, dan tidak ada yang mau menonton empat
+jam pengisian. `Charge.Plan.speed` memadatkan **jam dindingnya saja**:
+`soc()` mengalikan waktu yang sudah lewat, `time()` membaginya. Keduanya
+tetap pasangan balikan yang tepat, jadi jam selesai yang dipakai Live
+Activity tetap benar.
+
+Yang **tidak** ikut dipadatkan: daya, kWh, rupiah dan bentuk kurvanya.
+Semuanya diturunkan dari persen baterai, bukan dari jam dinding. Pilihannya
+1×, 10× dan 60× ada di kepala Beranda, dan kecepatannya dikunci ke sesi saat
+sesi itu dimulai — kalau tidak, persen baterainya akan melompat di tengah
+jalan. Layar pengisian menandai sesi yang dipadatkan dengan lencana `60×`.
+
 ## Data
 
 **Kendaraan.** Kapasitas baterai memakai angka kotor (nominal) pabrikan —

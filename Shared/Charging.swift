@@ -8,6 +8,20 @@ import Foundation
 /// Di bawah titik landai:   dSoC/dt = A
 /// Di atasnya:              dSoC/dt = A · (1 − b·u),  u = SoC − 80
 /// Jawabannya:              u(t) = (1/b)·(1 − e^(−A·b·t))
+/// Seberapa cepat jam pengisian berjalan dibanding jam dinding.
+///
+/// Ini aplikasi contoh: mengisi mobil sungguhan makan berjam-jam, dan tidak
+/// ada yang mau menontonnya. Yang dipadatkan cuma waktunya — daya, kWh dan
+/// rupiah tetap angka yang sebenarnya.
+enum ChargeSpeed: Double, Codable, Hashable, CaseIterable, Identifiable {
+    case real = 1
+    case fast = 10
+    case demo = 60
+
+    var id: Double { rawValue }
+    var label: String { "\(Int(rawValue))×" }
+}
+
 enum Charge {
 
     static let knee: Double = 80
@@ -22,6 +36,11 @@ enum Charge {
         var taperFloor: Double
         var ratePerKwh: Double
         var serviceFee: Int
+        /// Pemadat waktu. 1 berarti waktu sungguhan; 60 berarti satu jam
+        /// pengisian lewat dalam satu menit. Yang dipadatkan cuma jamnya —
+        /// daya, kWh dan rupiahnya tetap angka yang sebenarnya, karena
+        /// semuanya diturunkan dari persen baterai, bukan dari jam dinding.
+        var speed: Double = 1
 
         /// Persen per jam saat daya penuh.
         var a: Double { capacityKWh > 0 ? 100 * ratedKW / capacityKWh : 0 }
@@ -34,7 +53,7 @@ enum Charge {
     // MARK: Persen baterai pada detik ke-t
 
     static func soc(_ p: Plan, after elapsed: TimeInterval) -> Double {
-        let t = max(0, elapsed) / 3600
+        let t = max(0, elapsed) * max(1, p.speed) / 3600
         guard p.a > 0 else { return p.startSoC }
         let target = min(100, p.targetSoC)
 
@@ -57,9 +76,11 @@ enum Charge {
     static func time(_ p: Plan, toReach s: Double) -> TimeInterval? {
         guard p.a > 0, s > p.startSoC else { return 0 }
         let goal = min(s, 100)
+        // jam dinding = waktu seharusnya dibagi pemadat
+        let scale = 3600 / max(1, p.speed)
 
         if goal <= knee {
-            return (goal - p.startSoC) / p.a * 3600
+            return (goal - p.startSoC) / p.a * scale
         }
         let tKnee = p.startSoC >= knee ? 0 : (knee - p.startSoC) / p.a
         let u0 = max(0, p.startSoC - knee)
@@ -67,7 +88,7 @@ enum Charge {
         let inv = 1 / p.b
         guard u < inv else { return nil }
         let t = -log((inv - u) / (inv - u0)) / (p.a * p.b)
-        return (tKnee + t) * 3600
+        return (tKnee + t) * scale
     }
 
     // MARK: Turunan lain

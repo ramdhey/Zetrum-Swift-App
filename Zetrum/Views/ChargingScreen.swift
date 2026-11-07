@@ -60,6 +60,14 @@ struct ChargingScreen: View {
                 Text(store.isFull ? T("charge.fullTitle") : T("charge.busyTitle"))
                     .stencil(11.5, tracking: 2)
                     .foregroundStyle(accent)
+                // kalau jamnya dipadatkan, katakan — angka yang lain asli
+                if let s = store.active, s.speed > 1 {
+                    Text(T("speed.badge", "\(Int(s.speed))×"))
+                        .font(.label(9.5, .bold))
+                        .foregroundStyle(Pal.ion)
+                        .padding(.horizontal, 7).padding(.vertical, 3)
+                        .background(Capsule().fill(Pal.ion.opacity(0.14)))
+                }
             }
             Spacer()
             Color.clear.frame(width: 38, height: 38)

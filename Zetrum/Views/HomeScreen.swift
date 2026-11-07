@@ -42,18 +42,20 @@ struct HomeScreen: View {
                                      : (store.isFull ? Pal.ion : Pal.volt))
             }
             Spacer(minLength: 6)
-            LangPill(lang: $store.lang)
+            VStack(alignment: .trailing, spacing: 5) {
+                SpeedPill(speed: $store.speed)
+                LangPill(lang: $store.lang)
+            }
             if store.active != nil {
                 Button(action: onOpenCharge) {
-                    HStack(spacing: 6) {
-                        Text(T("common.view")).font(.label(12, .bold))
-                        Image(systemName: "arrow.up.right").font(.system(size: 10, weight: .bold))
-                    }
-                    .foregroundStyle(Pal.void)
-                    .padding(.horizontal, 12).padding(.vertical, 8)
-                    .background(Capsule().fill(store.isFull ? Pal.ion : Pal.volt))
+                    Image(systemName: "arrow.up.right")
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundStyle(Pal.void)
+                        .frame(width: 36, height: 36)
+                        .background(Circle().fill(store.isFull ? Pal.ion : Pal.volt))
                 }
                 .buttonStyle(.plain)
+                .accessibilityLabel(T("common.view"))
             }
         }
         .padding(.top, 10)
@@ -257,36 +259,47 @@ struct HomeScreen: View {
     }
 
     private var attribution: some View {
-        Text(T("home.disclaimer"))
-            .font(.label(10))
-            .foregroundStyle(Pal.inkFaint)
-            .multilineTextAlignment(.center)
-            .frame(maxWidth: .infinity)
-            .padding(.top, 4)
+        VStack(spacing: 6) {
+            if store.speed != .real {
+                Text(T("speed.note", store.speed.label))
+                    .foregroundStyle(Pal.ion.opacity(0.75))
+            }
+            Text(T("home.disclaimer"))
+                .foregroundStyle(Pal.inkFaint)
+        }
+        .font(.label(10))
+        .multilineTextAlignment(.center)
+        .frame(maxWidth: .infinity)
+        .padding(.top, 4)
     }
 }
 
-// MARK: - Ganti bahasa
+// MARK: - Pil pilihan
 
-/// Dua segmen, ID dan EN, dengan penanda yang menggeser di belakangnya.
-/// Ditaruh di kepala Beranda karena ini layar pertama yang dibuka — kalau
-/// disembunyikan di pengaturan, orang harus mencari dulu.
-private struct LangPill: View {
-    @Binding var lang: Lang
+/// Beberapa segmen dengan penanda yang menggeser di belakangnya. Dipakai
+/// dua kali di kepala Beranda: bahasa dan pemadat waktu. Ditaruh di layar
+/// pertama karena kalau disembunyikan di pengaturan, orang harus mencari.
+private struct SegPill<Item: Identifiable & Equatable>: View {
+    var items: [Item]
+    @Binding var selection: Item
+    var title: (Item) -> String
+    var caption: (Item) -> String
+    var width: CGFloat
+    var tint: Color = Pal.volt
     @Namespace private var slot
 
     var body: some View {
         HStack(spacing: 0) {
-            ForEach(Lang.allCases) { l in
-                let on = lang == l
-                Text(l.short)
+            ForEach(items) { item in
+                let on = selection == item
+                Text(title(item))
                     .font(.label(10.5, .bold))
                     .foregroundStyle(on ? Pal.void : Pal.inkMuted)
-                    .frame(width: 27, height: 24)
+                    .frame(width: width, height: 23)
                     .background {
                         if on {
-                            Capsule().fill(Pal.volt)
-                                .matchedGeometryEffect(id: "langslot", in: slot)
+                            Capsule().fill(tint)
+                                .matchedGeometryEffect(id: "slot", in: slot)
                         }
                     }
                     .contentShape(Capsule())
@@ -294,15 +307,34 @@ private struct LangPill: View {
                         guard !on else { return }
                         Haptic.tick()
                         withAnimation(.spring(response: 0.32, dampingFraction: 0.82)) {
-                            lang = l
+                            selection = item
                         }
                     }
-                    .accessibilityLabel(l.label)
+                    .accessibilityLabel(caption(item))
             }
         }
         .padding(2)
         .background(Capsule().fill(Pal.slab))
         .overlay(Capsule().stroke(Pal.line, lineWidth: 1))
+    }
+}
+
+private struct LangPill: View {
+    @Binding var lang: Lang
+    var body: some View {
+        SegPill(items: Lang.allCases, selection: $lang,
+                title: { $0.short }, caption: { $0.label }, width: 27)
+    }
+}
+
+/// Pemadat waktu. Warnanya biru es, bukan hijau setrum, supaya tidak
+/// terbaca sebagai sesuatu yang berhubungan dengan daya.
+private struct SpeedPill: View {
+    @Binding var speed: ChargeSpeed
+    var body: some View {
+        SegPill(items: ChargeSpeed.allCases, selection: $speed,
+                title: { $0.label }, caption: { T("speed.caption", $0.label) },
+                width: 29, tint: Pal.ion)
     }
 }
 
