@@ -1,27 +1,25 @@
 import SwiftUI
 
 struct HistoryView: View {
-    @EnvironmentObject private var store: ParkingStore
+    @EnvironmentObject private var store: ChargeStore
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         NavigationStack {
             ZStack {
-                Pal.asphalt.ignoresSafeArea()
+                Pal.void.ignoresSafeArea()
 
                 if store.history.isEmpty {
                     VStack(spacing: 10) {
-                        Image(systemName: "ticket")
-                            .font(.system(size: 30, weight: .light))
-                            .foregroundStyle(Pal.inkFaint)
-                        Text("Belum ada karcis tersimpan")
+                        Bolt().fill(Pal.inkFaint).frame(width: 22, height: 30)
+                        Text("Belum ada pengisian tersimpan")
                             .font(.label(14))
                             .foregroundStyle(Pal.inkMuted)
                     }
                 } else {
                     ScrollView {
                         LazyVStack(spacing: 10) {
-                            ForEach(store.history) { t in row(t) }
+                            ForEach(store.history) { s in row(s) }
                         }
                         .padding(20)
                     }
@@ -40,40 +38,41 @@ struct HistoryView: View {
                     }
                 }
             }
-            .toolbarBackground(Pal.asphalt, for: .navigationBar)
+            .toolbarBackground(Pal.void, for: .navigationBar)
         }
         .preferredColorScheme(.dark)
     }
 
-    private func row(_ t: ParkingTicket) -> some View {
-        HStack(spacing: 14) {
+    private func row(_ s: ChargeSession) -> some View {
+        let end = s.endedAt ?? Date()
+        return HStack(spacing: 14) {
             VStack(spacing: 2) {
-                Text(t.startedAt.formatted(.dateTime.day()))
+                Text(s.startedAt.formatted(.dateTime.day()))
                     .font(.meter(17, .bold)).foregroundStyle(Pal.ink)
-                Text(t.startedAt.formatted(.dateTime.month(.abbreviated)))
+                Text(s.startedAt.formatted(.dateTime.month(.abbreviated)))
                     .stencil(8, tracking: 1).foregroundStyle(Pal.inkFaint)
             }
             .frame(width: 42)
 
-            Rectangle().fill(Pal.line).frame(width: 1, height: 34)
+            Rectangle().fill(Pal.line).frame(width: 1, height: 36)
 
             VStack(alignment: .leading, spacing: 3) {
-                Text(t.location.isEmpty ? "Tanpa lokasi" : t.location)
+                Text(s.station.name)
                     .font(.label(14, .semibold)).foregroundStyle(Pal.ink)
                     .lineLimit(1)
-                Text("\(Durasi.humane(t.duration)) · \(Rupiah.full(t.ratePerHour))/jam")
+                Text("\(Energi.persen(s.startSoC))% → \(Energi.persen(s.soc(at: end)))%  ·  \(Energi.kwh(s.energy(at: end))) kWh")
                     .font(.label(11)).foregroundStyle(Pal.inkMuted)
             }
 
             Spacer(minLength: 6)
 
-            Text(Rupiah.full(t.cost()))
+            Text(Rupiah.full(s.cost(at: end)))
                 .font(.meter(15, .bold))
-                .foregroundStyle(Pal.sodium)
+                .foregroundStyle(Pal.volt)
         }
         .padding(14)
         .background(
-            RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Pal.asphaltSoft)
+            RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Pal.surface)
         )
         .overlay(
             RoundedRectangle(cornerRadius: 14, style: .continuous).stroke(Pal.line, lineWidth: 1)

@@ -1,10 +1,10 @@
 import hashlib, os, sys
 
 ROOT = "/Users/ramaaa/Documents/Projects/BackUpData/parkir-meter"
-PROJ = "ParkirMeter"
-APP_TARGET = "ParkirMeter"
-WID_TARGET = "ParkirMeterWidget"
-APP_ID = "co.id.trikala.parkirmeter"
+PROJ = "Zetrum"
+APP_TARGET = "Zetrum"
+WID_TARGET = "ZetrumWidget"
+APP_ID = "co.id.trikala.zetrum"
 WID_ID = APP_ID + ".widget"
 DEPLOY = "17.0"
 
@@ -18,23 +18,23 @@ def swifts(d):
     p = os.path.join(ROOT, d)
     return sorted(f for f in os.listdir(p) if f.endswith(".swift"))
 
-app_root   = swifts("ParkirMeter")
-app_views  = swifts("ParkirMeter/Views")
-app_comps  = swifts("ParkirMeter/Components")
+app_root   = swifts("Zetrum")
+app_views  = swifts("Zetrum/Views")
+app_comps  = swifts("Zetrum/Components")
 shared     = swifts("Shared")
-wid_root   = swifts("ParkirMeterWidget")
+wid_root   = swifts("ZetrumWidget")
 
 # (group-relative path, logical group dir)
-app_files = [("ParkirMeter/" + f, f) for f in app_root]
-view_files = [("ParkirMeter/Views/" + f, f) for f in app_views]
-comp_files = [("ParkirMeter/Components/" + f, f) for f in app_comps]
+app_files = [("Zetrum/" + f, f) for f in app_root]
+view_files = [("Zetrum/Views/" + f, f) for f in app_views]
+comp_files = [("Zetrum/Components/" + f, f) for f in app_comps]
 shared_files = [("Shared/" + f, f) for f in shared]
-wid_files = [("ParkirMeterWidget/" + f, f) for f in wid_root]
+wid_files = [("ZetrumWidget/" + f, f) for f in wid_root]
 
-ASSET_APP = "ParkirMeter/Assets.xcassets"
-ASSET_WID = "ParkirMeterWidget/Assets.xcassets"
+ASSET_APP = "Zetrum/Assets.xcassets"
+ASSET_WID = "ZetrumWidget/Assets.xcassets"
 
-WID_PLIST = "ParkirMeterWidget/Info.plist"
+WID_PLIST = "ZetrumWidget/Info.plist"
 all_refs = app_files + view_files + comp_files + shared_files + wid_files + \
            [(ASSET_APP, "Assets.xcassets"), (ASSET_WID, "Assets.xcassets"),
             (WID_PLIST, "Info.plist")]
@@ -318,7 +318,7 @@ APP_SETTINGS = """\t\t\t\tASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 \t\t\t\tCURRENT_PROJECT_VERSION = 1;
 \t\t\t\tENABLE_PREVIEWS = YES;
 \t\t\t\tGENERATE_INFOPLIST_FILE = YES;
-\t\t\t\tINFOPLIST_KEY_CFBundleDisplayName = "Parkir Meter";
+\t\t\t\tINFOPLIST_KEY_CFBundleDisplayName = "Zetrum";
 \t\t\t\tINFOPLIST_KEY_NSSupportsLiveActivities = YES;
 \t\t\t\tINFOPLIST_KEY_NSSupportsLiveActivitiesFrequentUpdates = YES;
 \t\t\t\tINFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -345,9 +345,9 @@ WID_SETTINGS = """\t\t\t\tASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = Accen
 \t\t\t\tCURRENT_PROJECT_VERSION = 1;
 \t\t\t\tENABLE_PREVIEWS = YES;
 \t\t\t\tGENERATE_INFOPLIST_FILE = YES;
-\t\t\t\tINFOPLIST_KEY_CFBundleDisplayName = "Parkir Meter";
+\t\t\t\tINFOPLIST_KEY_CFBundleDisplayName = "Zetrum";
 \t\t\t\tINFOPLIST_KEY_NSHumanReadableCopyright = "";
-\t\t\t\tINFOPLIST_FILE = ParkirMeterWidget/Info.plist;
+\t\t\t\tINFOPLIST_FILE = ZetrumWidget/Info.plist;
 \t\t\t\tLD_RUNPATH_SEARCH_PATHS = (
 \t\t\t\t\t"$(inherited)",
 \t\t\t\t\t"@executable_path/Frameworks",

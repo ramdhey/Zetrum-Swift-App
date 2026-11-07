@@ -66,7 +66,7 @@ struct Perforation: View {
 /// Kartu berbentuk karcis yang takikannya otomatis mengikuti garis sobek
 /// di dalamnya.
 struct TicketCard<Content: View>: View {
-    var fill: Color = Pal.asphaltSoft
+    var fill: Color = Pal.surface
     var stroke: Color = Pal.line
     var corner: CGFloat = 22
     @ViewBuilder var content: Content

@@ -1,8 +1,8 @@
 import SwiftUI
 
 @main
-struct ParkirMeterApp: App {
-    @StateObject private var store = ParkingStore()
+struct ZetrumApp: App {
+    @StateObject private var store = ChargeStore()
 
     var body: some Scene {
         WindowGroup {

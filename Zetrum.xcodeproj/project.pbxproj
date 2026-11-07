@@ -7,30 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		869845899E9F2ED24F90F06F /* ParkingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F8955D176D667B967DBFA1 /* ParkingStore.swift */; };
-		C6AF0604FE708AFF10A6B523 /* ParkirMeterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81E9D86905110088B723AE9 /* ParkirMeterApp.swift */; };
-		899EA6A0A3272B02B05EF010 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38137220EBC290A943947A29 /* Theme.swift */; };
-		68B8282FA7DFC8EB3AC4129C /* ActiveMeterCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E71284DA3DD8CB02709635F /* ActiveMeterCard.swift */; };
-		0357E0B6C9BFB53E97F6D63A /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC67F7A78EA0425131BDB83B /* HistoryView.swift */; };
-		E6E8DAEC15D24664B8FDD15F /* ReceiptSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E6960028B26304C6091EE7 /* ReceiptSheet.swift */; };
-		F18550AC704E902CE634C348 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D46544EA92A4F8E4E182DAA /* RootView.swift */; };
-		C792D2DBD3C2970115CFE231 /* StartCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E35438E7D34FB02A0D00968 /* StartCard.swift */; };
-		266D4ED6947C1E1F7573BABB /* Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EB443D85301B1E35F20B94 /* Controls.swift */; };
-		97CB590EBBF17D70EB5183BF /* Billing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E183942516965B93E61B92 /* Billing.swift */; };
-		2E6305FC86994368E30A2301 /* Odometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C29BF5C86182162C6FA8F /* Odometer.swift */; };
-		C295A7006B8486309731AE75 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE473EC0A9C7C4D27722F067 /* Palette.swift */; };
-		222BC3CB3E2B6D33BBEBB557 /* ParkirAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54AAB5EFA65D3384357AE350 /* ParkirAttributes.swift */; };
-		4D087D17B1B5EEBE1D16EEB4 /* TicketShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2CDF3EC0EE89EAB14DA784 /* TicketShape.swift */; };
-		019FC925AEF8D97297709ADD /* Billing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E183942516965B93E61B92 /* Billing.swift */; };
-		AB49903D19626587457CCF71 /* Odometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C29BF5C86182162C6FA8F /* Odometer.swift */; };
-		5788D4B6F4D413A24CB7AB44 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE473EC0A9C7C4D27722F067 /* Palette.swift */; };
-		A581E92983236C78E950E824 /* ParkirAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54AAB5EFA65D3384357AE350 /* ParkirAttributes.swift */; };
-		C86C759FB17A0379FA317418 /* TicketShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2CDF3EC0EE89EAB14DA784 /* TicketShape.swift */; };
-		A223EED3AD756399A784A144 /* ParkirLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789BB4EAB0129CD6FBEE7E07 /* ParkirLiveActivity.swift */; };
-		AE369E1F975C83EF86232CF3 /* ParkirMeterWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEDBA6D96F5B38CF727A3B1 /* ParkirMeterWidgetBundle.swift */; };
-		01526A24B276A2612A11C856 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BFF2CAD1E3FD3BFE11A2C05 /* Assets.xcassets */; };
-		9105A2A74DC23F63AE4216C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 694678DEBE7080D89C417558 /* Assets.xcassets */; };
-		11166DEF8DB0B39F2EDDA2B4 /* ParkirMeterWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1B442E42980596EBCD246D51 /* ParkirMeterWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		43ED8726845EAAE14446D9F9 /* ChargeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6AB4CD380017CF065F4A39 /* ChargeStore.swift */; };
+		8763ADCD0F364FEE91657DD5 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADBE7F913D4216E20F32D2B /* Theme.swift */; };
+		3979823ED4263D57AF0E6EE8 /* ZetrumApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1EF5AF957BC91139DE48CF /* ZetrumApp.swift */; };
+		94735F0F83ECB1D1AE6C449C /* ActiveChargeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C31F51F91A7255DE1633053 /* ActiveChargeCard.swift */; };
+		03C048C64631B2F7EA98CF5E /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100DEC1AAE281ECCD6B372DB /* HistoryView.swift */; };
+		661FE386EC6D0DD3383BCE03 /* ReceiptSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0972E28180E05BCB3D1FCF /* ReceiptSheet.swift */; };
+		220D524EAFC60F8EFF12AF19 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416960231628714C3672C5CF /* RootView.swift */; };
+		3932721DF450051907F2E6A0 /* SetupCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9B2409CF21C8E158F095AB /* SetupCard.swift */; };
+		69BF0029F9F7DFB70B27CCC7 /* Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C3D8FD1261135399398A40 /* Controls.swift */; };
+		6ABFF61642C77827DD9C10F5 /* Charging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A03CE6DEF7A7379FD7B834 /* Charging.swift */; };
+		FC3097C97A38D09055F6F089 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE1F2C7BD69E21AA22DCC4C /* Format.swift */; };
+		DB06A1C2D70C160EDBBDC544 /* Odometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C29BF5C86182162C6FA8F /* Odometer.swift */; };
+		131238A8B4C256723783A389 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE473EC0A9C7C4D27722F067 /* Palette.swift */; };
+		824DA95A542A6F7628C4EFE3 /* TicketShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2CDF3EC0EE89EAB14DA784 /* TicketShape.swift */; };
+		FF96D75A7E56E099573038F0 /* ZetrumAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58836A9A8B7ECC86EA5142FF /* ZetrumAttributes.swift */; };
+		818324411EF0B5A3382CC986 /* Charging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A03CE6DEF7A7379FD7B834 /* Charging.swift */; };
+		1425FE26481D76886A49375C /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE1F2C7BD69E21AA22DCC4C /* Format.swift */; };
+		AD103D213EE2BE642ECD3A57 /* Odometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C29BF5C86182162C6FA8F /* Odometer.swift */; };
+		9D09C4832C1853A23F2BACD9 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE473EC0A9C7C4D27722F067 /* Palette.swift */; };
+		CCCE5F56B989019B7ABA057A /* TicketShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2CDF3EC0EE89EAB14DA784 /* TicketShape.swift */; };
+		273C721938874D84ED2A7C76 /* ZetrumAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58836A9A8B7ECC86EA5142FF /* ZetrumAttributes.swift */; };
+		298225DB987C5CEF9D8B2C86 /* ZetrumLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA97698BEB22C1D1BA13DC61 /* ZetrumLiveActivity.swift */; };
+		3AA1F82D3A9C17E944954A00 /* ZetrumWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9DF08F8372AB4D7CFCB84F /* ZetrumWidgetBundle.swift */; };
+		CBCA8E5322E24B79EA03A5A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2998449A6243DA96F5F7BD22 /* Assets.xcassets */; };
+		2A86803C16BCBC2A8DE1D4F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30266D231464CACAEF2338B3 /* Assets.xcassets */; };
+		11166DEF8DB0B39F2EDDA2B4 /* ZetrumWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1B442E42980596EBCD246D51 /* ZetrumWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +41,7 @@
 			containerPortal = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 0661F517A86C8F5C87C0EDBA;
-			remoteInfo = ParkirMeterWidget;
+			remoteInfo = ZetrumWidget;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -50,7 +52,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				11166DEF8DB0B39F2EDDA2B4 /* ParkirMeterWidget.appex in Embed Foundation Extensions */,
+				11166DEF8DB0B39F2EDDA2B4 /* ZetrumWidget.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -58,27 +60,28 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		44F8955D176D667B967DBFA1 /* ParkingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingStore.swift; sourceTree = "<group>"; };
-		E81E9D86905110088B723AE9 /* ParkirMeterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkirMeterApp.swift; sourceTree = "<group>"; };
-		38137220EBC290A943947A29 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		1E71284DA3DD8CB02709635F /* ActiveMeterCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveMeterCard.swift; sourceTree = "<group>"; };
-		AC67F7A78EA0425131BDB83B /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
-		E0E6960028B26304C6091EE7 /* ReceiptSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptSheet.swift; sourceTree = "<group>"; };
-		8D46544EA92A4F8E4E182DAA /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
-		0E35438E7D34FB02A0D00968 /* StartCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartCard.swift; sourceTree = "<group>"; };
-		C2EB443D85301B1E35F20B94 /* Controls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controls.swift; sourceTree = "<group>"; };
-		65E183942516965B93E61B92 /* Billing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Billing.swift; sourceTree = "<group>"; };
+		9E6AB4CD380017CF065F4A39 /* ChargeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeStore.swift; sourceTree = "<group>"; };
+		3ADBE7F913D4216E20F32D2B /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		8C1EF5AF957BC91139DE48CF /* ZetrumApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZetrumApp.swift; sourceTree = "<group>"; };
+		6C31F51F91A7255DE1633053 /* ActiveChargeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveChargeCard.swift; sourceTree = "<group>"; };
+		100DEC1AAE281ECCD6B372DB /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		AD0972E28180E05BCB3D1FCF /* ReceiptSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptSheet.swift; sourceTree = "<group>"; };
+		416960231628714C3672C5CF /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		BF9B2409CF21C8E158F095AB /* SetupCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupCard.swift; sourceTree = "<group>"; };
+		51C3D8FD1261135399398A40 /* Controls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controls.swift; sourceTree = "<group>"; };
+		94A03CE6DEF7A7379FD7B834 /* Charging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charging.swift; sourceTree = "<group>"; };
+		3FE1F2C7BD69E21AA22DCC4C /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		553C29BF5C86182162C6FA8F /* Odometer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Odometer.swift; sourceTree = "<group>"; };
 		AE473EC0A9C7C4D27722F067 /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
-		54AAB5EFA65D3384357AE350 /* ParkirAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkirAttributes.swift; sourceTree = "<group>"; };
 		CE2CDF3EC0EE89EAB14DA784 /* TicketShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketShape.swift; sourceTree = "<group>"; };
-		789BB4EAB0129CD6FBEE7E07 /* ParkirLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkirLiveActivity.swift; sourceTree = "<group>"; };
-		5FEDBA6D96F5B38CF727A3B1 /* ParkirMeterWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkirMeterWidgetBundle.swift; sourceTree = "<group>"; };
-		2BFF2CAD1E3FD3BFE11A2C05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		694678DEBE7080D89C417558 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		524417CECEDB4E23B3BC5B5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		84337AD8D27FCD69AF2C4FC2 /* ParkirMeter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ParkirMeter.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		1B442E42980596EBCD246D51 /* ParkirMeterWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ParkirMeterWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		58836A9A8B7ECC86EA5142FF /* ZetrumAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZetrumAttributes.swift; sourceTree = "<group>"; };
+		CA97698BEB22C1D1BA13DC61 /* ZetrumLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZetrumLiveActivity.swift; sourceTree = "<group>"; };
+		4A9DF08F8372AB4D7CFCB84F /* ZetrumWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZetrumWidgetBundle.swift; sourceTree = "<group>"; };
+		2998449A6243DA96F5F7BD22 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		30266D231464CACAEF2338B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		64447600B2C45FE1DE11880D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84337AD8D27FCD69AF2C4FC2 /* Zetrum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zetrum.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B442E42980596EBCD246D51 /* ZetrumWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ZetrumWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,11 +105,11 @@
 		29AC9F3F890EAF73DB9E7C81 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1E71284DA3DD8CB02709635F /* ActiveMeterCard.swift */,
-				AC67F7A78EA0425131BDB83B /* HistoryView.swift */,
-				E0E6960028B26304C6091EE7 /* ReceiptSheet.swift */,
-				8D46544EA92A4F8E4E182DAA /* RootView.swift */,
-				0E35438E7D34FB02A0D00968 /* StartCard.swift */,
+				6C31F51F91A7255DE1633053 /* ActiveChargeCard.swift */,
+				100DEC1AAE281ECCD6B372DB /* HistoryView.swift */,
+				AD0972E28180E05BCB3D1FCF /* ReceiptSheet.swift */,
+				416960231628714C3672C5CF /* RootView.swift */,
+				BF9B2409CF21C8E158F095AB /* SetupCard.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -114,43 +117,44 @@
 		780EE9A9AA4F92A4376E50B9 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				C2EB443D85301B1E35F20B94 /* Controls.swift */,
+				51C3D8FD1261135399398A40 /* Controls.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
 		};
-		82CF2A43A7100F086D7FCFDD /* ParkirMeter */ = {
+		82CF2A43A7100F086D7FCFDD /* Zetrum */ = {
 			isa = PBXGroup;
 			children = (
-				44F8955D176D667B967DBFA1 /* ParkingStore.swift */,
-				E81E9D86905110088B723AE9 /* ParkirMeterApp.swift */,
-				38137220EBC290A943947A29 /* Theme.swift */,
+				9E6AB4CD380017CF065F4A39 /* ChargeStore.swift */,
+				3ADBE7F913D4216E20F32D2B /* Theme.swift */,
+				8C1EF5AF957BC91139DE48CF /* ZetrumApp.swift */,
 				780EE9A9AA4F92A4376E50B9 /* Components */,
 				29AC9F3F890EAF73DB9E7C81 /* Views */,
-				2BFF2CAD1E3FD3BFE11A2C05 /* Assets.xcassets */,
+				2998449A6243DA96F5F7BD22 /* Assets.xcassets */,
 			);
-			path = ParkirMeter;
+			path = Zetrum;
 			sourceTree = "<group>";
 		};
-		EC21069A65F2CA977FE14A64 /* ParkirMeterWidget */ = {
+		EC21069A65F2CA977FE14A64 /* ZetrumWidget */ = {
 			isa = PBXGroup;
 			children = (
-				789BB4EAB0129CD6FBEE7E07 /* ParkirLiveActivity.swift */,
-				5FEDBA6D96F5B38CF727A3B1 /* ParkirMeterWidgetBundle.swift */,
-				694678DEBE7080D89C417558 /* Assets.xcassets */,
-				524417CECEDB4E23B3BC5B5E /* Info.plist */,
+				CA97698BEB22C1D1BA13DC61 /* ZetrumLiveActivity.swift */,
+				4A9DF08F8372AB4D7CFCB84F /* ZetrumWidgetBundle.swift */,
+				30266D231464CACAEF2338B3 /* Assets.xcassets */,
+				64447600B2C45FE1DE11880D /* Info.plist */,
 			);
-			path = ParkirMeterWidget;
+			path = ZetrumWidget;
 			sourceTree = "<group>";
 		};
 		9CB302E9C7F6377B351DBEAB /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				65E183942516965B93E61B92 /* Billing.swift */,
+				94A03CE6DEF7A7379FD7B834 /* Charging.swift */,
+				3FE1F2C7BD69E21AA22DCC4C /* Format.swift */,
 				553C29BF5C86182162C6FA8F /* Odometer.swift */,
 				AE473EC0A9C7C4D27722F067 /* Palette.swift */,
-				54AAB5EFA65D3384357AE350 /* ParkirAttributes.swift */,
 				CE2CDF3EC0EE89EAB14DA784 /* TicketShape.swift */,
+				58836A9A8B7ECC86EA5142FF /* ZetrumAttributes.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -158,8 +162,8 @@
 		547D009064F7C3F13BEF3460 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				84337AD8D27FCD69AF2C4FC2 /* ParkirMeter.app */,
-				1B442E42980596EBCD246D51 /* ParkirMeterWidget.appex */,
+				84337AD8D27FCD69AF2C4FC2 /* Zetrum.app */,
+				1B442E42980596EBCD246D51 /* ZetrumWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -167,8 +171,8 @@
 		B9340614599AB78F485950C7 /*  */ = {
 			isa = PBXGroup;
 			children = (
-				82CF2A43A7100F086D7FCFDD /* ParkirMeter */,
-				EC21069A65F2CA977FE14A64 /* ParkirMeterWidget */,
+				82CF2A43A7100F086D7FCFDD /* Zetrum */,
+				EC21069A65F2CA977FE14A64 /* ZetrumWidget */,
 				9CB302E9C7F6377B351DBEAB /* Shared */,
 				547D009064F7C3F13BEF3460 /* Products */,
 			);
@@ -177,9 +181,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E3435DDA2687639586BF0B70 /* ParkirMeter */ = {
+		E3435DDA2687639586BF0B70 /* Zetrum */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D4CB0E4AA83B40D38FF8F334 /* Build configuration list for PBXNativeTarget "ParkirMeter" */;
+			buildConfigurationList = D4CB0E4AA83B40D38FF8F334 /* Build configuration list for PBXNativeTarget "Zetrum" */;
 			buildPhases = (
 				5571684F9A425F0063410106 /* Sources */,
 				7474A5C8E96C1348E89AD3F7 /* Frameworks */,
@@ -191,14 +195,14 @@
 			dependencies = (
 				EE1DEC3FECAFB049B3EB4C70 /* PBXTargetDependency */,
 			);
-			name = ParkirMeter;
-			productName = ParkirMeter;
-			productReference = 84337AD8D27FCD69AF2C4FC2 /* ParkirMeter.app */;
+			name = Zetrum;
+			productName = Zetrum;
+			productReference = 84337AD8D27FCD69AF2C4FC2 /* Zetrum.app */;
 			productType = "com.apple.product-type.application";
 		};
-		0661F517A86C8F5C87C0EDBA /* ParkirMeterWidget */ = {
+		0661F517A86C8F5C87C0EDBA /* ZetrumWidget */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 856DC6E0C4E8393DD2C7ED02 /* Build configuration list for PBXNativeTarget "ParkirMeterWidget" */;
+			buildConfigurationList = 856DC6E0C4E8393DD2C7ED02 /* Build configuration list for PBXNativeTarget "ZetrumWidget" */;
 			buildPhases = (
 				03D88BB2B8E2C9E4434C4D70 /* Sources */,
 				B6AFB186A7C285FE352D4029 /* Frameworks */,
@@ -208,9 +212,9 @@
 			);
 			dependencies = (
 			);
-			name = ParkirMeterWidget;
-			productName = ParkirMeterWidget;
-			productReference = 1B442E42980596EBCD246D51 /* ParkirMeterWidget.appex */;
+			name = ZetrumWidget;
+			productName = ZetrumWidget;
+			productReference = 1B442E42980596EBCD246D51 /* ZetrumWidget.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -231,7 +235,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AE883439A53704486338BDB1 /* Build configuration list for PBXProject "ParkirMeter" */;
+			buildConfigurationList = AE883439A53704486338BDB1 /* Build configuration list for PBXProject "Zetrum" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -244,8 +248,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E3435DDA2687639586BF0B70 /* ParkirMeter */,
-				0661F517A86C8F5C87C0EDBA /* ParkirMeterWidget */,
+				E3435DDA2687639586BF0B70 /* Zetrum */,
+				0661F517A86C8F5C87C0EDBA /* ZetrumWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -255,7 +259,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01526A24B276A2612A11C856 /* Assets.xcassets in Resources */,
+				CBCA8E5322E24B79EA03A5A1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,7 +267,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9105A2A74DC23F63AE4216C3 /* Assets.xcassets in Resources */,
+				2A86803C16BCBC2A8DE1D4F1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,20 +278,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				869845899E9F2ED24F90F06F /* ParkingStore.swift in Sources */,
-				C6AF0604FE708AFF10A6B523 /* ParkirMeterApp.swift in Sources */,
-				899EA6A0A3272B02B05EF010 /* Theme.swift in Sources */,
-				266D4ED6947C1E1F7573BABB /* Controls.swift in Sources */,
-				68B8282FA7DFC8EB3AC4129C /* ActiveMeterCard.swift in Sources */,
-				0357E0B6C9BFB53E97F6D63A /* HistoryView.swift in Sources */,
-				E6E8DAEC15D24664B8FDD15F /* ReceiptSheet.swift in Sources */,
-				F18550AC704E902CE634C348 /* RootView.swift in Sources */,
-				C792D2DBD3C2970115CFE231 /* StartCard.swift in Sources */,
-				97CB590EBBF17D70EB5183BF /* Billing.swift in Sources */,
-				2E6305FC86994368E30A2301 /* Odometer.swift in Sources */,
-				C295A7006B8486309731AE75 /* Palette.swift in Sources */,
-				222BC3CB3E2B6D33BBEBB557 /* ParkirAttributes.swift in Sources */,
-				4D087D17B1B5EEBE1D16EEB4 /* TicketShape.swift in Sources */,
+				43ED8726845EAAE14446D9F9 /* ChargeStore.swift in Sources */,
+				8763ADCD0F364FEE91657DD5 /* Theme.swift in Sources */,
+				3979823ED4263D57AF0E6EE8 /* ZetrumApp.swift in Sources */,
+				69BF0029F9F7DFB70B27CCC7 /* Controls.swift in Sources */,
+				94735F0F83ECB1D1AE6C449C /* ActiveChargeCard.swift in Sources */,
+				03C048C64631B2F7EA98CF5E /* HistoryView.swift in Sources */,
+				661FE386EC6D0DD3383BCE03 /* ReceiptSheet.swift in Sources */,
+				220D524EAFC60F8EFF12AF19 /* RootView.swift in Sources */,
+				3932721DF450051907F2E6A0 /* SetupCard.swift in Sources */,
+				6ABFF61642C77827DD9C10F5 /* Charging.swift in Sources */,
+				FC3097C97A38D09055F6F089 /* Format.swift in Sources */,
+				DB06A1C2D70C160EDBBDC544 /* Odometer.swift in Sources */,
+				131238A8B4C256723783A389 /* Palette.swift in Sources */,
+				824DA95A542A6F7628C4EFE3 /* TicketShape.swift in Sources */,
+				FF96D75A7E56E099573038F0 /* ZetrumAttributes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,13 +300,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A223EED3AD756399A784A144 /* ParkirLiveActivity.swift in Sources */,
-				AE369E1F975C83EF86232CF3 /* ParkirMeterWidgetBundle.swift in Sources */,
-				019FC925AEF8D97297709ADD /* Billing.swift in Sources */,
-				AB49903D19626587457CCF71 /* Odometer.swift in Sources */,
-				5788D4B6F4D413A24CB7AB44 /* Palette.swift in Sources */,
-				A581E92983236C78E950E824 /* ParkirAttributes.swift in Sources */,
-				C86C759FB17A0379FA317418 /* TicketShape.swift in Sources */,
+				298225DB987C5CEF9D8B2C86 /* ZetrumLiveActivity.swift in Sources */,
+				3AA1F82D3A9C17E944954A00 /* ZetrumWidgetBundle.swift in Sources */,
+				818324411EF0B5A3382CC986 /* Charging.swift in Sources */,
+				1425FE26481D76886A49375C /* Format.swift in Sources */,
+				AD103D213EE2BE642ECD3A57 /* Odometer.swift in Sources */,
+				9D09C4832C1853A23F2BACD9 /* Palette.swift in Sources */,
+				CCCE5F56B989019B7ABA057A /* TicketShape.swift in Sources */,
+				273C721938874D84ED2A7C76 /* ZetrumAttributes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,7 +316,7 @@
 /* Begin PBXTargetDependency section */
 		EE1DEC3FECAFB049B3EB4C70 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 0661F517A86C8F5C87C0EDBA /* ParkirMeterWidget */;
+			target = 0661F517A86C8F5C87C0EDBA /* ZetrumWidget */;
 			targetProxy = 99E6A51DA0B86FE48AEB34ED /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -384,7 +390,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Parkir Meter";
+				INFOPLIST_KEY_CFBundleDisplayName = "Zetrum";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_NSSupportsLiveActivitiesFrequentUpdates = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -398,7 +404,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = co.id.trikala.parkirmeter;
+				PRODUCT_BUNDLE_IDENTIFIER = co.id.trikala.zetrum;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -415,7 +421,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Parkir Meter";
+				INFOPLIST_KEY_CFBundleDisplayName = "Zetrum";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_NSSupportsLiveActivitiesFrequentUpdates = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -429,7 +435,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = co.id.trikala.parkirmeter;
+				PRODUCT_BUNDLE_IDENTIFIER = co.id.trikala.zetrum;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -446,16 +452,16 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Parkir Meter";
+				INFOPLIST_KEY_CFBundleDisplayName = "Zetrum";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_FILE = ParkirMeterWidget/Info.plist;
+				INFOPLIST_FILE = ZetrumWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = co.id.trikala.parkirmeter.widget;
+				PRODUCT_BUNDLE_IDENTIFIER = co.id.trikala.zetrum.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -473,16 +479,16 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Parkir Meter";
+				INFOPLIST_KEY_CFBundleDisplayName = "Zetrum";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_FILE = ParkirMeterWidget/Info.plist;
+				INFOPLIST_FILE = ZetrumWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = co.id.trikala.parkirmeter.widget;
+				PRODUCT_BUNDLE_IDENTIFIER = co.id.trikala.zetrum.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -494,7 +500,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AE883439A53704486338BDB1 /* Build configuration list for PBXProject "ParkirMeter" */ = {
+		AE883439A53704486338BDB1 /* Build configuration list for PBXProject "Zetrum" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C19BB360D63F1BA9F02BAB59 /* Debug */,
@@ -503,7 +509,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D4CB0E4AA83B40D38FF8F334 /* Build configuration list for PBXNativeTarget "ParkirMeter" */ = {
+		D4CB0E4AA83B40D38FF8F334 /* Build configuration list for PBXNativeTarget "Zetrum" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				91B8F6FB95707A0AB87A87F1 /* Debug */,
@@ -512,7 +518,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		856DC6E0C4E8393DD2C7ED02 /* Build configuration list for PBXNativeTarget "ParkirMeterWidget" */ = {
+		856DC6E0C4E8393DD2C7ED02 /* Build configuration list for PBXNativeTarget "ZetrumWidget" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B42163DECE77CBD0EADC3954 /* Debug */,
