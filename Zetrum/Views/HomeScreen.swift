@@ -140,7 +140,7 @@ struct HomeScreen: View {
             }
             MetricStrip(items: [
                 .init(caption: T("home.energyIn"), value: Energi.kwh(store.energyThisMonth), unit: "kWh"),
-                .init(caption: T("home.spent"), value: Rupiah.plain(store.spentThisMonth), unit: "Rp",
+                .init(caption: T("home.spent"), value: Rupiah.plain(store.spentThisMonth), prefix: "Rp",
                       tint: Pal.volt),
                 .init(caption: T("home.sessions"), value: "\(store.sessionsThisMonth)", unit: "×"),
             ])

@@ -315,6 +315,9 @@ struct MetricStrip: View {
         var caption: String
         var value: String
         var unit: String?
+        /// Dipasang di depan angkanya. Rupiah ditulis "Rp 20.000", bukan
+        /// "20.000 Rp" — lambangnya mendahului, seperti di struk mana pun.
+        var prefix: String?
         var tint: Color = Pal.ink
     }
     var items: [Item]
@@ -326,6 +329,9 @@ struct MetricStrip: View {
                 VStack(spacing: 5) {
                     Text(item.caption).stencil(8.5, tracking: 1.1).foregroundStyle(Pal.inkMuted)
                     HStack(alignment: .firstTextBaseline, spacing: 3) {
+                        if let p = item.prefix {
+                            Text(p).font(.label(10.5, .semibold)).foregroundStyle(Pal.inkFaint)
+                        }
                         Text(item.value).font(.meter(17, .bold)).foregroundStyle(item.tint)
                         if let u = item.unit {
                             Text(u).font(.label(10.5, .semibold)).foregroundStyle(Pal.inkFaint)

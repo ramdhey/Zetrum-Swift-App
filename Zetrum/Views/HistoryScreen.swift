@@ -60,7 +60,7 @@ struct HistoryScreen: View {
             }
             MetricStrip(items: [
                 .init(caption: T("history.totalEnergy"), value: Energi.kwh(store.energyThisMonth), unit: "kWh"),
-                .init(caption: T("history.spent"), value: Rupiah.plain(store.spentThisMonth), unit: "Rp",
+                .init(caption: T("history.spent"), value: Rupiah.plain(store.spentThisMonth), prefix: "Rp",
                       tint: Pal.volt),
             ])
             Rectangle().fill(Pal.line).frame(height: 1)

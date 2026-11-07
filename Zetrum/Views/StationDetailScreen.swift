@@ -339,7 +339,7 @@ private struct UnitCard: View {
                         MetricStrip(items: [
                             .init(caption: T("station.estTime"), value: est.duration.map(Durasi.tight) ?? "—"),
                             .init(caption: T("station.estEnergy"), value: Energi.kwh(est.energy), unit: "kWh"),
-                            .init(caption: T("station.estCost"), value: Rupiah.plain(est.cost), unit: "Rp",
+                            .init(caption: T("station.estCost"), value: Rupiah.plain(est.cost), prefix: "Rp",
                                   tint: Pal.volt),
                         ])
                         Text(T("station.calcNote", store.vehicleLabel, Energi.persen(store.startSoC), Energi.persen(store.targetSoC), Daya.kw(store.vehicle.effectiveKW(on: unit))))
