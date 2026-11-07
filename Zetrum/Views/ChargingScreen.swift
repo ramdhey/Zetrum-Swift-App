@@ -32,9 +32,9 @@ struct ChargingScreen: View {
                 .scrollIndicators(.hidden)
             } else {
                 VStack(spacing: 14) {
-                    Text("Tidak ada pengisian berjalan")
+                    Text(T("charge.none"))
                         .font(.label(15, .semibold)).foregroundStyle(Pal.inkMuted)
-                    Button("Tutup", action: onClose).foregroundStyle(Pal.volt)
+                    Button(T("common.close"), action: onClose).foregroundStyle(Pal.volt)
                 }
             }
         }
@@ -57,7 +57,7 @@ struct ChargingScreen: View {
             Spacer()
             HStack(spacing: 7) {
                 Circle().fill(accent).frame(width: 7, height: 7)
-                Text(store.isFull ? "Sudah Penuh" : "Sedang Mengisi")
+                Text(store.isFull ? T("charge.fullTitle") : T("charge.busyTitle"))
                     .stencil(11.5, tracking: 2)
                     .foregroundStyle(accent)
             }
@@ -84,7 +84,7 @@ struct ChargingScreen: View {
             VStack(alignment: .trailing, spacing: 2) {
                 Text(Daya.kw(s.vehicle.effectiveKW(on: s.unit)))
                     .font(.meter(15, .bold)).foregroundStyle(accent)
-                Text("kW maks").font(.label(9)).foregroundStyle(Pal.inkFaint)
+                Text(T("charge.kwMax")).font(.label(9)).foregroundStyle(Pal.inkFaint)
             }
         }
         .padding(12)
@@ -103,7 +103,7 @@ struct ChargingScreen: View {
                 UnitTag(text: Energi.persen(store.soc), unit: "%", size: 60, color: Pal.ink)
                 Spacer()
                 VStack(alignment: .trailing, spacing: 3) {
-                    Text("Target").stencil(9, tracking: 1.2).foregroundStyle(Pal.inkMuted)
+                    Text(T("charge.target")).stencil(9, tracking: 1.2).foregroundStyle(Pal.inkMuted)
                     Text("\(Energi.persen(s.targetSoC))%")
                         .font(.meter(18, .bold)).foregroundStyle(accent)
                 }
@@ -113,10 +113,10 @@ struct ChargingScreen: View {
                         charging: !store.isFull, cells: 26, height: 38)
 
             HStack {
-                Text("Mulai dari \(Energi.persen(s.startSoC))%")
+                Text(T("charge.startedAt", Energi.persen(s.startSoC)))
                     .font(.label(10.5)).foregroundStyle(Pal.inkFaint)
                 Spacer()
-                Text("+\(store.addedKm) km jarak tempuh")
+                Text(T("charge.rangeAdded", store.addedKm))
                     .font(.label(10.5, .semibold)).foregroundStyle(Pal.ion)
             }
         }
@@ -135,8 +135,8 @@ struct ChargingScreen: View {
                 Image(systemName: "checkmark.seal.fill")
                     .font(.system(size: 19, weight: .bold)).foregroundStyle(Pal.ion)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Pengisian selesai").font(.label(14.5, .bold)).foregroundStyle(Pal.ion)
-                    Text("Silakan cabut konektornya supaya tidak kena biaya diam.")
+                    Text(T("charge.doneTitle")).font(.label(14.5, .bold)).foregroundStyle(Pal.ion)
+                    Text(T("charge.doneBody"))
                         .font(.label(11)).foregroundStyle(Pal.inkMuted)
                 }
                 Spacer(minLength: 0)
@@ -150,7 +150,7 @@ struct ChargingScreen: View {
                 Image(systemName: "hourglass")
                     .font(.system(size: 17, weight: .bold)).foregroundStyle(Pal.volt)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Penuh dalam").stencil(9, tracking: 1.2).foregroundStyle(Pal.inkMuted)
+                    Text(T("charge.fullIn")).stencil(9, tracking: 1.2).foregroundStyle(Pal.inkMuted)
                     Text(timerInterval: Date()...max(finish, Date().addingTimeInterval(1)),
                          countsDown: true)
                         .font(.meter(24, .bold))
@@ -158,7 +158,7 @@ struct ChargingScreen: View {
                 }
                 Spacer(minLength: 0)
                 VStack(alignment: .trailing, spacing: 2) {
-                    Text("Perkiraan Jam").stencil(9, tracking: 1.2).foregroundStyle(Pal.inkMuted)
+                    Text(T("charge.doneAt")).stencil(9, tracking: 1.2).foregroundStyle(Pal.inkMuted)
                     Text(finish, format: .dateTime.hour().minute())
                         .font(.meter(16, .bold)).foregroundStyle(Pal.volt)
                 }
@@ -174,11 +174,11 @@ struct ChargingScreen: View {
     private func metrics(_ s: ChargeSession) -> some View {
         LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 10), count: 2),
                   spacing: 10) {
-            cell("Listrik Masuk", Energi.kwh(store.energy), "kWh", Pal.ink)
-            cell("Daya Sekarang", store.isFull ? "0" : Daya.kw(store.power), "kW",
+            cell(T("charge.energyIn"), Energi.kwh(store.energy), "kWh", Pal.ink)
+            cell(T("charge.powerNow"), store.isFull ? "0" : Daya.kw(store.power), "kW",
                  store.isFull ? Pal.inkFaint : Pal.volt)
-            cell("Sudah Jalan", Durasi.clock(s.elapsed(at: store.now)), nil, Pal.ink)
-            cell("Baterai Terisi", Energi.kwh(store.soc - s.startSoC, decimals: 1), "%", Pal.ion)
+            cell(T("charge.elapsed"), Durasi.clock(s.elapsed(at: store.now)), nil, Pal.ink)
+            cell(T("charge.batteryAdded"), Energi.kwh(store.soc - s.startSoC, decimals: 1), "%", Pal.ion)
         }
     }
 
@@ -203,7 +203,7 @@ struct ChargingScreen: View {
     private func billing(_ s: ChargeSession) -> some View {
         VStack(spacing: 11) {
             HStack {
-                Text("Biaya Berjalan").stencil(10, tracking: 1.6).foregroundStyle(Pal.inkMuted)
+                Text(T("charge.runningCost")).stencil(10, tracking: 1.6).foregroundStyle(Pal.inkMuted)
                 Spacer()
                 Text("\(Rupiah.decimal(s.unit.ratePerKwh))/kWh")
                     .font(.label(11)).foregroundStyle(Pal.inkFaint)
@@ -214,7 +214,7 @@ struct ChargingScreen: View {
             }
             if s.unit.serviceFee > 0 {
                 HStack {
-                    Text("Sudah termasuk biaya layanan \(Rupiah.full(s.unit.serviceFee))")
+                    Text(T("charge.includesFee", Rupiah.full(s.unit.serviceFee)))
                         .font(.label(10.5)).foregroundStyle(Pal.inkFaint)
                     Spacer()
                 }
@@ -227,7 +227,7 @@ struct ChargingScreen: View {
     }
 
     private var stopArea: some View {
-        HoldToConfirm(title: store.isFull ? "Tahan untuk cabut & bayar" : "Tahan untuk hentikan",
+        HoldToConfirm(title: store.isFull ? T("charge.holdUnplug") : T("charge.holdStop"),
                       tint: store.isFull ? Pal.ion : Pal.alarm,
                       duration: 0.9) {
             onStop()
@@ -238,8 +238,8 @@ struct ChargingScreen: View {
         HStack(spacing: 6) {
             Image(systemName: "lock.iphone").font(.system(size: 10, weight: .bold))
             Text(store.isFull
-                 ? "Kabar sudah dikirim — kendaraan boleh dijemput"
-                 : "Boleh ditinggal. Kartunya terus menghitung di layar kunci.")
+                 ? T("charge.footDone")
+                 : T("charge.footBusy"))
                 .font(.label(10.5))
         }
         .foregroundStyle(Pal.inkFaint)

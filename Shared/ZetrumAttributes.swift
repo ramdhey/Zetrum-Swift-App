@@ -15,6 +15,11 @@ struct ZetrumAttributes: ActivityAttributes {
         /// di layar kunci walau aplikasi sedang tidur.
         var finishAt: Date?
         var isDone: Bool
+        /// Bahasa yang dipakai pemiliknya. Widget jalan di proses lain dan
+        /// tidak bisa membaca pengaturan aplikasi, jadi bahasanya ikut
+        /// menumpang kabar ini — artinya ganti bahasa di tengah pengisian
+        /// langsung terbawa ke kartu layar kunci.
+        var lang: String = Lang.indonesian.rawValue
     }
 
     var stationName: String

@@ -12,7 +12,7 @@ enum TileStyle: String, CaseIterable, Identifiable {
     case dark, light
     var id: String { rawValue }
 
-    var label: String { self == .dark ? "Gelap" : "Terang" }
+    var label: String { self == .dark ? T("map.tileDark") : T("map.tileLight") }
 
     /// Sumbernya sama-sama ubin resmi OpenStreetMap. Yang membedakan cuma
     /// pewarnaannya, dan itu dikerjakan di perangkat.
@@ -89,7 +89,7 @@ final class PlacePin: NSObject, MKAnnotation {
     let place: Place
     var coordinate: CLLocationCoordinate2D { .init(latitude: place.lat, longitude: place.lon) }
     var title: String? { place.name }
-    var subtitle: String? { "\(place.available)/\(place.totalUnits) konektor tersedia" }
+    var subtitle: String? { T("pin.subtitle", place.available, place.totalUnits) }
     init(_ p: Place) { place = p }
 }
 

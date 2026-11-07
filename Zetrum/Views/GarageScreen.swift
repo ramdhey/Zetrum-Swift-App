@@ -15,17 +15,17 @@ struct GarageScreen: View {
                 header
                 mine
                 picker
-                SearchField(placeholder: "Cari merek atau model…", text: $search)
+                SearchField(placeholder: T("garage.search"), text: $search)
 
                 if count == 0 {
-                    Text("Tidak ada model yang cocok dengan “\(search)”.")
+                    Text(T("garage.noMatch", search))
                         .font(.label(12.5)).foregroundStyle(Pal.inkMuted)
                         .padding(.vertical, 40)
                 }
 
                 ForEach(groups, id: \.0) { brand, list in
                     VStack(alignment: .leading, spacing: 9) {
-                        SectionHead(title: brand, trailing: "\(list.count) model")
+                        SectionHead(title: brand, trailing: TN("garage.modelCount", list.count))
                         ForEach(list) { v in
                             VehicleRow(vehicle: v, selected: v.id == store.vehicleID) {
                                 detail = v
@@ -34,7 +34,7 @@ struct GarageScreen: View {
                     }
                 }
 
-                Text("Spesifikasi diambil dari pabrikan dan media otomotif Indonesia. Kapasitas baterai memakai angka kotor; daya pengisian motor dihitung dari waktu pengisian yang diumumkan pabrikannya.")
+                Text(T("garage.sourceNote"))
                     .font(.label(10))
                     .foregroundStyle(Pal.inkFaint)
                     .multilineTextAlignment(.center)
@@ -51,8 +51,8 @@ struct GarageScreen: View {
         HStack(spacing: 11) {
             BoltMark(size: 34)
             VStack(alignment: .leading, spacing: 2) {
-                Text("Garasi").stencil(13, tracking: 2.6).foregroundStyle(Pal.ink)
-                Text("\(Catalog.all.count) model EV di Indonesia")
+                Text(T("garage.title")).stencil(13, tracking: 2.6).foregroundStyle(Pal.ink)
+                Text(TN("garage.subtitle", Catalog.all.count))
                     .font(.label(11.5)).foregroundStyle(Pal.inkMuted)
             }
             Spacer()
@@ -64,7 +64,7 @@ struct GarageScreen: View {
     private var mine: some View {
         VStack(spacing: 0) {
             HStack {
-                Text("Kendaraan Saya").stencil(9.5, tracking: 1.4).foregroundStyle(Pal.volt)
+                Text(T("garage.mine")).stencil(9.5, tracking: 1.4).foregroundStyle(Pal.volt)
                 Spacer()
                 Image(systemName: "star.fill").font(.system(size: 10)).foregroundStyle(Pal.volt)
             }
@@ -74,13 +74,13 @@ struct GarageScreen: View {
                 .padding(.vertical, 6)
 
             VStack(spacing: 12) {
-                RuledField(caption: "Nama panggilan",
+                RuledField(caption: T("garage.nickname"),
                            placeholder: store.vehicle.displayName,
                            text: $store.nickname)
                 MetricStrip(items: [
-                    .init(caption: "Baterai", value: Energi.kwh(store.vehicle.batteryKWh), unit: "kWh"),
-                    .init(caption: "Jarak", value: "\(store.vehicle.rangeKm)", unit: "km"),
-                    .init(caption: "Isi Cepat",
+                    .init(caption: T("garage.battery"), value: Energi.kwh(store.vehicle.batteryKWh), unit: "kWh"),
+                    .init(caption: T("garage.range"), value: "\(store.vehicle.rangeKm)", unit: "km"),
+                    .init(caption: T("garage.fastCharge"),
                           value: store.vehicle.dcMaxKW > 0 ? Daya.kw(store.vehicle.dcMaxKW) : "—",
                           unit: store.vehicle.dcMaxKW > 0 ? "kW" : nil,
                           tint: store.vehicle.dcMaxKW > 0 ? Pal.volt : Pal.inkFaint),
@@ -151,7 +151,7 @@ struct VehicleRow: View {
                         Text("·").foregroundStyle(Pal.inkFaint)
                         Text("\(vehicle.rangeKm) km").font(.label(10.5)).foregroundStyle(Pal.inkMuted)
                         Text("·").foregroundStyle(Pal.inkFaint)
-                        Text(vehicle.dcMaxKW > 0 ? "DC \(Daya.kw(vehicle.dcMaxKW)) kW" : "AC saja")
+                        Text(vehicle.dcMaxKW > 0 ? "DC \(Daya.kw(vehicle.dcMaxKW)) kW" : T("garage.acOnly"))
                             .font(.label(10.5))
                             .foregroundStyle(vehicle.dcMaxKW > 0 ? Pal.ion : Pal.inkFaint)
                     }

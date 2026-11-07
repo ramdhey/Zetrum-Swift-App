@@ -88,7 +88,7 @@ struct StationDetailScreen: View {
             HStack(spacing: 7) {
                 HStack(spacing: 5) {
                     Circle().fill(place.open24 ? Pal.volt : Pal.ion).frame(width: 6, height: 6)
-                    Text(place.hours).font(.label(11.5, .semibold))
+                    Text(place.hoursLabel).font(.label(11.5, .semibold))
                         .foregroundStyle(place.open24 ? Pal.volt : Pal.ion)
                 }
                 Text("·").foregroundStyle(Pal.inkFaint)
@@ -100,8 +100,8 @@ struct StationDetailScreen: View {
                     .font(.label(11.5)).foregroundStyle(Pal.inkMuted)
             }
             HStack(spacing: 7) {
-                Chip(text: "\(place.totalUnits) Kotak Pengisian", symbol: "square.grid.2x2.fill")
-                Chip(text: "\(place.available)/\(place.totalUnits) Tersedia",
+                Chip(text: TN("station.bays", place.totalUnits), symbol: "square.grid.2x2.fill")
+                Chip(text: T("station.availableOf", place.available, place.totalUnits),
                      symbol: "powerplug.portrait.fill",
                      on: place.available > 0)
             }
@@ -117,7 +117,7 @@ struct StationDetailScreen: View {
             } label: {
                 HStack(spacing: 7) {
                     Image(systemName: "location.fill").font(.system(size: 12, weight: .bold))
-                    Text("Navigasi").font(.label(13.5, .bold))
+                    Text(T("station.directions")).font(.label(13.5, .bold))
                 }
                 .foregroundStyle(Pal.void)
                 .frame(maxWidth: .infinity)
@@ -140,7 +140,7 @@ struct StationDetailScreen: View {
 
     private var tabBar: some View {
         HStack(spacing: 0) {
-            ForEach(Array(["Kotak Pengisian", "Ulasan", "Fasilitas"].enumerated()), id: \.offset) { i, t in
+            ForEach(Array([T("station.tabBays"), T("station.tabReviews"), T("station.tabFacilities")].enumerated()), id: \.offset) { i, t in
                 Button {
                     Haptic.tick()
                     withAnimation(.easeOut(duration: 0.2)) { tab = i }
@@ -167,7 +167,7 @@ struct StationDetailScreen: View {
         VStack(spacing: 10) {
             HStack(spacing: 6) {
                 Image(systemName: "arrow.clockwise").font(.system(size: 9, weight: .bold))
-                Text("Diperbarui \(Self.clock)").font(.label(10.5))
+                Text(T("station.updated", Tanggal.clock())).font(.label(10.5))
                 Spacer()
             }
             .foregroundStyle(Pal.inkFaint)
@@ -183,18 +183,13 @@ struct StationDetailScreen: View {
             }
 
             if !place.units.contains(where: { store.vehicle.accepts($0) }) {
-                Note(text: "Tidak ada konektor di sini yang cocok dengan \(store.vehicle.displayName). Kendaraan itu pakai \(store.vehicle.ports.map(\.label).joined(separator: " / ")).",
+                Note(text: T("station.noFit", store.vehicle.displayName, store.vehicle.ports.map(\.label).joined(separator: " / ")),
                      tint: Pal.alarm, symbol: "exclamationmark.triangle.fill")
             } else {
-                Note(text: "Konektor sedang dipakai? Pindai kode QR di badan charger untuk masuk antrean.",
+                Note(text: T("station.queueHint"),
                      tint: Pal.ion, symbol: "qrcode.viewfinder")
             }
         }
-    }
-
-    private static var clock: String {
-        let f = DateFormatter(); f.dateFormat = "HH:mm"
-        return f.string(from: Date())
     }
 
     // MARK: Ulasan
@@ -212,7 +207,7 @@ struct StationDetailScreen: View {
                                 .foregroundStyle(Pal.volt)
                         }
                     }
-                    Text("\(place.reviews) ulasan").font(.label(11)).foregroundStyle(Pal.inkMuted)
+                    Text(TN("station.reviewCount", place.reviews)).font(.label(11)).foregroundStyle(Pal.inkMuted)
                 }
                 Spacer()
             }
@@ -252,7 +247,7 @@ struct StationDetailScreen: View {
 
     private var facilitiesTab: some View {
         VStack(alignment: .leading, spacing: 13) {
-            Text("Yang bisa dipakai sambil menunggu")
+            Text(T("station.whileWaiting"))
                 .font(.label(12.5)).foregroundStyle(Pal.inkMuted)
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 9), count: 3),
                       spacing: 9) {
@@ -275,8 +270,8 @@ struct StationDetailScreen: View {
                 }
             }
             Note(text: place.open24
-                 ? "Lokasi ini buka 24 jam, jadi aman kalau kendaraannya ditinggal semalam."
-                 : "Jam buka \(place.hours). Pastikan pengisiannya selesai sebelum tutup.",
+                 ? T("station.open24Note")
+                 : T("station.hoursNote", place.hoursLabel),
                  tint: Pal.ion, symbol: "clock.fill")
         }
     }
@@ -305,7 +300,7 @@ private struct UnitCard: View {
                             .fill((unit.status.usable ? Pal.volt : Pal.inkFaint).opacity(0.1)))
                     VStack(alignment: .leading, spacing: 3) {
                         Text(unit.title).font(.label(14, .bold)).foregroundStyle(Pal.ink)
-                        Text("1 Konektor · \(unit.connector.short)")
+                        Text(T("station.oneConnector", unit.connector.short))
                             .font(.label(10.5)).foregroundStyle(Pal.inkMuted)
                     }
                     Spacer(minLength: 4)
@@ -332,7 +327,7 @@ private struct UnitCard: View {
                             Text(unit.headline).font(.label(14, .bold)).foregroundStyle(Pal.ink)
                             Text("\(Rupiah.decimal(unit.ratePerKwh))/kWh")
                                 .font(.label(12)).foregroundStyle(Pal.inkMuted)
-                            Text("Biaya Layanan : \(unit.serviceFee == 0 ? "Rp0" : Rupiah.full(unit.serviceFee))")
+                            Text(T("station.serviceFee", unit.serviceFee == 0 ? "Rp0" : Rupiah.full(unit.serviceFee)))
                                 .font(.label(11)).foregroundStyle(Pal.inkFaint)
                             StatusTag(status: unit.status).padding(.top, 2)
                         }
@@ -342,16 +337,16 @@ private struct UnitCard: View {
                     if fits {
                         let est = store.estimate(for: unit)
                         MetricStrip(items: [
-                            .init(caption: "Perkiraan", value: est.duration.map(Durasi.tight) ?? "—"),
-                            .init(caption: "Masuk", value: Energi.kwh(est.energy), unit: "kWh"),
-                            .init(caption: "Bayar", value: Rupiah.plain(est.cost), unit: "Rp",
+                            .init(caption: T("station.estTime"), value: est.duration.map(Durasi.tight) ?? "—"),
+                            .init(caption: T("station.estEnergy"), value: Energi.kwh(est.energy), unit: "kWh"),
+                            .init(caption: T("station.estCost"), value: Rupiah.plain(est.cost), unit: "Rp",
                                   tint: Pal.volt),
                         ])
-                        Text("Dihitung untuk \(store.vehicleLabel) dari \(Energi.persen(store.startSoC))% ke \(Energi.persen(store.targetSoC))%, daya nyata \(Daya.kw(store.vehicle.effectiveKW(on: unit))) kW.")
+                        Text(T("station.calcNote", store.vehicleLabel, Energi.persen(store.startSoC), Energi.persen(store.targetSoC), Daya.kw(store.vehicle.effectiveKW(on: unit))))
                             .font(.label(10.5)).foregroundStyle(Pal.inkFaint)
                             .fixedSize(horizontal: false, vertical: true)
                     } else {
-                        Text("Konektor \(unit.connector.label) tidak cocok dengan \(store.vehicle.displayName).")
+                        Text(T("station.portMismatch", unit.connector.label, store.vehicle.displayName))
                             .font(.label(11.5)).foregroundStyle(Pal.alarm)
                     }
 
@@ -375,12 +370,12 @@ private struct UnitCard: View {
     }
 
     private var buttonTitle: String {
-        if store.active != nil { return "Masih ada sesi berjalan" }
-        if !fits { return "Konektor tidak cocok" }
+        if store.active != nil { return T("station.btnRunning") }
+        if !fits { return T("station.btnNoFit") }
         switch unit.status {
-        case .idle:   return "Pilih konektor ini"
-        case .busy:   return "Sedang digunakan"
-        case .broken: return "Dalam perbaikan"
+        case .idle:   return T("station.btnChoose")
+        case .busy:   return T("station.btnBusy")
+        case .broken: return T("station.btnBroken")
         }
     }
 }
@@ -424,19 +419,9 @@ struct Review: Identifiable {
     static func forPlace(_ p: Place) -> [Review] {
         let names = ["Rizky Pratama", "Dewi Anggraini", "Bagus Setiawan", "Nadia Putri",
                      "Fajar Nugroho", "Sari Wulandari", "Andi Kurniawan", "Maya Lestari"]
-        let whens = ["2 hari lalu", "seminggu lalu", "2 minggu lalu", "bulan lalu"]
-        let good = [
-            "Chargernya gampang dipakai, sekali tempel kartu langsung jalan. Parkirnya juga luas.",
-            "Ditinggal makan sebentar, balik-balik sudah 80%. Puas.",
-            "Posisinya gampang dicari, petugasnya bantu colokin kabel.",
-            "Dari 20% ke 80% cuma setengah jam. Tarifnya sesuai aplikasi.",
-            "Tempatnya teduh dan bersih, ada musala. Cocok buat nunggu lama.",
-        ]
-        let mixed = [
-            "Antre lumayan karena cuma ada beberapa kotak. Datang pagi lebih aman.",
-            "Satu konektor lagi diperbaiki, jadi harus gantian. Sisanya oke.",
-            "Kabelnya agak pendek, mobil harus mundur pas banget.",
-        ]
+        let whens = Str.reviewWhens
+        let good = Str.reviewGood
+        let mixed = Str.reviewMixed
         var seed = UInt64(abs(p.id.hashValue % 100_000)) &+ 7
         func next(_ n: Int) -> Int {
             seed = seed &* 6_364_136_223_846_793_005 &+ 1_442_695_040_888_963_407

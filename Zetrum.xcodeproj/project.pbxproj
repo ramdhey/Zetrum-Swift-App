@@ -31,6 +31,7 @@
 		131238A8B4C256723783A389 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE473EC0A9C7C4D27722F067 /* Palette.swift */; };
 		B6D51AC022F8B7B04FB7933D /* PlaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE99A58F0AED19F175E5C00 /* PlaceData.swift */; };
 		9792EBE81FB8F6CB63B2ED67 /* Places.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6EC5784F54A751221ED85C /* Places.swift */; };
+		2C68CD0D63C0CF10F67EE0AD /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6AFD83CEFBBCA5300ADD53 /* Strings.swift */; };
 		824DA95A542A6F7628C4EFE3 /* TicketShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2CDF3EC0EE89EAB14DA784 /* TicketShape.swift */; };
 		E345915643D4ACB4E193C5CB /* Vehicles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B1CFFD985408B697BFD1EF /* Vehicles.swift */; };
 		FF96D75A7E56E099573038F0 /* ZetrumAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58836A9A8B7ECC86EA5142FF /* ZetrumAttributes.swift */; };
@@ -42,6 +43,7 @@
 		9D09C4832C1853A23F2BACD9 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE473EC0A9C7C4D27722F067 /* Palette.swift */; };
 		5440A69E02EC78999546DCD4 /* PlaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE99A58F0AED19F175E5C00 /* PlaceData.swift */; };
 		8A3AFE252ED4056E0069F7FB /* Places.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6EC5784F54A751221ED85C /* Places.swift */; };
+		B6C551E500506D7AF7DB3A11 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6AFD83CEFBBCA5300ADD53 /* Strings.swift */; };
 		CCCE5F56B989019B7ABA057A /* TicketShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2CDF3EC0EE89EAB14DA784 /* TicketShape.swift */; };
 		8A6F0B78C8D09F8907ED05B8 /* Vehicles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B1CFFD985408B697BFD1EF /* Vehicles.swift */; };
 		273C721938874D84ED2A7C76 /* ZetrumAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58836A9A8B7ECC86EA5142FF /* ZetrumAttributes.swift */; };
@@ -101,6 +103,7 @@
 		AE473EC0A9C7C4D27722F067 /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
 		CFE99A58F0AED19F175E5C00 /* PlaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceData.swift; sourceTree = "<group>"; };
 		4C6EC5784F54A751221ED85C /* Places.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Places.swift; sourceTree = "<group>"; };
+		EF6AFD83CEFBBCA5300ADD53 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		CE2CDF3EC0EE89EAB14DA784 /* TicketShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketShape.swift; sourceTree = "<group>"; };
 		D5B1CFFD985408B697BFD1EF /* Vehicles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicles.swift; sourceTree = "<group>"; };
 		58836A9A8B7ECC86EA5142FF /* ZetrumAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZetrumAttributes.swift; sourceTree = "<group>"; };
@@ -193,6 +196,7 @@
 				AE473EC0A9C7C4D27722F067 /* Palette.swift */,
 				CFE99A58F0AED19F175E5C00 /* PlaceData.swift */,
 				4C6EC5784F54A751221ED85C /* Places.swift */,
+				EF6AFD83CEFBBCA5300ADD53 /* Strings.swift */,
 				CE2CDF3EC0EE89EAB14DA784 /* TicketShape.swift */,
 				D5B1CFFD985408B697BFD1EF /* Vehicles.swift */,
 				58836A9A8B7ECC86EA5142FF /* ZetrumAttributes.swift */,
@@ -343,6 +347,7 @@
 				131238A8B4C256723783A389 /* Palette.swift in Sources */,
 				B6D51AC022F8B7B04FB7933D /* PlaceData.swift in Sources */,
 				9792EBE81FB8F6CB63B2ED67 /* Places.swift in Sources */,
+				2C68CD0D63C0CF10F67EE0AD /* Strings.swift in Sources */,
 				824DA95A542A6F7628C4EFE3 /* TicketShape.swift in Sources */,
 				E345915643D4ACB4E193C5CB /* Vehicles.swift in Sources */,
 				FF96D75A7E56E099573038F0 /* ZetrumAttributes.swift in Sources */,
@@ -363,6 +368,7 @@
 				9D09C4832C1853A23F2BACD9 /* Palette.swift in Sources */,
 				5440A69E02EC78999546DCD4 /* PlaceData.swift in Sources */,
 				8A3AFE252ED4056E0069F7FB /* Places.swift in Sources */,
+				B6C551E500506D7AF7DB3A11 /* Strings.swift in Sources */,
 				CCCE5F56B989019B7ABA057A /* TicketShape.swift in Sources */,
 				8A6F0B78C8D09F8907ED05B8 /* Vehicles.swift in Sources */,
 				273C721938874D84ED2A7C76 /* ZetrumAttributes.swift in Sources */,

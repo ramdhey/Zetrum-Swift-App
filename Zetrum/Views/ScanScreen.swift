@@ -40,7 +40,7 @@ struct ScanScreen: View {
         HStack {
             BackButton { dismiss() }
             Spacer()
-            Text("Pindai Konektor").stencil(12, tracking: 2).foregroundStyle(Pal.ink)
+            Text(T("scan.title")).stencil(12, tracking: 2).foregroundStyle(Pal.ink)
             Spacer()
             Color.clear.frame(width: 38, height: 38)
         }
@@ -71,9 +71,9 @@ struct ScanScreen: View {
             }
 
             VStack(spacing: 7) {
-                Text("Arahkan ke kode QR di badan charger")
+                Text(T("scan.aim"))
                     .font(.label(14, .semibold)).foregroundStyle(Pal.ink)
-                Text("Setelah terbaca, kamu masih diminta menyetujui dulu\nsebelum listriknya mengalir.")
+                Text(T("scan.stillApprove"))
                     .font(.label(11.5))
                     .foregroundStyle(Pal.inkMuted)
                     .multilineTextAlignment(.center)
@@ -97,7 +97,7 @@ struct ScanScreen: View {
             Button { manual = true } label: {
                 HStack(spacing: 8) {
                     Image(systemName: "keyboard").font(.system(size: 13, weight: .bold))
-                    Text("Masukkan kode konektor").font(.label(13.5, .semibold))
+                    Text(T("scan.manualButton")).font(.label(13.5, .semibold))
                 }
                 .foregroundStyle(Pal.ink)
                 .frame(maxWidth: .infinity)
@@ -110,8 +110,8 @@ struct ScanScreen: View {
             .buttonStyle(.plain)
 
             Text(CameraLayer.available
-                 ? "Kode contoh ada di daftar kode manual."
-                 : "Kamera tidak tersedia di perangkat ini — pakai kode manual.")
+                 ? T("scan.hintCamera")
+                 : T("scan.hintNoCamera"))
                 .font(.label(10.5)).foregroundStyle(Pal.inkFaint)
         }
         .padding(.horizontal, 20)
@@ -123,8 +123,8 @@ struct ScanScreen: View {
     private var manualSheet: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 15) {
-                Text("Kode Konektor").stencil(12, tracking: 2).foregroundStyle(Pal.ink)
-                Text("Kode ini tercetak di stiker badan charger, di bawah kode QR-nya.")
+                Text(T("scan.codeTitle")).stencil(12, tracking: 2).foregroundStyle(Pal.ink)
+                Text(T("scan.codeHelp"))
                     .font(.label(12)).foregroundStyle(Pal.inkMuted)
 
                 HStack(spacing: 9) {
@@ -153,7 +153,7 @@ struct ScanScreen: View {
                     .buttonStyle(.plain)
                 }
 
-                SectionHead(title: "Konektor di sekitarmu")
+                SectionHead(title: T("scan.nearbyCodes"))
                 ForEach(Array(store.nearby().prefix(6))) { p in
                     VStack(alignment: .leading, spacing: 7) {
                         Text(p.name).font(.label(12.5, .bold)).foregroundStyle(Pal.ink)
@@ -199,7 +199,7 @@ struct ScanScreen: View {
             dismiss()
         } else {
             withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
-                error = "Kode \(code.uppercased()) tidak dikenali"
+                error = T("scan.unknown", code.uppercased())
             }
             Haptic.thud()
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.6) {

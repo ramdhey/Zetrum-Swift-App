@@ -3,8 +3,8 @@ import Foundation
 enum VehicleKind: String, Codable, Hashable, CaseIterable, Identifiable {
     case car, bike
     var id: String { rawValue }
-    var label: String { self == .car ? "Mobil" : "Motor" }
-    var plural: String { self == .car ? "Mobil Listrik" : "Motor Listrik" }
+    var label: String { self == .car ? T("kind.car") : T("kind.bike") }
+    var plural: String { self == .car ? T("kind.cars") : T("kind.bikes") }
     var symbol: String { self == .car ? "car.fill" : "scooter" }
 }
 

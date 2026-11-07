@@ -6,10 +6,10 @@ enum Tab: String, CaseIterable, Identifiable {
 
     var label: String {
         switch self {
-        case .home:     "Beranda"
-        case .history:  "Riwayat"
-        case .stations: "SPKLU"
-        case .garage:   "Garasi"
+        case .home:     T("tab.home")
+        case .history:  T("tab.history")
+        case .stations: T("tab.stations")
+        case .garage:   T("tab.garage")
         }
     }
     var symbol: String {
@@ -44,6 +44,10 @@ struct ShellView: View {
                 }
             }
             .transition(.opacity)
+            // ganti bahasa membangun ulang layarnya, bukan menambal teks
+            // satu per satu — lebih murah daripada memastikan tiap anak
+            // ikut mengamati pilihan bahasanya
+            .id(store.lang)
 
             VStack(spacing: 0) {
                 if store.active != nil && !showCharging {
@@ -158,7 +162,7 @@ private struct LiveStrip: View {
             HStack(spacing: 11) {
                 BoltMark(size: 30, tint: store.isFull ? Pal.ion : Pal.volt)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(store.isFull ? "Sudah penuh — boleh dicabut" : "Sedang mengisi")
+                    Text(store.isFull ? T("strip.full") : T("strip.charging"))
                         .font(.label(12.5, .bold))
                         .foregroundStyle(store.isFull ? Pal.ion : Pal.volt)
                     Text(store.active?.place.name ?? "")

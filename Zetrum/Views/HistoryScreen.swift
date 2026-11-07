@@ -18,12 +18,12 @@ struct HistoryScreen: View {
         }
         .scrollIndicators(.hidden)
         .sheet(item: $receipt) { ReceiptSheet(session: $0) }
-        .confirmationDialog("Hapus seluruh riwayat?", isPresented: $confirmClear,
+        .confirmationDialog(T("history.clearTitle"), isPresented: $confirmClear,
                             titleVisibility: .visible) {
-            Button("Hapus semua", role: .destructive) { store.clearHistory() }
-            Button("Batal", role: .cancel) {}
+            Button(T("history.clearConfirm"), role: .destructive) { store.clearHistory() }
+            Button(T("common.cancel"), role: .cancel) {}
         } message: {
-            Text("Semua catatan pengisian akan hilang dan tidak bisa dikembalikan.")
+            Text(T("history.clearBody"))
         }
     }
 
@@ -31,8 +31,8 @@ struct HistoryScreen: View {
         HStack(spacing: 11) {
             BoltMark(size: 34)
             VStack(alignment: .leading, spacing: 2) {
-                Text("Riwayat").stencil(13, tracking: 2.6).foregroundStyle(Pal.ink)
-                Text("\(store.history.count) sesi tercatat")
+                Text(T("history.title")).stencil(13, tracking: 2.6).foregroundStyle(Pal.ink)
+                Text(TN("history.subtitle", store.history.count))
                     .font(.label(11.5)).foregroundStyle(Pal.inkMuted)
             }
             Spacer()
@@ -54,20 +54,20 @@ struct HistoryScreen: View {
     private var summary: some View {
         VStack(spacing: 13) {
             HStack {
-                Text("Konsumsi Energi").stencil(10, tracking: 1.6).foregroundStyle(Pal.ink)
+                Text(T("history.energyUse")).stencil(10, tracking: 1.6).foregroundStyle(Pal.ink)
                 Spacer()
-                Text(monthLabel).font(.label(11, .semibold)).foregroundStyle(Pal.inkMuted)
+                Text(Tanggal.month()).font(.label(11, .semibold)).foregroundStyle(Pal.inkMuted)
             }
             MetricStrip(items: [
-                .init(caption: "Total Pembelian", value: Energi.kwh(store.energyThisMonth), unit: "kWh"),
-                .init(caption: "Pengeluaran", value: Rupiah.plain(store.spentThisMonth), unit: "Rp",
+                .init(caption: T("history.totalEnergy"), value: Energi.kwh(store.energyThisMonth), unit: "kWh"),
+                .init(caption: T("history.spent"), value: Rupiah.plain(store.spentThisMonth), unit: "Rp",
                       tint: Pal.volt),
             ])
             Rectangle().fill(Pal.line).frame(height: 1)
             MetricStrip(items: [
-                .init(caption: "Rata-rata Durasi", value: Durasi.tight(avgDuration)),
-                .init(caption: "Frekuensi", value: "\(store.sessionsThisMonth)", unit: "sesi"),
-                .init(caption: "Hemat CO₂", value: Energi.kwh(store.co2SavedKg), unit: "kg",
+                .init(caption: T("history.avgDuration"), value: Durasi.tight(avgDuration)),
+                .init(caption: T("history.frequency"), value: "\(store.sessionsThisMonth)", unit: T("history.unitSession")),
+                .init(caption: T("history.co2Saved"), value: Energi.kwh(store.co2SavedKg), unit: "kg",
                       tint: Pal.ion),
             ])
         }
@@ -85,26 +85,16 @@ struct HistoryScreen: View {
         return month.reduce(0) { $0 + $1.elapsed() } / Double(month.count)
     }
 
-    private var monthLabel: String {
-        let f = DateFormatter()
-        f.locale = Locale(identifier: "id_ID")
-        f.dateFormat = "MMMM yyyy"
-        return f.string(from: Date())
-    }
-
     // MARK: Grafik enam bulan
 
     private var months: [(String, Double)] {
         let cal = Calendar.current
-        let f = DateFormatter()
-        f.locale = Locale(identifier: "id_ID")
-        f.dateFormat = "MMM"
         return (0..<6).reversed().map { back in
             let date = cal.date(byAdding: .month, value: -back, to: Date()) ?? Date()
             let total = store.history
                 .filter { cal.isDate($0.endedAt ?? $0.startedAt, equalTo: date, toGranularity: .month) }
                 .reduce(0.0) { $0 + $1.energy() }
-            return (f.string(from: date).uppercased(), total)
+            return (Tanggal.shortMonth(date), total)
         }
     }
 
@@ -112,9 +102,9 @@ struct HistoryScreen: View {
         let data = months
         let peak = max(data.map(\.1).max() ?? 1, 1)
         return VStack(alignment: .leading, spacing: 12) {
-            SectionHead(title: "Riwayat Bulanan", trailing: "kWh")
+            SectionHead(title: T("history.monthly"), trailing: "kWh")
             if data.allSatisfy({ $0.1 == 0 }) {
-                Text("Belum ada data grafik.")
+                Text(T("history.noChart"))
                     .font(.label(12)).foregroundStyle(Pal.inkFaint)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 42)
@@ -148,14 +138,14 @@ struct HistoryScreen: View {
 
     private var list: some View {
         VStack(alignment: .leading, spacing: 10) {
-            SectionHead(title: "Semua Sesi")
+            SectionHead(title: T("history.allSessions"))
             if store.history.isEmpty {
                 VStack(spacing: 9) {
                     Image(systemName: "bolt.slash")
                         .font(.system(size: 26, weight: .light)).foregroundStyle(Pal.inkFaint)
-                    Text("Belum pernah mengisi.")
+                    Text(T("history.emptyTitle"))
                         .font(.label(13, .semibold)).foregroundStyle(Pal.inkMuted)
-                    Text("Pindai konektor di SPKLU untuk mulai.")
+                    Text(T("history.emptyBody"))
                         .font(.label(11.5)).foregroundStyle(Pal.inkFaint)
                 }
                 .frame(maxWidth: .infinity)
@@ -179,7 +169,7 @@ struct HistoryScreen: View {
 
             VStack(alignment: .leading, spacing: 3) {
                 Text(s.place.name).font(.label(13.5, .bold)).foregroundStyle(Pal.ink).lineLimit(1)
-                Text("\(Self.stamp(s.startedAt)) · \(Durasi.tight(s.elapsed())) · \(Energi.kwh(s.energy())) kWh")
+                Text("\(Tanggal.stamp(s.startedAt)) · \(Durasi.tight(s.elapsed())) · \(Energi.kwh(s.energy())) kWh")
                     .font(.label(10.5)).foregroundStyle(Pal.inkMuted)
                 Text("\(Energi.persen(s.startSoC))% → \(Energi.persen(s.soc(at: s.endedAt ?? Date())))%  ·  \(s.vehicle.displayName)")
                     .font(.label(10)).foregroundStyle(Pal.inkFaint).lineLimit(1)
@@ -193,10 +183,4 @@ struct HistoryScreen: View {
         .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(Pal.line, lineWidth: 1))
     }
 
-    private static func stamp(_ d: Date) -> String {
-        let f = DateFormatter()
-        f.locale = Locale(identifier: "id_ID")
-        f.dateFormat = "d MMM, HH:mm"
-        return f.string(from: d)
-    }
 }

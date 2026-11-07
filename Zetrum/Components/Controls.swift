@@ -65,7 +65,7 @@ struct HoldToConfirm: View {
             HStack(spacing: 9) {
                 Image(systemName: holding ? "hand.tap.fill" : icon)
                     .font(.system(size: 13, weight: .bold))
-                Text(holding ? "Tahan terus…" : title).stencil(12, tracking: 1.4)
+                Text(holding ? T("common.holdOn") : title).stencil(12, tracking: 1.4)
             }
             .foregroundStyle(progress > 0.55 ? Pal.void : Pal.ink)
         }

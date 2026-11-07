@@ -140,14 +140,14 @@ struct VehicleArt: View {
 
         var label: String {
             switch self {
-            case .hatchback:  "Hatchback"
-            case .suv:        "SUV"
-            case .sedan:      "Sedan"
-            case .mpv:        "MPV"
-            case .van:        "Van"
-            case .pickup:     "Pikap"
-            case .scooter:    "Skutik"
-            case .motorcycle: "Motor"
+            case .hatchback:  T("form.hatchback")
+            case .suv:        T("form.suv")
+            case .sedan:      T("form.sedan")
+            case .mpv:        T("form.mpv")
+            case .van:        T("form.van")
+            case .pickup:     T("form.pickup")
+            case .scooter:    T("form.scooter")
+            case .motorcycle: T("form.motorcycle")
             }
         }
         var isTwoWheeler: Bool { self == .scooter || self == .motorcycle }

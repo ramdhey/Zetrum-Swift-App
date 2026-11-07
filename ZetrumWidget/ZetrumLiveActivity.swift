@@ -25,19 +25,20 @@ struct ZetrumLiveActivity: Widget {
                 .activitySystemActionForegroundColor(Pal.volt)
         } dynamicIsland: { context in
             let s = context.state
+            adoptLanguage(s.lang)
             let tint = s.isDone ? Pal.ion : Pal.volt
 
             return DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
                     VStack(alignment: .leading, spacing: 2) {
-                        Text("Baterai").stencil(8, tracking: 1.1).foregroundStyle(Pal.inkFaint)
+                        Text(T("la.battery")).stencil(8, tracking: 1.1).foregroundStyle(Pal.inkFaint)
                         UnitTag(text: Energi.persen(s.soc), unit: "%", size: 22, color: Pal.ink)
                     }
                     .padding(.leading, 4)
                 }
                 DynamicIslandExpandedRegion(.trailing) {
                     VStack(alignment: .trailing, spacing: 2) {
-                        Text("Biaya").stencil(8, tracking: 1.1).foregroundStyle(Pal.inkFaint)
+                        Text(T("la.cost")).stencil(8, tracking: 1.1).foregroundStyle(Pal.inkFaint)
                         Text(Rupiah.full(s.cost))
                             .font(.meter(21, .bold))
                             .foregroundStyle(tint)
@@ -52,7 +53,7 @@ struct ZetrumLiveActivity: Widget {
                                     cells: 20, height: 16)
                         TimeRail(state: s)
                         HStack(spacing: 0) {
-                            Text("\(Energi.kwh(s.energy)) kWh masuk")
+                            Text(T("la.kwhIn", Energi.kwh(s.energy)))
                                 .font(.label(10.5))
                                 .foregroundStyle(Pal.inkMuted)
                                 .contentTransition(.numericText())
@@ -77,6 +78,17 @@ struct ZetrumLiveActivity: Widget {
             .keylineTint(tint)
         }
     }
+}
+
+// MARK: - Bahasa
+
+/// Widget jalan di proses sendiri dan tidak bisa membaca pengaturan
+/// aplikasi, jadi bahasanya dibaca dari kabar yang baru masuk — dipasang
+/// sebelum apa pun digambar.
+@discardableResult
+private func adoptLanguage(_ raw: String) -> Bool {
+    Loc.lang = Lang(rawValue: raw) ?? .indonesian
+    return true
 }
 
 // MARK: - Rel waktu
@@ -140,6 +152,7 @@ private struct LockScreenCard: View {
     private var tint: Color { state.isDone ? Pal.ion : Pal.volt }
 
     var body: some View {
+        let _ = adoptLanguage(state.lang)
         VStack(alignment: .leading, spacing: 0) {
             HStack(spacing: 9) {
                 BoltMark(size: 24, tint: tint)
@@ -185,7 +198,7 @@ private struct LockScreenCard: View {
                     .font(.meter(11, .bold))
                     .foregroundStyle(Pal.inkMuted)
                     .contentTransition(.numericText())
-                Text("  masuk")
+                Text(T("la.in"))
                     .font(.label(11))
                     .foregroundStyle(Pal.inkFaint)
                 Spacer(minLength: 8)
@@ -214,7 +227,7 @@ private struct Countdown: View {
             HStack(spacing: 4) {
                 Image(systemName: "checkmark.seal.fill")
                     .font(.system(size: size * 0.9, weight: .bold))
-                Text("sudah penuh").font(.label(size, .semibold))
+                Text(T("la.done")).font(.label(size, .semibold))
             }
             .foregroundStyle(Pal.ion)
             .transition(.scale(scale: 0.8).combined(with: .opacity))
@@ -222,7 +235,7 @@ private struct Countdown: View {
             HStack(spacing: 4) {
                 Image(systemName: "hourglass")
                     .font(.system(size: size * 0.85, weight: .bold))
-                Text("penuh dalam").font(.label(size))
+                Text(T("la.fullIn")).font(.label(size))
                 Text(timerInterval: Date()...finish, countsDown: true)
                     .font(.meter(size, .bold))
                     .frame(width: size * 4.2, alignment: .leading)
@@ -230,7 +243,7 @@ private struct Countdown: View {
             .foregroundStyle(Pal.ion)
             .transition(.opacity)
         } else {
-            Text("mengisi…")
+            Text(T("la.charging"))
                 .font(.label(size))
                 .foregroundStyle(Pal.inkMuted)
         }

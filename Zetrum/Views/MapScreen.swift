@@ -40,17 +40,17 @@ struct MapScreen: View {
 
     private var topControls: some View {
         VStack(spacing: 9) {
-            SearchField(placeholder: "Cari SPKLU, mal, stasiun…", text: $search)
+            SearchField(placeholder: T("map.search"), text: $search)
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 7) {
-                    Chip(text: "Tersedia", symbol: "checkmark.circle.fill", on: onlyAvailable) {
+                    Chip(text: T("map.filterAvailable"), symbol: "checkmark.circle.fill", on: onlyAvailable) {
                         onlyAvailable.toggle()
                     }
-                    Chip(text: "Isi Cepat DC", symbol: "bolt.fill", on: connector == .ccs2) {
+                    Chip(text: T("map.filterDC"), symbol: "bolt.fill", on: connector == .ccs2) {
                         connector = connector == .ccs2 ? nil : .ccs2
                     }
-                    Chip(text: "Motor", symbol: "scooter", on: connector == .shuko) {
+                    Chip(text: T("map.filterBike"), symbol: "scooter", on: connector == .shuko) {
                         connector = connector == .shuko ? nil : .shuko
                     }
                     Rectangle().fill(Pal.line).frame(width: 1, height: 20)
@@ -138,9 +138,9 @@ struct MapScreen: View {
                     .transition(.move(edge: .bottom).combined(with: .opacity))
             } else {
                 HStack {
-                    Text("Stasiun Terdekat").font(.label(14.5, .bold)).foregroundStyle(Pal.ink)
+                    Text(T("map.nearest")).font(.label(14.5, .bold)).foregroundStyle(Pal.ink)
                     Spacer()
-                    Text("\(results.count) lokasi")
+                    Text(TN("map.count", results.count))
                         .font(.label(11)).foregroundStyle(Pal.inkMuted)
                 }
                 .padding(.horizontal, 16)
@@ -156,7 +156,7 @@ struct MapScreen: View {
                             }
                         }
                         if results.isEmpty {
-                            Text("Tidak ada SPKLU yang cocok dengan saringan itu.")
+                            Text(T("map.empty"))
                                 .font(.label(12)).foregroundStyle(Pal.inkMuted)
                                 .multilineTextAlignment(.center)
                                 .padding(.vertical, 28)
@@ -238,12 +238,12 @@ private struct PlacePreview: View {
             HStack(spacing: 7) {
                 Chip(text: Jarak.near(distance), symbol: "location.fill", on: false)
                 Chip(text: "★ \(Energi.kwh(place.rating, decimals: 1))", on: false)
-                Chip(text: place.open24 ? "24 Jam" : place.hours, symbol: "clock", on: false)
+                Chip(text: place.hoursLabel, symbol: "clock", on: false)
             }
 
             HStack(spacing: 10) {
                 VStack(alignment: .leading, spacing: 3) {
-                    Text("\(place.available) dari \(place.totalUnits) konektor siap")
+                    Text(T("place.freeOf", place.available, place.totalUnits))
                         .font(.label(12, .semibold))
                         .foregroundStyle(place.available == 0 ? Pal.alarm : Pal.volt)
                     Text(place.tariffRange).font(.label(10.5)).foregroundStyle(Pal.inkMuted)
@@ -251,7 +251,7 @@ private struct PlacePreview: View {
                 Spacer()
                 Button(action: onOpen) {
                     HStack(spacing: 6) {
-                        Text("Lihat Detail").font(.label(12.5, .bold))
+                        Text(T("map.viewDetail")).font(.label(12.5, .bold))
                         Image(systemName: "chevron.right").font(.system(size: 10, weight: .bold))
                     }
                     .foregroundStyle(Pal.void)

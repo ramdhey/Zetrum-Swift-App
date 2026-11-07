@@ -21,10 +21,10 @@ struct ConfirmSheet: View {
                 socRows
                 bill
                 if !fits {
-                    Note(text: "Konektor ini \(unit.connector.label), sedangkan \(store.vehicle.displayName) pakai \(store.vehicle.ports.map(\.label).joined(separator: " / ")). Pilih konektor lain.",
+                    Note(text: T("confirm.wrongPort", unit.connector.label, store.vehicle.displayName, store.vehicle.ports.map(\.label).joined(separator: " / ")),
                          tint: Pal.alarm, symbol: "exclamationmark.triangle.fill")
                 } else if !unit.status.usable {
-                    Note(text: "Kotak ini \(unit.status.label.lowercased()). Coba konektor lain di lokasi yang sama.",
+                    Note(text: T("confirm.unitBusy", unit.status.label.lowercased()),
                          tint: Pal.alarm, symbol: "exclamationmark.triangle.fill")
                 }
                 confirmArea
@@ -45,8 +45,8 @@ struct ConfirmSheet: View {
                     .font(.system(size: 22, weight: .semibold))
                     .foregroundStyle(Pal.volt)
             }
-            Text("Konektor terbaca").font(.label(17, .bold)).foregroundStyle(Pal.ink)
-            Text("Periksa dulu, baru setujui.")
+            Text(T("confirm.found")).font(.label(17, .bold)).foregroundStyle(Pal.ink)
+            Text(T("confirm.checkFirst"))
                 .font(.label(12)).foregroundStyle(Pal.inkMuted)
         }
     }
@@ -79,7 +79,7 @@ struct ConfirmSheet: View {
             VStack(alignment: .leading, spacing: 3) {
                 Text(store.vehicleLabel).font(.label(14, .bold)).foregroundStyle(Pal.ink)
                     .lineLimit(1)
-                Text("\(Energi.kwh(store.vehicle.batteryKWh)) kWh · terima \(Daya.kw(store.vehicle.effectiveKW(on: unit))) kW")
+                Text(T("confirm.accepts", Energi.kwh(store.vehicle.batteryKWh), Daya.kw(store.vehicle.effectiveKW(on: unit))))
                     .font(.label(10.5)).foregroundStyle(Pal.inkMuted)
             }
             Spacer(minLength: 4)
@@ -91,9 +91,9 @@ struct ConfirmSheet: View {
 
     private var socRows: some View {
         VStack(spacing: 15) {
-            socRow(caption: "Baterai Sekarang", value: $store.startSoC,
+            socRow(caption: T("confirm.batteryNow"), value: $store.startSoC,
                    tint: Pal.inkMuted, lower: 0)
-            socRow(caption: "Isi Sampai", value: $store.targetSoC,
+            socRow(caption: T("confirm.chargeTo"), value: $store.targetSoC,
                    tint: Pal.volt, lower: store.startSoC + 1, presets: true)
         }
         .padding(14)
@@ -129,16 +129,16 @@ struct ConfirmSheet: View {
         let est = store.estimate(for: unit)
         return VStack(spacing: 12) {
             MetricStrip(items: [
-                .init(caption: "Perkiraan", value: est.duration.map(Durasi.tight) ?? "—"),
-                .init(caption: "Listrik Masuk", value: Energi.kwh(est.energy), unit: "kWh"),
-                .init(caption: "Tambah Jarak", value: "\(est.km)", unit: "km", tint: Pal.ion),
+                .init(caption: T("confirm.estTime"), value: est.duration.map(Durasi.tight) ?? "—"),
+                .init(caption: T("confirm.energyIn"), value: Energi.kwh(est.energy), unit: "kWh"),
+                .init(caption: T("confirm.rangeAdded"), value: "\(est.km)", unit: "km", tint: Pal.ion),
             ])
             Rectangle().fill(Pal.line).frame(height: 1)
             HStack {
                 VStack(alignment: .leading, spacing: 3) {
-                    Text("Perkiraan Bayar").stencil(9, tracking: 1.2).foregroundStyle(Pal.inkMuted)
+                    Text(T("confirm.estCost")).stencil(9, tracking: 1.2).foregroundStyle(Pal.inkMuted)
                     Text("\(Rupiah.decimal(unit.ratePerKwh))/kWh" +
-                         (unit.serviceFee > 0 ? "  +  layanan \(Rupiah.full(unit.serviceFee))" : ""))
+                         (unit.serviceFee > 0 ? T("confirm.plusService", Rupiah.full(unit.serviceFee)) : ""))
                         .font(.label(10.5)).foregroundStyle(Pal.inkFaint)
                 }
                 Spacer()
@@ -153,14 +153,14 @@ struct ConfirmSheet: View {
     private var confirmArea: some View {
         VStack(spacing: 11) {
             if ready {
-                HoldToConfirm(title: "Tahan untuk mulai mengisi",
+                HoldToConfirm(title: T("confirm.hold"),
                               tint: Pal.volt, icon: "bolt.fill", duration: 1.0) {
                     store.confirmPending()
                     dismiss()
                 }
             } else {
                 SlabButton(enabled: false, action: {}) {
-                    Text("Belum bisa dimulai").stencil(12.5, tracking: 1.4)
+                    Text(T("confirm.notReady")).stencil(12.5, tracking: 1.4)
                         .foregroundStyle(Pal.inkFaint)
                 }
             }
@@ -168,12 +168,12 @@ struct ConfirmSheet: View {
                 store.pending = nil
                 dismiss()
             } label: {
-                Text("Batal").font(.label(13, .semibold)).foregroundStyle(Pal.inkMuted)
+                Text(T("common.cancel")).font(.label(13, .semibold)).foregroundStyle(Pal.inkMuted)
                     .frame(maxWidth: .infinity).padding(.vertical, 10)
             }
             .buttonStyle(.plain)
 
-            Text("Dengan menahan tombol, kamu setuju listrik mulai mengalir dan biayanya dihitung sejak detik itu.")
+            Text(T("confirm.consent"))
                 .font(.label(10))
                 .foregroundStyle(Pal.inkFaint)
                 .multilineTextAlignment(.center)

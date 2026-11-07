@@ -22,7 +22,7 @@ enum Connector: String, Codable, Hashable, CaseIterable, Identifiable {
         case .chademo: "DC CHAdeMO"
         case .gbt:     "DC GB/T"
         case .shuko:   "AC Schuko"
-        case .swap:    "Tukar Baterai"
+        case .swap:    T("connector.swap")
         }
     }
 
@@ -58,9 +58,9 @@ enum UnitStatus: String, Codable, Hashable {
 
     var label: String {
         switch self {
-        case .idle:   "Tersedia"
-        case .busy:   "Sedang Digunakan"
-        case .broken: "Dalam Perbaikan"
+        case .idle:   T("status.idle")
+        case .busy:   T("status.busy")
+        case .broken: T("status.broken")
         }
     }
     var usable: Bool { self == .idle }
@@ -107,14 +107,14 @@ enum Venue: String, Codable, Hashable, CaseIterable, Identifiable {
 
     var label: String {
         switch self {
-        case .hospital: "Rumah Sakit"
-        case .stadium:  "Stadion"
-        case .train:    "Stasiun"
-        case .mall:     "Mal"
-        case .restArea: "Rest Area"
-        case .airport:  "Bandara"
-        case .office:   "Perkantoran"
-        case .campus:   "Kampus"
+        case .hospital: T("venue.hospital")
+        case .stadium:  T("venue.stadium")
+        case .train:    T("venue.train")
+        case .mall:     T("venue.mall")
+        case .restArea: T("venue.restArea")
+        case .airport:  T("venue.airport")
+        case .office:   T("venue.office")
+        case .campus:   T("venue.campus")
         }
     }
 
@@ -139,15 +139,15 @@ enum Facility: String, Codable, Hashable, CaseIterable, Identifiable {
 
     var label: String {
         switch self {
-        case .toilet:     "Toilet"
-        case .musholla:   "Musala"
-        case .minimarket: "Minimarket"
-        case .cafe:       "Kafe"
-        case .parking:    "Parkir"
-        case .wifi:       "WiFi"
-        case .atm:        "ATM"
-        case .restaurant: "Restoran"
-        case .lounge:     "Ruang Tunggu"
+        case .toilet:     T("facility.toilet")
+        case .musholla:   T("facility.musholla")
+        case .minimarket: T("facility.minimarket")
+        case .cafe:       T("facility.cafe")
+        case .parking:    T("facility.parking")
+        case .wifi:       T("facility.wifi")
+        case .atm:        T("facility.atm")
+        case .restaurant: T("facility.restaurant")
+        case .lounge:     T("facility.lounge")
         }
     }
 
@@ -189,6 +189,15 @@ struct Place: Codable, Hashable, Identifiable {
     /// Daya tertinggi yang ada di lokasi ini — dipakai sebagai lencana di peta.
     var peakKW: Double { units.map(\.kW).max() ?? 0 }
     var hasDC: Bool { units.contains { $0.connector.isDC } }
+
+    /// Jam bukanya disimpan apa adanya, tapi yang ditampilkan ikut bahasa:
+    /// Indonesia menulis `10.00 – 22.00`, Inggris `10:00 – 22:00`.
+    var hoursLabel: String {
+        if open24 { return T("place.open24") }
+        return Loc.lang == .english
+            ? hours.replacingOccurrences(of: ".", with: ":")
+            : hours
+    }
 
     var tariffRange: String {
         let rates = Set(units.map(\.ratePerKwh)).sorted()

@@ -38,7 +38,7 @@ struct ReceiptSheet: View {
                 Bolt().fill(Pal.receiptInk).frame(width: 13, height: 18)
                 Text("ZETRUM").stencil(13, tracking: 3.4).foregroundStyle(Pal.receiptInk)
             }
-            Text("BUKTI PENGISIAN").stencil(8.5, tracking: 2)
+            Text(T("receipt.title")).stencil(8.5, tracking: 2)
                 .foregroundStyle(Pal.receiptInk.opacity(0.5))
             Text(session.place.name)
                 .font(.label(14, .bold)).foregroundStyle(Pal.receiptInk)
@@ -55,19 +55,19 @@ struct ReceiptSheet: View {
     private var rows: some View {
         VStack(spacing: 9) {
             Rectangle().fill(Pal.receiptInk.opacity(0.12)).frame(height: 1)
-            line("Kendaraan", session.vehicle.displayName)
-            line("Konektor", "\(session.unit.title) · \(session.unit.connector.label)")
-            line("Kode", session.unit.code)
-            line("Mulai", Self.stamp(session.startedAt))
-            line("Selesai", Self.stamp(ended))
-            line("Lama", Durasi.humane(session.elapsed()))
+            line(T("receipt.vehicle"), session.vehicle.displayName)
+            line(T("receipt.connector"), "\(session.unit.title) · \(session.unit.connector.label)")
+            line(T("receipt.code"), session.unit.code)
+            line(T("receipt.start"), Tanggal.longStamp(session.startedAt))
+            line(T("receipt.end"), Tanggal.longStamp(ended))
+            line(T("receipt.duration"), Durasi.humane(session.elapsed()))
             Rectangle().fill(Pal.receiptInk.opacity(0.12)).frame(height: 1)
-            line("Baterai", "\(Energi.persen(session.startSoC))% → \(Energi.persen(endSoC))%")
-            line("Listrik Masuk", "\(Energi.kwh(session.energy(at: ended), decimals: 2)) kWh")
-            line("Tambah Jarak", "\(session.addedKm(at: ended)) km")
-            line("Tarif", "\(Rupiah.decimal(session.unit.ratePerKwh))/kWh")
+            line(T("receipt.battery"), "\(Energi.persen(session.startSoC))% → \(Energi.persen(endSoC))%")
+            line(T("receipt.energyIn"), "\(Energi.kwh(session.energy(at: ended), decimals: 2)) kWh")
+            line(T("receipt.rangeAdded"), "\(session.addedKm(at: ended)) km")
+            line(T("receipt.rate"), "\(Rupiah.decimal(session.unit.ratePerKwh))/kWh")
             if session.unit.serviceFee > 0 {
-                line("Biaya Layanan", Rupiah.full(session.unit.serviceFee))
+                line(T("receipt.serviceFee"), Rupiah.full(session.unit.serviceFee))
             }
         }
         .padding(.horizontal, 20)
@@ -85,7 +85,7 @@ struct ReceiptSheet: View {
     private var total: some View {
         VStack(spacing: 13) {
             HStack(alignment: .firstTextBaseline) {
-                Text("TOTAL").stencil(10.5, tracking: 2).foregroundStyle(Pal.receiptInk.opacity(0.6))
+                Text(T("receipt.total")).stencil(10.5, tracking: 2).foregroundStyle(Pal.receiptInk.opacity(0.6))
                 Spacer()
                 PriceTag(value: session.cost(at: ended), size: 30, color: Pal.receiptInk)
             }
@@ -94,7 +94,7 @@ struct ReceiptSheet: View {
             Text(session.id.uuidString.prefix(18).uppercased())
                 .font(.system(size: 9, weight: .medium, design: .monospaced))
                 .foregroundStyle(Pal.receiptInk.opacity(0.4))
-            Text("Terima kasih sudah pakai listrik.")
+            Text(T("receipt.thanks"))
                 .font(.label(10)).foregroundStyle(Pal.receiptInk.opacity(0.45))
         }
         .padding(.horizontal, 20)
@@ -103,16 +103,10 @@ struct ReceiptSheet: View {
 
     private var closeButton: some View {
         SlabButton(tint: Pal.volt) { dismiss() } label: {
-            Text("Tutup").stencil(12.5, tracking: 1.6).foregroundStyle(Pal.void)
+            Text(T("common.close")).stencil(12.5, tracking: 1.6).foregroundStyle(Pal.void)
         }
     }
 
-    private static func stamp(_ d: Date) -> String {
-        let f = DateFormatter()
-        f.locale = Locale(identifier: "id_ID")
-        f.dateFormat = "d MMM yyyy, HH:mm"
-        return f.string(from: d)
-    }
 }
 
 /// Garis-garis barcode yang lebarnya ditentukan id sesi — jadi tiap struk

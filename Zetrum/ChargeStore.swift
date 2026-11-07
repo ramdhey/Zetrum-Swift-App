@@ -101,6 +101,18 @@ final class ChargeStore: ObservableObject {
     @Published var targetSoC: Double = 90                  { didSet { persistPrefs() } }
     @Published var tileStyle: TileStyle = .dark            { didSet { persistPrefs() } }
 
+    /// Bahasa antarmuka. Menyetel `Loc.lang` adalah yang membuat seluruh
+    /// teks berganti; sesi yang sedang berjalan langsung didorong ulang
+    /// supaya kartu di layar kunci ikut berganti tanpa menunggu detak.
+    @Published var lang: Lang = .indonesian {
+        didSet {
+            guard oldValue != lang else { return }
+            Loc.lang = lang
+            persistPrefs()
+            if let s = active { pushActivity(s, soc: s.soc(at: now)) }
+        }
+    }
+
     let locator = Locator()
 
     var vehicle: Vehicle { Catalog.vehicle(vehicleID) ?? Catalog.fallback }
@@ -291,7 +303,8 @@ final class ChargeStore: ObservableObject {
               cost: Charge.cost(session.plan, at: s),
               power: Charge.power(session.plan, at: s),
               finishAt: session.finishAt,
-              isDone: Charge.isDone(session.plan, at: s))
+              isDone: Charge.isDone(session.plan, at: s),
+              lang: lang.rawValue)
     }
 
     private func attributes(_ session: ChargeSession) -> ZetrumAttributes {
@@ -375,8 +388,9 @@ final class ChargeStore: ObservableObject {
         center.requestAuthorization(options: [.alert, .sound]) { granted, _ in
             guard granted else { return }
             let content = UNMutableNotificationContent()
-            content.title = "Pengisian selesai"
-            content.body = "\(name) sudah \(Energi.persen(session.targetSoC))% di \(session.place.name). Total \(Rupiah.full(session.cost(at: finish)))."
+            content.title = T("notify.title")
+            content.body = T("notify.body", name, Energi.persen(session.targetSoC),
+                             session.place.name, Rupiah.full(session.cost(at: finish)))
             content.sound = .default
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: wait, repeats: false)
             center.add(.init(identifier: "zetrum.full", content: content, trigger: trigger))
@@ -415,10 +429,14 @@ final class ChargeStore: ObservableObject {
         d.set(startSoC, forKey: "pref.startSoC")
         d.set(targetSoC, forKey: "pref.targetSoC")
         d.set(tileStyle.rawValue, forKey: "pref.tiles")
+        d.set(lang.rawValue, forKey: "pref.lang")
     }
 
     private func loadPrefs() {
         let d = UserDefaults.standard
+        // bahasanya dulu, supaya nilai lain yang ikut diformat sudah benar
+        lang = Lang(rawValue: d.string(forKey: "pref.lang") ?? "") ?? .indonesian
+        Loc.lang = lang
         vehicleID = d.string(forKey: "pref.vehicle") ?? Catalog.fallback.id
         nickname = d.string(forKey: "pref.nickname") ?? ""
         if d.object(forKey: "pref.startSoC") != nil { startSoC = d.double(forKey: "pref.startSoC") }

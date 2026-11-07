@@ -35,17 +35,18 @@ struct HomeScreen: View {
             BoltMark(size: 34)
             VStack(alignment: .leading, spacing: 2) {
                 Text("Zetrum").stencil(13, tracking: 2.6).foregroundStyle(Pal.ink)
-                Text(store.active == nil ? "Siap mengisi" :
-                        (store.isFull ? "Sudah penuh" : "Sedang mengisi"))
+                Text(store.active == nil ? T("app.ready") :
+                        (store.isFull ? T("app.full") : T("app.charging")))
                     .font(.label(11.5))
                     .foregroundStyle(store.active == nil ? Pal.inkMuted
                                      : (store.isFull ? Pal.ion : Pal.volt))
             }
-            Spacer()
+            Spacer(minLength: 6)
+            LangPill(lang: $store.lang)
             if store.active != nil {
                 Button(action: onOpenCharge) {
                     HStack(spacing: 6) {
-                        Text("Lihat").font(.label(12, .bold))
+                        Text(T("common.view")).font(.label(12, .bold))
                         Image(systemName: "arrow.up.right").font(.system(size: 10, weight: .bold))
                     }
                     .foregroundStyle(Pal.void)
@@ -101,7 +102,7 @@ struct HomeScreen: View {
                     socBlock
                     Rectangle().fill(Pal.line).frame(width: 1, height: 36)
                     VStack(spacing: 4) {
-                        Text("Perkiraan Jarak").stencil(8.5, tracking: 1.1).foregroundStyle(Pal.inkMuted)
+                        Text(T("home.estRange")).stencil(8.5, tracking: 1.1).foregroundStyle(Pal.inkMuted)
                         Text("\(Int((store.soc / 100 * Double(store.vehicle.rangeKm)).rounded())) km")
                             .font(.meter(17, .bold)).foregroundStyle(Pal.ink)
                     }
@@ -117,7 +118,7 @@ struct HomeScreen: View {
 
     private var socBlock: some View {
         VStack(spacing: 6) {
-            Text("Baterai Sekarang").stencil(8.5, tracking: 1.1).foregroundStyle(Pal.inkMuted)
+            Text(T("home.batteryNow")).stencil(8.5, tracking: 1.1).foregroundStyle(Pal.inkMuted)
             HStack(alignment: .firstTextBaseline, spacing: 2) {
                 Text("\(Energi.persen(store.soc))")
                     .font(.meter(17, .bold))
@@ -133,21 +134,21 @@ struct HomeScreen: View {
     private var monthCard: some View {
         VStack(spacing: 13) {
             HStack {
-                Text("Konsumsi Bulan Ini").stencil(10, tracking: 1.6).foregroundStyle(Pal.ink)
+                Text(T("home.monthTitle")).stencil(10, tracking: 1.6).foregroundStyle(Pal.ink)
                 Spacer()
-                Text(Self.monthName).font(.label(11, .semibold)).foregroundStyle(Pal.inkMuted)
+                Text(Tanggal.month()).font(.label(11, .semibold)).foregroundStyle(Pal.inkMuted)
             }
             MetricStrip(items: [
-                .init(caption: "Listrik Masuk", value: Energi.kwh(store.energyThisMonth), unit: "kWh"),
-                .init(caption: "Pengeluaran", value: Rupiah.plain(store.spentThisMonth), unit: "Rp",
+                .init(caption: T("home.energyIn"), value: Energi.kwh(store.energyThisMonth), unit: "kWh"),
+                .init(caption: T("home.spent"), value: Rupiah.plain(store.spentThisMonth), unit: "Rp",
                       tint: Pal.volt),
-                .init(caption: "Sesi", value: "\(store.sessionsThisMonth)", unit: "×"),
+                .init(caption: T("home.sessions"), value: "\(store.sessionsThisMonth)", unit: "×"),
             ])
             Rectangle().fill(Pal.line).frame(height: 1)
             HStack(spacing: 8) {
                 Image(systemName: "leaf.fill")
                     .font(.system(size: 11, weight: .bold)).foregroundStyle(Pal.ion)
-                Text("Emisi CO₂ yang tidak jadi keluar")
+                Text(T("home.co2"))
                     .font(.label(11.5)).foregroundStyle(Pal.inkMuted)
                 Spacer()
                 Text(Energi.kwh(store.co2SavedKg) + " kg")
@@ -159,26 +160,19 @@ struct HomeScreen: View {
         .overlay(RoundedRectangle(cornerRadius: 20, style: .continuous).stroke(Pal.line, lineWidth: 1))
     }
 
-    private static let monthName: String = {
-        let f = DateFormatter()
-        f.locale = Locale(identifier: "id_ID")
-        f.dateFormat = "MMMM yyyy"
-        return f.string(from: Date())
-    }()
-
     // MARK: Empat petak
 
     private var quickTiles: some View {
         VStack(alignment: .leading, spacing: 11) {
-            Text("Butuh isi daya?").font(.label(16, .bold)).foregroundStyle(Pal.ink)
+            Text(T("home.needCharge")).font(.label(16, .bold)).foregroundStyle(Pal.ink)
             HStack(spacing: 9) {
-                tile(count: "\(Zetrum.places.filter(\.hasDC).count)", caption: "SPKLU DC",
+                tile(count: "\(Zetrum.places.filter(\.hasDC).count)", caption: T("home.tileDC"),
                      symbol: "bolt.car.fill", tint: Pal.volt, action: onOpenMap)
-                tile(count: "\(Zetrum.places.count)", caption: "Semua Lokasi",
+                tile(count: "\(Zetrum.places.count)", caption: T("home.tileAll"),
                      symbol: "mappin.and.ellipse", tint: Pal.ion, action: onOpenMap)
-                tile(count: "\(Zetrum.places.reduce(0) { $0 + $1.available })", caption: "Konektor Siap",
+                tile(count: "\(Zetrum.places.reduce(0) { $0 + $1.available })", caption: T("home.tileFree"),
                      symbol: "powerplug.portrait.fill", tint: Pal.volt, action: onOpenMap)
-                tile(count: "\(Catalog.all.count)", caption: "Model EV",
+                tile(count: "\(Catalog.all.count)", caption: T("home.tileModels"),
                      symbol: "car.2.fill", tint: Pal.ion, action: onOpenGarage)
             }
         }
@@ -212,11 +206,11 @@ struct HomeScreen: View {
     private var nearbyBlock: some View {
         VStack(alignment: .leading, spacing: 11) {
             HStack {
-                Text("SPKLU Terdekat").font(.label(16, .bold)).foregroundStyle(Pal.ink)
+                Text(T("home.nearest")).font(.label(16, .bold)).foregroundStyle(Pal.ink)
                 Spacer()
                 Button(action: onOpenMap) {
                     HStack(spacing: 4) {
-                        Text("Lihat peta").font(.label(12, .semibold))
+                        Text(T("home.viewMap")).font(.label(12, .semibold))
                         Image(systemName: "chevron.right").font(.system(size: 9, weight: .bold))
                     }
                     .foregroundStyle(Pal.volt)
@@ -233,7 +227,7 @@ struct HomeScreen: View {
 
     private var homeCharging: some View {
         VStack(alignment: .leading, spacing: 12) {
-            SectionHead(title: "Pengisian di rumah")
+            SectionHead(title: T("home.homeCharging"))
             if let home = Zetrum.place("home"), let unit = home.units.first {
                 let est = store.estimate(for: unit)
                 HStack(spacing: 13) {
@@ -250,7 +244,7 @@ struct HomeScreen: View {
                     VStack(alignment: .trailing, spacing: 3) {
                         Text(est.duration.map(Durasi.tight) ?? "—")
                             .font(.meter(14, .bold)).foregroundStyle(Pal.ink)
-                        Text("ke \(Energi.persen(store.targetSoC))%")
+                        Text(T("home.toPercent", Energi.persen(store.targetSoC)))
                             .font(.label(10)).foregroundStyle(Pal.inkFaint)
                     }
                 }
@@ -263,12 +257,52 @@ struct HomeScreen: View {
     }
 
     private var attribution: some View {
-        Text("Lokasi SPKLU di aplikasi ini contoh, bukan data operasional PLN.")
+        Text(T("home.disclaimer"))
             .font(.label(10))
             .foregroundStyle(Pal.inkFaint)
             .multilineTextAlignment(.center)
             .frame(maxWidth: .infinity)
             .padding(.top, 4)
+    }
+}
+
+// MARK: - Ganti bahasa
+
+/// Dua segmen, ID dan EN, dengan penanda yang menggeser di belakangnya.
+/// Ditaruh di kepala Beranda karena ini layar pertama yang dibuka — kalau
+/// disembunyikan di pengaturan, orang harus mencari dulu.
+private struct LangPill: View {
+    @Binding var lang: Lang
+    @Namespace private var slot
+
+    var body: some View {
+        HStack(spacing: 0) {
+            ForEach(Lang.allCases) { l in
+                let on = lang == l
+                Text(l.short)
+                    .font(.label(10.5, .bold))
+                    .foregroundStyle(on ? Pal.void : Pal.inkMuted)
+                    .frame(width: 27, height: 24)
+                    .background {
+                        if on {
+                            Capsule().fill(Pal.volt)
+                                .matchedGeometryEffect(id: "langslot", in: slot)
+                        }
+                    }
+                    .contentShape(Capsule())
+                    .onTapGesture {
+                        guard !on else { return }
+                        Haptic.tick()
+                        withAnimation(.spring(response: 0.32, dampingFraction: 0.82)) {
+                            lang = l
+                        }
+                    }
+                    .accessibilityLabel(l.label)
+            }
+        }
+        .padding(2)
+        .background(Capsule().fill(Pal.slab))
+        .overlay(Capsule().stroke(Pal.line, lineWidth: 1))
     }
 }
 
@@ -303,11 +337,11 @@ struct PlaceRow: View {
                             Text(Jarak.near(d)).font(.label(10)).foregroundStyle(Pal.inkFaint)
                         }
                         Text("·").foregroundStyle(Pal.inkFaint)
-                        Text(place.open24 ? "24 Jam" : place.hours)
+                        Text(place.hoursLabel)
                             .font(.label(10)).foregroundStyle(Pal.inkFaint)
                     }
                     HStack(spacing: 5) {
-                        Text("\(place.available)/\(place.totalUnits) konektor")
+                        Text(T("place.connectors", place.available, place.totalUnits))
                             .font(.label(10.5, .semibold))
                             .foregroundStyle(place.available == 0 ? Pal.alarm : Pal.volt)
                         if place.hasDC {

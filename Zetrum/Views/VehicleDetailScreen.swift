@@ -56,7 +56,7 @@ struct VehicleDetailScreen: View {
                 Chip(text: vehicle.kind.label, symbol: vehicle.kind.symbol)
                 Chip(text: vehicle.style.label)
                 if vehicle.dcMaxKW > 0 {
-                    Chip(text: "Isi Cepat DC", symbol: "bolt.fill", on: true)
+                    Chip(text: T("vehicle.fastDC"), symbol: "bolt.fill", on: true)
                 }
             }
         }
@@ -66,20 +66,20 @@ struct VehicleDetailScreen: View {
     private var specs: some View {
         VStack(spacing: 12) {
             MetricStrip(items: [
-                .init(caption: "Baterai", value: Energi.kwh(vehicle.batteryKWh), unit: "kWh",
+                .init(caption: T("vehicle.battery"), value: Energi.kwh(vehicle.batteryKWh), unit: "kWh",
                       tint: Pal.volt),
-                .init(caption: "Jarak Klaim", value: "\(vehicle.rangeKm)", unit: "km"),
-                .init(caption: "Efisiensi", value: Energi.kwh(vehicle.kmPerKwh), unit: "km/kWh",
+                .init(caption: T("vehicle.claimedRange"), value: "\(vehicle.rangeKm)", unit: "km"),
+                .init(caption: T("vehicle.efficiency"), value: Energi.kwh(vehicle.kmPerKwh), unit: "km/kWh",
                       tint: Pal.ion),
             ])
             Rectangle().fill(Pal.line).frame(height: 1)
             MetricStrip(items: [
-                .init(caption: "AC Maks", value: Daya.kw(vehicle.acMaxKW), unit: "kW"),
-                .init(caption: "DC Maks",
+                .init(caption: T("vehicle.acMax"), value: Daya.kw(vehicle.acMaxKW), unit: "kW"),
+                .init(caption: T("vehicle.dcMax"),
                       value: vehicle.dcMaxKW > 0 ? Daya.kw(vehicle.dcMaxKW) : "—",
                       unit: vehicle.dcMaxKW > 0 ? "kW" : nil,
                       tint: vehicle.dcMaxKW > 0 ? Pal.volt : Pal.inkFaint),
-                .init(caption: "Isi 0–100%",
+                .init(caption: T("vehicle.zeroToFull"),
                       value: Durasi.tight(fullTime), unit: nil),
             ])
         }
@@ -98,14 +98,14 @@ struct VehicleDetailScreen: View {
 
     private var ports: some View {
         VStack(alignment: .leading, spacing: 11) {
-            SectionHead(title: "Soket")
+            SectionHead(title: T("vehicle.ports"))
             HStack(spacing: 10) {
                 ForEach(vehicle.ports) { c in
                     HStack(spacing: 10) {
                         SocketGlyph(kind: c.glyph, size: 28, tint: c.isDC ? Pal.volt : Pal.ion)
                         VStack(alignment: .leading, spacing: 2) {
                             Text(c.label).font(.label(12.5, .bold)).foregroundStyle(Pal.ink)
-                            Text(c.isDC ? "Pengisian cepat" : "Pengisian harian")
+                            Text(c.isDC ? T("vehicle.fastPort") : T("vehicle.dailyPort"))
                                 .font(.label(10)).foregroundStyle(Pal.inkMuted)
                         }
                         Spacer(minLength: 0)
@@ -125,7 +125,7 @@ struct VehicleDetailScreen: View {
     /// betulan, jadi angkanya konsisten.
     private var chargeTable: some View {
         VStack(alignment: .leading, spacing: 11) {
-            SectionHead(title: "Lama isi 20% → 80%")
+            SectionHead(title: T("vehicle.tableTitle"))
             VStack(spacing: 8) {
                 ForEach(rungs, id: \.self) { kw in
                     let isDC = kw >= 25
@@ -158,7 +158,7 @@ struct VehicleDetailScreen: View {
                         }
                         .frame(height: 22)
 
-                        Text(usable ? Durasi.tight(Charge.time(plan, toReach: 80) ?? 0) : "tidak bisa")
+                        Text(usable ? Durasi.tight(Charge.time(plan, toReach: 80) ?? 0) : T("vehicle.notSupported"))
                             .font(.meter(12.5, .bold))
                             .foregroundStyle(usable ? Pal.ink : Pal.inkFaint)
                             .frame(width: 62, alignment: .trailing)
@@ -169,7 +169,7 @@ struct VehicleDetailScreen: View {
             .background(RoundedRectangle(cornerRadius: 18, style: .continuous).fill(Pal.surface))
             .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous).stroke(Pal.line, lineWidth: 1))
 
-            Text("Kalau mobilnya cuma sanggup menerima daya lebih kecil dari kotaknya, yang dipakai kemampuan mobilnya — itu sebabnya beberapa baris waktunya sama.")
+            Text(T("vehicle.tableNote"))
                 .font(.label(10)).foregroundStyle(Pal.inkFaint)
                 .fixedSize(horizontal: false, vertical: true)
         }
@@ -185,7 +185,7 @@ struct VehicleDetailScreen: View {
             HStack(spacing: 9) {
                 Image(systemName: vehicle.id == store.vehicleID ? "checkmark" : "key.fill")
                     .font(.system(size: 13, weight: .bold))
-                Text(vehicle.id == store.vehicleID ? "Ini kendaraan saya" : "Jadikan kendaraan saya")
+                Text(vehicle.id == store.vehicleID ? T("vehicle.isMine") : T("vehicle.makeMine"))
                     .stencil(12.5, tracking: 1.4)
             }
             .foregroundStyle(vehicle.id == store.vehicleID ? Pal.inkFaint : Pal.void)
