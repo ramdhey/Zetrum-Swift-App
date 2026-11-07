@@ -1,0 +1,527 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		869845899E9F2ED24F90F06F /* ParkingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F8955D176D667B967DBFA1 /* ParkingStore.swift */; };
+		C6AF0604FE708AFF10A6B523 /* ParkirMeterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81E9D86905110088B723AE9 /* ParkirMeterApp.swift */; };
+		899EA6A0A3272B02B05EF010 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38137220EBC290A943947A29 /* Theme.swift */; };
+		68B8282FA7DFC8EB3AC4129C /* ActiveMeterCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E71284DA3DD8CB02709635F /* ActiveMeterCard.swift */; };
+		0357E0B6C9BFB53E97F6D63A /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC67F7A78EA0425131BDB83B /* HistoryView.swift */; };
+		E6E8DAEC15D24664B8FDD15F /* ReceiptSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E6960028B26304C6091EE7 /* ReceiptSheet.swift */; };
+		F18550AC704E902CE634C348 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D46544EA92A4F8E4E182DAA /* RootView.swift */; };
+		C792D2DBD3C2970115CFE231 /* StartCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E35438E7D34FB02A0D00968 /* StartCard.swift */; };
+		266D4ED6947C1E1F7573BABB /* Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EB443D85301B1E35F20B94 /* Controls.swift */; };
+		97CB590EBBF17D70EB5183BF /* Billing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E183942516965B93E61B92 /* Billing.swift */; };
+		2E6305FC86994368E30A2301 /* Odometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C29BF5C86182162C6FA8F /* Odometer.swift */; };
+		C295A7006B8486309731AE75 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE473EC0A9C7C4D27722F067 /* Palette.swift */; };
+		222BC3CB3E2B6D33BBEBB557 /* ParkirAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54AAB5EFA65D3384357AE350 /* ParkirAttributes.swift */; };
+		4D087D17B1B5EEBE1D16EEB4 /* TicketShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2CDF3EC0EE89EAB14DA784 /* TicketShape.swift */; };
+		019FC925AEF8D97297709ADD /* Billing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E183942516965B93E61B92 /* Billing.swift */; };
+		AB49903D19626587457CCF71 /* Odometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C29BF5C86182162C6FA8F /* Odometer.swift */; };
+		5788D4B6F4D413A24CB7AB44 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE473EC0A9C7C4D27722F067 /* Palette.swift */; };
+		A581E92983236C78E950E824 /* ParkirAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54AAB5EFA65D3384357AE350 /* ParkirAttributes.swift */; };
+		C86C759FB17A0379FA317418 /* TicketShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2CDF3EC0EE89EAB14DA784 /* TicketShape.swift */; };
+		A223EED3AD756399A784A144 /* ParkirLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789BB4EAB0129CD6FBEE7E07 /* ParkirLiveActivity.swift */; };
+		AE369E1F975C83EF86232CF3 /* ParkirMeterWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEDBA6D96F5B38CF727A3B1 /* ParkirMeterWidgetBundle.swift */; };
+		01526A24B276A2612A11C856 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BFF2CAD1E3FD3BFE11A2C05 /* Assets.xcassets */; };
+		9105A2A74DC23F63AE4216C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 694678DEBE7080D89C417558 /* Assets.xcassets */; };
+		11166DEF8DB0B39F2EDDA2B4 /* ParkirMeterWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1B442E42980596EBCD246D51 /* ParkirMeterWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		99E6A51DA0B86FE48AEB34ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0661F517A86C8F5C87C0EDBA;
+			remoteInfo = ParkirMeterWidget;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BAE1492BDE49D13FF7E211EB /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				11166DEF8DB0B39F2EDDA2B4 /* ParkirMeterWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		44F8955D176D667B967DBFA1 /* ParkingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingStore.swift; sourceTree = "<group>"; };
+		E81E9D86905110088B723AE9 /* ParkirMeterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkirMeterApp.swift; sourceTree = "<group>"; };
+		38137220EBC290A943947A29 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		1E71284DA3DD8CB02709635F /* ActiveMeterCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveMeterCard.swift; sourceTree = "<group>"; };
+		AC67F7A78EA0425131BDB83B /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		E0E6960028B26304C6091EE7 /* ReceiptSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptSheet.swift; sourceTree = "<group>"; };
+		8D46544EA92A4F8E4E182DAA /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		0E35438E7D34FB02A0D00968 /* StartCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartCard.swift; sourceTree = "<group>"; };
+		C2EB443D85301B1E35F20B94 /* Controls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controls.swift; sourceTree = "<group>"; };
+		65E183942516965B93E61B92 /* Billing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Billing.swift; sourceTree = "<group>"; };
+		553C29BF5C86182162C6FA8F /* Odometer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Odometer.swift; sourceTree = "<group>"; };
+		AE473EC0A9C7C4D27722F067 /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
+		54AAB5EFA65D3384357AE350 /* ParkirAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkirAttributes.swift; sourceTree = "<group>"; };
+		CE2CDF3EC0EE89EAB14DA784 /* TicketShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketShape.swift; sourceTree = "<group>"; };
+		789BB4EAB0129CD6FBEE7E07 /* ParkirLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkirLiveActivity.swift; sourceTree = "<group>"; };
+		5FEDBA6D96F5B38CF727A3B1 /* ParkirMeterWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkirMeterWidgetBundle.swift; sourceTree = "<group>"; };
+		2BFF2CAD1E3FD3BFE11A2C05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		694678DEBE7080D89C417558 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		524417CECEDB4E23B3BC5B5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84337AD8D27FCD69AF2C4FC2 /* ParkirMeter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ParkirMeter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B442E42980596EBCD246D51 /* ParkirMeterWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ParkirMeterWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7474A5C8E96C1348E89AD3F7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6AFB186A7C285FE352D4029 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		29AC9F3F890EAF73DB9E7C81 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1E71284DA3DD8CB02709635F /* ActiveMeterCard.swift */,
+				AC67F7A78EA0425131BDB83B /* HistoryView.swift */,
+				E0E6960028B26304C6091EE7 /* ReceiptSheet.swift */,
+				8D46544EA92A4F8E4E182DAA /* RootView.swift */,
+				0E35438E7D34FB02A0D00968 /* StartCard.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		780EE9A9AA4F92A4376E50B9 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				C2EB443D85301B1E35F20B94 /* Controls.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		82CF2A43A7100F086D7FCFDD /* ParkirMeter */ = {
+			isa = PBXGroup;
+			children = (
+				44F8955D176D667B967DBFA1 /* ParkingStore.swift */,
+				E81E9D86905110088B723AE9 /* ParkirMeterApp.swift */,
+				38137220EBC290A943947A29 /* Theme.swift */,
+				780EE9A9AA4F92A4376E50B9 /* Components */,
+				29AC9F3F890EAF73DB9E7C81 /* Views */,
+				2BFF2CAD1E3FD3BFE11A2C05 /* Assets.xcassets */,
+			);
+			path = ParkirMeter;
+			sourceTree = "<group>";
+		};
+		EC21069A65F2CA977FE14A64 /* ParkirMeterWidget */ = {
+			isa = PBXGroup;
+			children = (
+				789BB4EAB0129CD6FBEE7E07 /* ParkirLiveActivity.swift */,
+				5FEDBA6D96F5B38CF727A3B1 /* ParkirMeterWidgetBundle.swift */,
+				694678DEBE7080D89C417558 /* Assets.xcassets */,
+				524417CECEDB4E23B3BC5B5E /* Info.plist */,
+			);
+			path = ParkirMeterWidget;
+			sourceTree = "<group>";
+		};
+		9CB302E9C7F6377B351DBEAB /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				65E183942516965B93E61B92 /* Billing.swift */,
+				553C29BF5C86182162C6FA8F /* Odometer.swift */,
+				AE473EC0A9C7C4D27722F067 /* Palette.swift */,
+				54AAB5EFA65D3384357AE350 /* ParkirAttributes.swift */,
+				CE2CDF3EC0EE89EAB14DA784 /* TicketShape.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		547D009064F7C3F13BEF3460 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				84337AD8D27FCD69AF2C4FC2 /* ParkirMeter.app */,
+				1B442E42980596EBCD246D51 /* ParkirMeterWidget.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B9340614599AB78F485950C7 /*  */ = {
+			isa = PBXGroup;
+			children = (
+				82CF2A43A7100F086D7FCFDD /* ParkirMeter */,
+				EC21069A65F2CA977FE14A64 /* ParkirMeterWidget */,
+				9CB302E9C7F6377B351DBEAB /* Shared */,
+				547D009064F7C3F13BEF3460 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E3435DDA2687639586BF0B70 /* ParkirMeter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4CB0E4AA83B40D38FF8F334 /* Build configuration list for PBXNativeTarget "ParkirMeter" */;
+			buildPhases = (
+				5571684F9A425F0063410106 /* Sources */,
+				7474A5C8E96C1348E89AD3F7 /* Frameworks */,
+				4A7038E4A87C41D16E1411BF /* Resources */,
+				BAE1492BDE49D13FF7E211EB /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EE1DEC3FECAFB049B3EB4C70 /* PBXTargetDependency */,
+			);
+			name = ParkirMeter;
+			productName = ParkirMeter;
+			productReference = 84337AD8D27FCD69AF2C4FC2 /* ParkirMeter.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0661F517A86C8F5C87C0EDBA /* ParkirMeterWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 856DC6E0C4E8393DD2C7ED02 /* Build configuration list for PBXNativeTarget "ParkirMeterWidget" */;
+			buildPhases = (
+				03D88BB2B8E2C9E4434C4D70 /* Sources */,
+				B6AFB186A7C285FE352D4029 /* Frameworks */,
+				8E553BC4678BB10ACDC7F1AE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ParkirMeterWidget;
+			productName = ParkirMeterWidget;
+			productReference = 1B442E42980596EBCD246D51 /* ParkirMeterWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		46F86FAA6BBF9AC94A7E4595 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					E3435DDA2687639586BF0B70 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					0661F517A86C8F5C87C0EDBA = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = AE883439A53704486338BDB1 /* Build configuration list for PBXProject "ParkirMeter" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B9340614599AB78F485950C7;
+			productRefGroup = 547D009064F7C3F13BEF3460 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E3435DDA2687639586BF0B70 /* ParkirMeter */,
+				0661F517A86C8F5C87C0EDBA /* ParkirMeterWidget */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4A7038E4A87C41D16E1411BF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01526A24B276A2612A11C856 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E553BC4678BB10ACDC7F1AE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9105A2A74DC23F63AE4216C3 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5571684F9A425F0063410106 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				869845899E9F2ED24F90F06F /* ParkingStore.swift in Sources */,
+				C6AF0604FE708AFF10A6B523 /* ParkirMeterApp.swift in Sources */,
+				899EA6A0A3272B02B05EF010 /* Theme.swift in Sources */,
+				266D4ED6947C1E1F7573BABB /* Controls.swift in Sources */,
+				68B8282FA7DFC8EB3AC4129C /* ActiveMeterCard.swift in Sources */,
+				0357E0B6C9BFB53E97F6D63A /* HistoryView.swift in Sources */,
+				E6E8DAEC15D24664B8FDD15F /* ReceiptSheet.swift in Sources */,
+				F18550AC704E902CE634C348 /* RootView.swift in Sources */,
+				C792D2DBD3C2970115CFE231 /* StartCard.swift in Sources */,
+				97CB590EBBF17D70EB5183BF /* Billing.swift in Sources */,
+				2E6305FC86994368E30A2301 /* Odometer.swift in Sources */,
+				C295A7006B8486309731AE75 /* Palette.swift in Sources */,
+				222BC3CB3E2B6D33BBEBB557 /* ParkirAttributes.swift in Sources */,
+				4D087D17B1B5EEBE1D16EEB4 /* TicketShape.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03D88BB2B8E2C9E4434C4D70 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A223EED3AD756399A784A144 /* ParkirLiveActivity.swift in Sources */,
+				AE369E1F975C83EF86232CF3 /* ParkirMeterWidgetBundle.swift in Sources */,
+				019FC925AEF8D97297709ADD /* Billing.swift in Sources */,
+				AB49903D19626587457CCF71 /* Odometer.swift in Sources */,
+				5788D4B6F4D413A24CB7AB44 /* Palette.swift in Sources */,
+				A581E92983236C78E950E824 /* ParkirAttributes.swift in Sources */,
+				C86C759FB17A0379FA317418 /* TicketShape.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EE1DEC3FECAFB049B3EB4C70 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0661F517A86C8F5C87C0EDBA /* ParkirMeterWidget */;
+			targetProxy = 99E6A51DA0B86FE48AEB34ED /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		C19BB360D63F1BA9F02BAB59 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		88A29AB70C762FCDF6D9A1D3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		91B8F6FB95707A0AB87A87F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Parkir Meter";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_NSSupportsLiveActivitiesFrequentUpdates = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.id.trikala.parkirmeter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BB071F776B40F4837F61A6A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Parkir Meter";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_NSSupportsLiveActivitiesFrequentUpdates = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.id.trikala.parkirmeter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B42163DECE77CBD0EADC3954 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Parkir Meter";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_FILE = ParkirMeterWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.id.trikala.parkirmeter.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A6CB7D0C1CF106E260C49D55 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Parkir Meter";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_FILE = ParkirMeterWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.id.trikala.parkirmeter.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AE883439A53704486338BDB1 /* Build configuration list for PBXProject "ParkirMeter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C19BB360D63F1BA9F02BAB59 /* Debug */,
+				88A29AB70C762FCDF6D9A1D3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4CB0E4AA83B40D38FF8F334 /* Build configuration list for PBXNativeTarget "ParkirMeter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91B8F6FB95707A0AB87A87F1 /* Debug */,
+				BB071F776B40F4837F61A6A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		856DC6E0C4E8393DD2C7ED02 /* Build configuration list for PBXNativeTarget "ParkirMeterWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B42163DECE77CBD0EADC3954 /* Debug */,
+				A6CB7D0C1CF106E260C49D55 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
+}
