@@ -6,7 +6,7 @@ struct ZetrumApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView()
+            ShellView()
                 .environmentObject(store)
                 .preferredColorScheme(.dark)
         }

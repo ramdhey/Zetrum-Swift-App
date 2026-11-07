@@ -1,53 +1,5 @@
 import Foundation
 
-// MARK: - Soket
-
-enum Connector: String, Codable, Hashable {
-    case dc   // CCS2, pengisian cepat
-    case ac   // Type 2, pengisian lambat
-
-    var label: String { self == .dc ? "DC CCS2" : "AC Type 2" }
-
-    /// Seberapa jauh daya turun saat baterai mendekati penuh.
-    /// Pengisian cepat melandai tajam di atas 80%; AC hampir tidak.
-    var taperFloor: Double { self == .dc ? 0.18 : 0.60 }
-}
-
-// MARK: - SPKLU Zetrum
-
-struct Station: Codable, Hashable, Identifiable {
-    var id: String
-    var name: String
-    var area: String
-    var connector: Connector
-    var ratedKW: Double
-    var ratePerKwh: Int
-
-    var powerLabel: String {
-        let s = ratedKW.truncatingRemainder(dividingBy: 1) == 0
-            ? String(Int(ratedKW))
-            : String(format: "%.1f", ratedKW).replacingOccurrences(of: ".", with: ",")
-        return s + " kW"
-    }
-
-    static let all: [Station] = [
-        .init(id: "home",     name: "Zetrum Home",        area: "Pengisian di rumah",
-              connector: .ac, ratedKW: 7.4,  ratePerKwh: 1_450),
-        .init(id: "sutera",   name: "Zetrum Alam Sutera", area: "Tangerang Selatan",
-              connector: .ac, ratedKW: 22,   ratePerKwh: 1_650),
-        .init(id: "senayan",  name: "Zetrum Senayan",     area: "Jakarta Pusat",
-              connector: .dc, ratedKW: 60,   ratePerKwh: 2_475),
-        .init(id: "kuningan", name: "Zetrum Kuningan",    area: "Jakarta Selatan",
-              connector: .dc, ratedKW: 120,  ratePerKwh: 2_475),
-        .init(id: "km57",     name: "Zetrum Rest Area 57",area: "Tol Jakarta–Cikampek",
-              connector: .dc, ratedKW: 200,  ratePerKwh: 3_700),
-    ]
-
-    static let fallback = Station.all[2]
-}
-
-// MARK: - Perhitungan pengisian
-
 /// Daya pengisian tidak rata: penuh sampai 80%, lalu melandai supaya sel
 /// tidak rusak. Semua rumus di sini punya bentuk tertutup — artinya waktu
 /// selesai bisa dihitung sekali di depan, lalu Live Activity tinggal
@@ -64,9 +16,12 @@ enum Charge {
         var capacityKWh: Double
         var startSoC: Double
         var targetSoC: Double
+        /// Daya yang betul-betul mengalir: yang terkecil antara kemampuan
+        /// charger dan kemampuan mobilnya menerima.
         var ratedKW: Double
         var taperFloor: Double
-        var ratePerKwh: Int
+        var ratePerKwh: Double
+        var serviceFee: Int
 
         /// Persen per jam saat daya penuh.
         var a: Double { capacityKWh > 0 ? 100 * ratedKW / capacityKWh : 0 }
@@ -121,9 +76,15 @@ enum Charge {
         max(0, soc - p.startSoC) / 100 * p.capacityKWh
     }
 
-    static func cost(_ p: Plan, at soc: Double) -> Int {
-        let raw = energy(p, at: soc) * Double(p.ratePerKwh)
+    /// Biaya listrik saja, belum termasuk biaya layanan.
+    static func energyCost(_ p: Plan, at soc: Double) -> Int {
+        let raw = energy(p, at: soc) * p.ratePerKwh
         return Int((raw / 50).rounded()) * 50      // dibulatkan ke 50 perak
+    }
+
+    /// Yang betul-betul dibayar.
+    static func cost(_ p: Plan, at soc: Double) -> Int {
+        energyCost(p, at: soc) + (energy(p, at: soc) > 0 ? p.serviceFee : 0)
     }
 
     /// Daya yang mengalir sekarang, sudah ikut melandai.

@@ -77,9 +77,12 @@ private struct LockScreenCard: View {
                     Text(attributes.stationName)
                         .font(.label(12.5, .bold))
                         .foregroundStyle(Pal.ink)
-                    Text(attributes.carName)
-                        .font(.label(10))
-                        .foregroundStyle(Pal.inkMuted)
+                    HStack(spacing: 4) {
+                        Image(systemName: attributes.isBike ? "scooter" : "car.fill")
+                            .font(.system(size: 8, weight: .bold))
+                        Text(attributes.carName).font(.label(10))
+                    }
+                    .foregroundStyle(Pal.inkMuted)
                 }
                 Spacer()
                 Text(attributes.powerLabel)

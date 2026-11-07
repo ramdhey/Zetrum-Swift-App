@@ -10,23 +10,40 @@
 		43ED8726845EAAE14446D9F9 /* ChargeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6AB4CD380017CF065F4A39 /* ChargeStore.swift */; };
 		8763ADCD0F364FEE91657DD5 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADBE7F913D4216E20F32D2B /* Theme.swift */; };
 		3979823ED4263D57AF0E6EE8 /* ZetrumApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1EF5AF957BC91139DE48CF /* ZetrumApp.swift */; };
-		94735F0F83ECB1D1AE6C449C /* ActiveChargeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C31F51F91A7255DE1633053 /* ActiveChargeCard.swift */; };
-		03C048C64631B2F7EA98CF5E /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100DEC1AAE281ECCD6B372DB /* HistoryView.swift */; };
+		82C9F998CB6FB5ECB95C7E85 /* ChargingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D61AD0DD348C44CED1D8EF /* ChargingScreen.swift */; };
+		49D0970691645EBEC9EFDBB6 /* ConfirmSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05E4D54A1F083CA6EF4484A /* ConfirmSheet.swift */; };
+		E0A774B62CCCC90AC654F367 /* GarageScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBACB8A3358299A0A3DD029 /* GarageScreen.swift */; };
+		183CE6D468E55BF64019DB12 /* HistoryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C87094A751372331409BFF /* HistoryScreen.swift */; };
+		F923DC3C1750C843C26A41C8 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D19F5F65ACF920484E106F7 /* HomeScreen.swift */; };
+		B7B6AB7C8AE82621D28F77AB /* MapScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEA0645AE6FF9842E149818 /* MapScreen.swift */; };
 		661FE386EC6D0DD3383BCE03 /* ReceiptSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0972E28180E05BCB3D1FCF /* ReceiptSheet.swift */; };
-		220D524EAFC60F8EFF12AF19 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416960231628714C3672C5CF /* RootView.swift */; };
-		3932721DF450051907F2E6A0 /* SetupCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9B2409CF21C8E158F095AB /* SetupCard.swift */; };
+		F26A1AE4D16F3BC8CD553414 /* ScanScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E34BF81F3388DEB98F11D40 /* ScanScreen.swift */; };
+		BB1702BBE43F2D2E2AC4312D /* ShellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0E088574889462878577D5 /* ShellView.swift */; };
+		7F27EF72BE7EB80F79648C7B /* StationDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9681CE9E0DECB2185E2B48 /* StationDetailScreen.swift */; };
+		C4F3E3115C66CA7B83A7F66E /* VehicleDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001E641916A9E0EACBA1E903 /* VehicleDetailScreen.swift */; };
 		69BF0029F9F7DFB70B27CCC7 /* Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C3D8FD1261135399398A40 /* Controls.swift */; };
+		05019FD272BF0C820B66C39A /* OSMMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B59AF8BF8ABAAEA996D3B8 /* OSMMapView.swift */; };
+		FBC96819497F66E6BD73DB40 /* Catalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFA7620CDE339C503C98281 /* Catalog.swift */; };
 		6ABFF61642C77827DD9C10F5 /* Charging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A03CE6DEF7A7379FD7B834 /* Charging.swift */; };
 		FC3097C97A38D09055F6F089 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE1F2C7BD69E21AA22DCC4C /* Format.swift */; };
+		2A5239962E5EB2782418A3C5 /* Glyphs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3737D7446A3CDDBAC667085F /* Glyphs.swift */; };
 		DB06A1C2D70C160EDBBDC544 /* Odometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C29BF5C86182162C6FA8F /* Odometer.swift */; };
 		131238A8B4C256723783A389 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE473EC0A9C7C4D27722F067 /* Palette.swift */; };
+		B6D51AC022F8B7B04FB7933D /* PlaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE99A58F0AED19F175E5C00 /* PlaceData.swift */; };
+		9792EBE81FB8F6CB63B2ED67 /* Places.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6EC5784F54A751221ED85C /* Places.swift */; };
 		824DA95A542A6F7628C4EFE3 /* TicketShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2CDF3EC0EE89EAB14DA784 /* TicketShape.swift */; };
+		E345915643D4ACB4E193C5CB /* Vehicles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B1CFFD985408B697BFD1EF /* Vehicles.swift */; };
 		FF96D75A7E56E099573038F0 /* ZetrumAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58836A9A8B7ECC86EA5142FF /* ZetrumAttributes.swift */; };
+		A6FAD8FC2573E10971F637AA /* Catalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFA7620CDE339C503C98281 /* Catalog.swift */; };
 		818324411EF0B5A3382CC986 /* Charging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A03CE6DEF7A7379FD7B834 /* Charging.swift */; };
 		1425FE26481D76886A49375C /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE1F2C7BD69E21AA22DCC4C /* Format.swift */; };
+		FE37283F5872AA67BBCC6932 /* Glyphs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3737D7446A3CDDBAC667085F /* Glyphs.swift */; };
 		AD103D213EE2BE642ECD3A57 /* Odometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C29BF5C86182162C6FA8F /* Odometer.swift */; };
 		9D09C4832C1853A23F2BACD9 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE473EC0A9C7C4D27722F067 /* Palette.swift */; };
+		5440A69E02EC78999546DCD4 /* PlaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE99A58F0AED19F175E5C00 /* PlaceData.swift */; };
+		8A3AFE252ED4056E0069F7FB /* Places.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6EC5784F54A751221ED85C /* Places.swift */; };
 		CCCE5F56B989019B7ABA057A /* TicketShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2CDF3EC0EE89EAB14DA784 /* TicketShape.swift */; };
+		8A6F0B78C8D09F8907ED05B8 /* Vehicles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B1CFFD985408B697BFD1EF /* Vehicles.swift */; };
 		273C721938874D84ED2A7C76 /* ZetrumAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58836A9A8B7ECC86EA5142FF /* ZetrumAttributes.swift */; };
 		298225DB987C5CEF9D8B2C86 /* ZetrumLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA97698BEB22C1D1BA13DC61 /* ZetrumLiveActivity.swift */; };
 		3AA1F82D3A9C17E944954A00 /* ZetrumWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9DF08F8372AB4D7CFCB84F /* ZetrumWidgetBundle.swift */; };
@@ -63,17 +80,29 @@
 		9E6AB4CD380017CF065F4A39 /* ChargeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeStore.swift; sourceTree = "<group>"; };
 		3ADBE7F913D4216E20F32D2B /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		8C1EF5AF957BC91139DE48CF /* ZetrumApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZetrumApp.swift; sourceTree = "<group>"; };
-		6C31F51F91A7255DE1633053 /* ActiveChargeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveChargeCard.swift; sourceTree = "<group>"; };
-		100DEC1AAE281ECCD6B372DB /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		A4D61AD0DD348C44CED1D8EF /* ChargingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingScreen.swift; sourceTree = "<group>"; };
+		F05E4D54A1F083CA6EF4484A /* ConfirmSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmSheet.swift; sourceTree = "<group>"; };
+		CDBACB8A3358299A0A3DD029 /* GarageScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageScreen.swift; sourceTree = "<group>"; };
+		A3C87094A751372331409BFF /* HistoryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryScreen.swift; sourceTree = "<group>"; };
+		3D19F5F65ACF920484E106F7 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
+		8BEA0645AE6FF9842E149818 /* MapScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScreen.swift; sourceTree = "<group>"; };
 		AD0972E28180E05BCB3D1FCF /* ReceiptSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptSheet.swift; sourceTree = "<group>"; };
-		416960231628714C3672C5CF /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
-		BF9B2409CF21C8E158F095AB /* SetupCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupCard.swift; sourceTree = "<group>"; };
+		9E34BF81F3388DEB98F11D40 /* ScanScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanScreen.swift; sourceTree = "<group>"; };
+		0F0E088574889462878577D5 /* ShellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShellView.swift; sourceTree = "<group>"; };
+		FD9681CE9E0DECB2185E2B48 /* StationDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationDetailScreen.swift; sourceTree = "<group>"; };
+		001E641916A9E0EACBA1E903 /* VehicleDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleDetailScreen.swift; sourceTree = "<group>"; };
 		51C3D8FD1261135399398A40 /* Controls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controls.swift; sourceTree = "<group>"; };
+		C9B59AF8BF8ABAAEA996D3B8 /* OSMMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSMMapView.swift; sourceTree = "<group>"; };
+		3AFA7620CDE339C503C98281 /* Catalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Catalog.swift; sourceTree = "<group>"; };
 		94A03CE6DEF7A7379FD7B834 /* Charging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charging.swift; sourceTree = "<group>"; };
 		3FE1F2C7BD69E21AA22DCC4C /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
+		3737D7446A3CDDBAC667085F /* Glyphs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Glyphs.swift; sourceTree = "<group>"; };
 		553C29BF5C86182162C6FA8F /* Odometer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Odometer.swift; sourceTree = "<group>"; };
 		AE473EC0A9C7C4D27722F067 /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
+		CFE99A58F0AED19F175E5C00 /* PlaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceData.swift; sourceTree = "<group>"; };
+		4C6EC5784F54A751221ED85C /* Places.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Places.swift; sourceTree = "<group>"; };
 		CE2CDF3EC0EE89EAB14DA784 /* TicketShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketShape.swift; sourceTree = "<group>"; };
+		D5B1CFFD985408B697BFD1EF /* Vehicles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicles.swift; sourceTree = "<group>"; };
 		58836A9A8B7ECC86EA5142FF /* ZetrumAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZetrumAttributes.swift; sourceTree = "<group>"; };
 		CA97698BEB22C1D1BA13DC61 /* ZetrumLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZetrumLiveActivity.swift; sourceTree = "<group>"; };
 		4A9DF08F8372AB4D7CFCB84F /* ZetrumWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZetrumWidgetBundle.swift; sourceTree = "<group>"; };
@@ -105,11 +134,17 @@
 		29AC9F3F890EAF73DB9E7C81 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				6C31F51F91A7255DE1633053 /* ActiveChargeCard.swift */,
-				100DEC1AAE281ECCD6B372DB /* HistoryView.swift */,
+				A4D61AD0DD348C44CED1D8EF /* ChargingScreen.swift */,
+				F05E4D54A1F083CA6EF4484A /* ConfirmSheet.swift */,
+				CDBACB8A3358299A0A3DD029 /* GarageScreen.swift */,
+				A3C87094A751372331409BFF /* HistoryScreen.swift */,
+				3D19F5F65ACF920484E106F7 /* HomeScreen.swift */,
+				8BEA0645AE6FF9842E149818 /* MapScreen.swift */,
 				AD0972E28180E05BCB3D1FCF /* ReceiptSheet.swift */,
-				416960231628714C3672C5CF /* RootView.swift */,
-				BF9B2409CF21C8E158F095AB /* SetupCard.swift */,
+				9E34BF81F3388DEB98F11D40 /* ScanScreen.swift */,
+				0F0E088574889462878577D5 /* ShellView.swift */,
+				FD9681CE9E0DECB2185E2B48 /* StationDetailScreen.swift */,
+				001E641916A9E0EACBA1E903 /* VehicleDetailScreen.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -118,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				51C3D8FD1261135399398A40 /* Controls.swift */,
+				C9B59AF8BF8ABAAEA996D3B8 /* OSMMapView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -149,11 +185,16 @@
 		9CB302E9C7F6377B351DBEAB /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				3AFA7620CDE339C503C98281 /* Catalog.swift */,
 				94A03CE6DEF7A7379FD7B834 /* Charging.swift */,
 				3FE1F2C7BD69E21AA22DCC4C /* Format.swift */,
+				3737D7446A3CDDBAC667085F /* Glyphs.swift */,
 				553C29BF5C86182162C6FA8F /* Odometer.swift */,
 				AE473EC0A9C7C4D27722F067 /* Palette.swift */,
+				CFE99A58F0AED19F175E5C00 /* PlaceData.swift */,
+				4C6EC5784F54A751221ED85C /* Places.swift */,
 				CE2CDF3EC0EE89EAB14DA784 /* TicketShape.swift */,
+				D5B1CFFD985408B697BFD1EF /* Vehicles.swift */,
 				58836A9A8B7ECC86EA5142FF /* ZetrumAttributes.swift */,
 			);
 			path = Shared;
@@ -282,16 +323,28 @@
 				8763ADCD0F364FEE91657DD5 /* Theme.swift in Sources */,
 				3979823ED4263D57AF0E6EE8 /* ZetrumApp.swift in Sources */,
 				69BF0029F9F7DFB70B27CCC7 /* Controls.swift in Sources */,
-				94735F0F83ECB1D1AE6C449C /* ActiveChargeCard.swift in Sources */,
-				03C048C64631B2F7EA98CF5E /* HistoryView.swift in Sources */,
+				05019FD272BF0C820B66C39A /* OSMMapView.swift in Sources */,
+				82C9F998CB6FB5ECB95C7E85 /* ChargingScreen.swift in Sources */,
+				49D0970691645EBEC9EFDBB6 /* ConfirmSheet.swift in Sources */,
+				E0A774B62CCCC90AC654F367 /* GarageScreen.swift in Sources */,
+				183CE6D468E55BF64019DB12 /* HistoryScreen.swift in Sources */,
+				F923DC3C1750C843C26A41C8 /* HomeScreen.swift in Sources */,
+				B7B6AB7C8AE82621D28F77AB /* MapScreen.swift in Sources */,
 				661FE386EC6D0DD3383BCE03 /* ReceiptSheet.swift in Sources */,
-				220D524EAFC60F8EFF12AF19 /* RootView.swift in Sources */,
-				3932721DF450051907F2E6A0 /* SetupCard.swift in Sources */,
+				F26A1AE4D16F3BC8CD553414 /* ScanScreen.swift in Sources */,
+				BB1702BBE43F2D2E2AC4312D /* ShellView.swift in Sources */,
+				7F27EF72BE7EB80F79648C7B /* StationDetailScreen.swift in Sources */,
+				C4F3E3115C66CA7B83A7F66E /* VehicleDetailScreen.swift in Sources */,
+				FBC96819497F66E6BD73DB40 /* Catalog.swift in Sources */,
 				6ABFF61642C77827DD9C10F5 /* Charging.swift in Sources */,
 				FC3097C97A38D09055F6F089 /* Format.swift in Sources */,
+				2A5239962E5EB2782418A3C5 /* Glyphs.swift in Sources */,
 				DB06A1C2D70C160EDBBDC544 /* Odometer.swift in Sources */,
 				131238A8B4C256723783A389 /* Palette.swift in Sources */,
+				B6D51AC022F8B7B04FB7933D /* PlaceData.swift in Sources */,
+				9792EBE81FB8F6CB63B2ED67 /* Places.swift in Sources */,
 				824DA95A542A6F7628C4EFE3 /* TicketShape.swift in Sources */,
+				E345915643D4ACB4E193C5CB /* Vehicles.swift in Sources */,
 				FF96D75A7E56E099573038F0 /* ZetrumAttributes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,11 +355,16 @@
 			files = (
 				298225DB987C5CEF9D8B2C86 /* ZetrumLiveActivity.swift in Sources */,
 				3AA1F82D3A9C17E944954A00 /* ZetrumWidgetBundle.swift in Sources */,
+				A6FAD8FC2573E10971F637AA /* Catalog.swift in Sources */,
 				818324411EF0B5A3382CC986 /* Charging.swift in Sources */,
 				1425FE26481D76886A49375C /* Format.swift in Sources */,
+				FE37283F5872AA67BBCC6932 /* Glyphs.swift in Sources */,
 				AD103D213EE2BE642ECD3A57 /* Odometer.swift in Sources */,
 				9D09C4832C1853A23F2BACD9 /* Palette.swift in Sources */,
+				5440A69E02EC78999546DCD4 /* PlaceData.swift in Sources */,
+				8A3AFE252ED4056E0069F7FB /* Places.swift in Sources */,
 				CCCE5F56B989019B7ABA057A /* TicketShape.swift in Sources */,
+				8A6F0B78C8D09F8907ED05B8 /* Vehicles.swift in Sources */,
 				273C721938874D84ED2A7C76 /* ZetrumAttributes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -391,6 +449,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Zetrum";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Kamera dipakai untuk memindai kode QR di badan charger SPKLU.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Lokasi dipakai untuk mengurutkan SPKLU dari yang terdekat.";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_NSSupportsLiveActivitiesFrequentUpdates = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -422,6 +482,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Zetrum";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Kamera dipakai untuk memindai kode QR di badan charger SPKLU.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Lokasi dipakai untuk mengurutkan SPKLU dari yang terdekat.";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_NSSupportsLiveActivitiesFrequentUpdates = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

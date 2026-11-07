@@ -1,23 +1,29 @@
 import ActivityKit
 import Combine
+import CoreLocation
 import Foundation
 import SwiftUI
-import UserNotifications
+@preconcurrency import UserNotifications
+
+// MARK: - Sesi
 
 struct ChargeSession: Codable, Identifiable, Hashable {
     var id: UUID = UUID()
     var startedAt: Date
     var endedAt: Date?
-    var station: Station
-    var carName: String
-    var capacityKWh: Double
+    var place: Place
+    var unit: ChargerUnit
+    var vehicle: Vehicle
     var startSoC: Double
     var targetSoC: Double
 
     var plan: Charge.Plan {
-        .init(capacityKWh: capacityKWh, startSoC: startSoC, targetSoC: targetSoC,
-              ratedKW: station.ratedKW, taperFloor: station.connector.taperFloor,
-              ratePerKwh: station.ratePerKwh)
+        .init(capacityKWh: vehicle.batteryKWh,
+              startSoC: startSoC, targetSoC: targetSoC,
+              ratedKW: vehicle.effectiveKW(on: unit),
+              taperFloor: unit.taperFloor,
+              ratePerKwh: unit.ratePerKwh,
+              serviceFee: unit.serviceFee)
     }
 
     func elapsed(at now: Date = Date()) -> TimeInterval {
@@ -27,12 +33,57 @@ struct ChargeSession: Codable, Identifiable, Hashable {
     func soc(at now: Date = Date()) -> Double { Charge.soc(plan, after: elapsed(at: now)) }
     func energy(at now: Date = Date()) -> Double { Charge.energy(plan, at: soc(at: now)) }
     func cost(at now: Date = Date()) -> Int { Charge.cost(plan, at: soc(at: now)) }
+    func addedKm(at now: Date = Date()) -> Int {
+        Int((energy(at: now) * vehicle.kmPerKwh).rounded())
+    }
 
     /// Kapan target tercapai. Nil kalau tidak akan tercapai.
     var finishAt: Date? {
         Charge.time(plan, toReach: targetSoC).map { startedAt.addingTimeInterval($0) }
     }
 }
+
+/// Kotak yang sudah dipindai tapi belum disetujui pemiliknya.
+struct PendingCharge: Identifiable, Hashable {
+    var place: Place
+    var unit: ChargerUnit
+    var id: String { place.id + "/" + unit.id }
+}
+
+// MARK: - Posisi
+
+/// Dipakai cuma untuk mengurutkan SPKLU terdekat. Kalau izinnya ditolak,
+/// titik acuannya jatuh ke pusat Jakarta dan aplikasinya tetap jalan.
+@MainActor
+final class Locator: NSObject, ObservableObject, CLLocationManagerDelegate {
+    @Published private(set) var lat: Double = Zetrum.defaultLat
+    @Published private(set) var lon: Double = Zetrum.defaultLon
+    @Published private(set) var live = false
+
+    private let manager = CLLocationManager()
+
+    override init() {
+        super.init()
+        manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+    }
+
+    func ask() {
+        manager.requestWhenInUseAuthorization()
+        manager.startUpdatingLocation()
+    }
+
+    nonisolated func locationManager(_ m: CLLocationManager, didUpdateLocations locs: [CLLocation]) {
+        guard let c = locs.last?.coordinate else { return }
+        Task { @MainActor in
+            lat = c.latitude; lon = c.longitude; live = true
+        }
+    }
+
+    nonisolated func locationManager(_ m: CLLocationManager, didFailWithError error: any Error) {}
+}
+
+// MARK: - Toko keadaan
 
 @MainActor
 final class ChargeStore: ObservableObject {
@@ -41,17 +92,19 @@ final class ChargeStore: ObservableObject {
     @Published private(set) var history: [ChargeSession] = []
     /// Dipublish tiap detik supaya tampilan ikut bergerak.
     @Published private(set) var now: Date = Date()
+    /// Hasil pindaian yang masih menunggu persetujuan.
+    @Published var pending: PendingCharge?
 
-    // Mobilnya satu, punya sendiri — jadi cukup disimpan sebagai preferensi.
-    @Published var carName: String = "Mobil saya"        { didSet { persistPrefs() } }
-    @Published var capacityKWh: Double = 64              { didSet { persistPrefs() } }
-    @Published var startSoC: Double = 28                 { didSet { persistPrefs() } }
-    @Published var targetSoC: Double = 90                { didSet { persistPrefs() } }
-    @Published var stationID: String = Station.fallback.id { didSet { persistPrefs() } }
+    @Published var vehicleID: String = Catalog.fallback.id { didSet { persistPrefs() } }
+    @Published var nickname: String = ""                   { didSet { persistPrefs() } }
+    @Published var startSoC: Double = 28                   { didSet { persistPrefs() } }
+    @Published var targetSoC: Double = 90                  { didSet { persistPrefs() } }
+    @Published var tileStyle: TileStyle = .dark            { didSet { persistPrefs() } }
 
-    var station: Station {
-        Station.all.first { $0.id == stationID } ?? Station.fallback
-    }
+    let locator = Locator()
+
+    var vehicle: Vehicle { Catalog.vehicle(vehicleID) ?? Catalog.fallback }
+    var vehicleLabel: String { nickname.isEmpty ? vehicle.displayName : nickname }
 
     private var timer: AnyCancellable?
     private var activity: Activity<ZetrumAttributes>?
@@ -72,23 +125,47 @@ final class ChargeStore: ObservableObject {
             .sink { [weak self] date in self?.tick(date) }
     }
 
-    // MARK: - Rencana yang sedang disusun (sebelum mulai)
+    // MARK: Daftar SPKLU, sudah diurutkan dari yang terdekat
 
-    var draftPlan: Charge.Plan {
-        .init(capacityKWh: capacityKWh, startSoC: startSoC, targetSoC: targetSoC,
-              ratedKW: station.ratedKW, taperFloor: station.connector.taperFloor,
-              ratePerKwh: station.ratePerKwh)
+    func nearby(kind: VehicleKind? = nil, onlyAvailable: Bool = false,
+                connector: Connector? = nil, search: String = "") -> [Place] {
+        let q = search.trimmingCharacters(in: .whitespaces).lowercased()
+        return Zetrum.places
+            .filter { p in
+                if onlyAvailable && p.available == 0 { return false }
+                if let c = connector, !p.units.contains(where: { $0.connector == c }) { return false }
+                if !q.isEmpty {
+                    let hay = (p.name + " " + p.address + " " + p.city + " " + p.venue.label).lowercased()
+                    if !hay.contains(q) { return false }
+                }
+                return true
+            }
+            .sorted { distance(to: $0) < distance(to: $1) }
     }
 
-    var draftDuration: TimeInterval? { Charge.time(draftPlan, toReach: targetSoC) }
-    var draftEnergy: Double { Charge.energy(draftPlan, at: targetSoC) }
-    var draftCost: Int { Charge.cost(draftPlan, at: targetSoC) }
+    func distance(to p: Place) -> Double { p.distance(from: locator.lat, locator.lon) }
 
-    // MARK: - Keadaan sesi berjalan
+    // MARK: Rencana yang sedang disusun
+
+    func plan(for unit: ChargerUnit) -> Charge.Plan {
+        .init(capacityKWh: vehicle.batteryKWh, startSoC: startSoC, targetSoC: targetSoC,
+              ratedKW: vehicle.effectiveKW(on: unit), taperFloor: unit.taperFloor,
+              ratePerKwh: unit.ratePerKwh, serviceFee: unit.serviceFee)
+    }
+
+    func estimate(for unit: ChargerUnit) -> (duration: TimeInterval?, energy: Double, cost: Int, km: Int) {
+        let p = plan(for: unit)
+        let e = Charge.energy(p, at: targetSoC)
+        return (Charge.time(p, toReach: targetSoC), e, Charge.cost(p, at: targetSoC),
+                Int((e * vehicle.kmPerKwh).rounded()))
+    }
+
+    // MARK: Keadaan sesi berjalan
 
     var soc: Double { active?.soc(at: now) ?? startSoC }
     var energy: Double { active?.energy(at: now) ?? 0 }
     var cost: Int { active?.cost(at: now) ?? 0 }
+    var addedKm: Int { active?.addedKm(at: now) ?? 0 }
     var power: Double { active.map { Charge.power($0.plan, at: soc) } ?? 0 }
     var isFull: Bool { active.map { Charge.isDone($0.plan, at: soc) } ?? false }
     var finishAt: Date? { active?.finishAt }
@@ -98,22 +175,63 @@ final class ChargeStore: ObservableObject {
         return max(0, f.timeIntervalSince(now))
     }
 
-    var spentToday: Int {
+    var spentThisMonth: Int {
         let cal = Calendar.current
         return history
-            .filter { cal.isDateInToday($0.endedAt ?? $0.startedAt) }
+            .filter { cal.isDate($0.endedAt ?? $0.startedAt, equalTo: Date(), toGranularity: .month) }
             .reduce(0) { $0 + $1.cost() }
     }
 
-    // MARK: - Aksi
+    var energyThisMonth: Double {
+        let cal = Calendar.current
+        return history
+            .filter { cal.isDate($0.endedAt ?? $0.startedAt, equalTo: Date(), toGranularity: .month) }
+            .reduce(0) { $0 + $1.energy() }
+    }
 
-    func start() {
-        guard active == nil, targetSoC > startSoC else { return }
+    var sessionsThisMonth: Int {
+        let cal = Calendar.current
+        return history.filter {
+            cal.isDate($0.endedAt ?? $0.startedAt, equalTo: Date(), toGranularity: .month)
+        }.count
+    }
+
+    /// Kira-kira berapa kilogram CO₂ yang tidak keluar dibanding mobil bensin.
+    /// 1 kWh listrik PLN ≈ 0,85 kg CO₂; mobil bensin ≈ 0,19 kg CO₂ per km.
+    var co2SavedKg: Double {
+        let km = energyThisMonth * vehicle.kmPerKwh
+        let petrol = km * (vehicle.kind == .car ? 0.192 : 0.062)   // kg CO2 per km
+        let grid = energyThisMonth * 0.85                          // kg CO2 per kWh PLN
+        return max(0, petrol - grid)
+    }
+
+    // MARK: Aksi
+
+    /// Hasil pindaian; belum mengisi apa-apa sampai pemiliknya menyetujui.
+    @discardableResult
+    func scanned(code: String) -> Bool {
+        guard let (p, u) = Zetrum.lookup(code: code) else { return false }
+        pending = PendingCharge(place: p, unit: u)
+        Haptic.tick()
+        return true
+    }
+
+    func offer(_ place: Place, _ unit: ChargerUnit) {
+        pending = PendingCharge(place: place, unit: unit)
+    }
+
+    /// Dipanggil hanya setelah pemiliknya menekan tombol setuju.
+    func confirmPending() {
+        guard let p = pending else { return }
+        pending = nil
+        start(at: p.place, unit: p.unit)
+    }
+
+    func start(at place: Place, unit: ChargerUnit) {
+        guard active == nil, targetSoC > startSoC, vehicle.accepts(unit) else { return }
         let session = ChargeSession(
-            startedAt: Date(), station: station,
-            carName: carName.trimmingCharacters(in: .whitespaces),
-            capacityKWh: capacityKWh, startSoC: startSoC, targetSoC: targetSoC
-        )
+            startedAt: Date(), place: place, unit: unit, vehicle: vehicle,
+            startSoC: startSoC, targetSoC: targetSoC)
         active = session
         now = Date()
         announcedFull = false
@@ -129,7 +247,7 @@ final class ChargeStore: ObservableObject {
         session.endedAt = Date()
         active = nil
         history.insert(session, at: 0)
-        if history.count > 60 { history.removeLast(history.count - 60) }
+        if history.count > 80 { history.removeLast(history.count - 80) }
         // lanjutkan dari persen terakhir, seperti mobil sungguhan
         startSoC = min(99, session.soc(at: session.endedAt!))
         save()
@@ -144,7 +262,7 @@ final class ChargeStore: ObservableObject {
         save()
     }
 
-    // MARK: - Detak
+    // MARK: Detak
 
     private func tick(_ date: Date) {
         now = date
@@ -163,7 +281,7 @@ final class ChargeStore: ObservableObject {
         }
     }
 
-    // MARK: - Live Activity
+    // MARK: Live Activity
 
     private func contentState(_ session: ChargeSession, soc s: Double) -> ZetrumAttributes.ContentState {
         .init(plan: session.plan,
@@ -177,11 +295,12 @@ final class ChargeStore: ObservableObject {
     }
 
     private func attributes(_ session: ChargeSession) -> ZetrumAttributes {
-        .init(stationName: session.station.name,
-              stationArea: session.station.area,
-              connector: session.station.connector.label,
-              powerLabel: session.station.powerLabel,
-              carName: session.carName.isEmpty ? "Mobil saya" : session.carName)
+        .init(stationName: session.place.name,
+              stationArea: session.place.city,
+              connector: session.unit.connector.label,
+              powerLabel: Daya.kw(session.vehicle.effectiveKW(on: session.unit)) + " kW",
+              carName: nickname.isEmpty ? session.vehicle.displayName : nickname,
+              isBike: session.vehicle.kind == .bike)
     }
 
     private func beginActivity(for session: ChargeSession) {
@@ -241,23 +360,23 @@ final class ChargeStore: ObservableObject {
         }
     }
 
-    // MARK: - Kabar saat penuh
+    // MARK: Kabar saat penuh
 
-    /// Mobilnya ditinggal, jadi kabar "sudah penuh" dikirim walau aplikasi
-    /// sedang tidak dibuka. Dijadwalkan sekali di depan karena waktu
-    /// selesainya sudah diketahui.
+    /// Kendaraannya ditinggal, jadi kabar "sudah penuh" dikirim walau
+    /// aplikasi sedang tidak dibuka. Dijadwalkan sekali di depan karena
+    /// waktu selesainya sudah diketahui.
     private func scheduleFullNotification(for session: ChargeSession) {
         guard let finish = session.finishAt else { return }
         let wait = finish.timeIntervalSinceNow
         guard wait > 5 else { return }
 
+        let name = nickname.isEmpty ? session.vehicle.displayName : nickname
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound]) { granted, _ in
             guard granted else { return }
-            let body = "\(session.carName) sudah \(Energi.persen(session.targetSoC))% di \(session.station.name). Total \(Rupiah.full(session.cost(at: finish)))."
             let content = UNMutableNotificationContent()
             content.title = "Pengisian selesai"
-            content.body = body
+            content.body = "\(name) sudah \(Energi.persen(session.targetSoC))% di \(session.place.name). Total \(Rupiah.full(session.cost(at: finish)))."
             content.sound = .default
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: wait, repeats: false)
             center.add(.init(identifier: "zetrum.full", content: content, trigger: trigger))
@@ -269,7 +388,7 @@ final class ChargeStore: ObservableObject {
             .removePendingNotificationRequests(withIdentifiers: [fullNotificationID])
     }
 
-    // MARK: - Simpan
+    // MARK: Simpan
 
     private func save() {
         let enc = JSONEncoder()
@@ -291,19 +410,19 @@ final class ChargeStore: ObservableObject {
 
     private func persistPrefs() {
         let d = UserDefaults.standard
-        d.set(carName, forKey: "pref.car")
-        d.set(capacityKWh, forKey: "pref.capacity")
+        d.set(vehicleID, forKey: "pref.vehicle")
+        d.set(nickname, forKey: "pref.nickname")
         d.set(startSoC, forKey: "pref.startSoC")
         d.set(targetSoC, forKey: "pref.targetSoC")
-        d.set(stationID, forKey: "pref.station")
+        d.set(tileStyle.rawValue, forKey: "pref.tiles")
     }
 
     private func loadPrefs() {
         let d = UserDefaults.standard
-        carName = d.string(forKey: "pref.car") ?? "Mobil saya"
-        if d.object(forKey: "pref.capacity") != nil { capacityKWh = d.double(forKey: "pref.capacity") }
+        vehicleID = d.string(forKey: "pref.vehicle") ?? Catalog.fallback.id
+        nickname = d.string(forKey: "pref.nickname") ?? ""
         if d.object(forKey: "pref.startSoC") != nil { startSoC = d.double(forKey: "pref.startSoC") }
         if d.object(forKey: "pref.targetSoC") != nil { targetSoC = d.double(forKey: "pref.targetSoC") }
-        stationID = d.string(forKey: "pref.station") ?? Station.fallback.id
+        tileStyle = TileStyle(rawValue: d.string(forKey: "pref.tiles") ?? "") ?? .dark
     }
 }

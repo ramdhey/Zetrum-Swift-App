@@ -22,4 +22,5 @@ struct ZetrumAttributes: ActivityAttributes {
     var connector: String
     var powerLabel: String
     var carName: String
+    var isBike: Bool
 }

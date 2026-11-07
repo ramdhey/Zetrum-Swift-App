@@ -319,7 +319,7 @@ APP_SETTINGS = """\t\t\t\tASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 \t\t\t\tENABLE_PREVIEWS = YES;
 \t\t\t\tGENERATE_INFOPLIST_FILE = YES;
 \t\t\t\tINFOPLIST_KEY_CFBundleDisplayName = "Zetrum";
-\t\t\t\tINFOPLIST_KEY_NSSupportsLiveActivities = YES;
+\t\t\t\tINFOPLIST_KEY_NSCameraUsageDescription = "Kamera dipakai untuk memindai kode QR di badan charger SPKLU.";\n\t\t\t\tINFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Lokasi dipakai untuk mengurutkan SPKLU dari yang terdekat.";\n\t\t\t\tINFOPLIST_KEY_NSSupportsLiveActivities = YES;
 \t\t\t\tINFOPLIST_KEY_NSSupportsLiveActivitiesFrequentUpdates = YES;
 \t\t\t\tINFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 \t\t\t\tINFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
