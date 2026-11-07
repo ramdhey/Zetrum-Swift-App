@@ -16,11 +16,6 @@ struct ChargeSession: Codable, Identifiable, Hashable {
     var vehicle: Vehicle
     var startSoC: Double
     var targetSoC: Double
-    /// Dikunci saat sesi dimulai. Kalau pemadat waktunya ikut berubah di
-    /// tengah jalan, persen baterainya akan melompat maju atau mundur —
-    /// seluruh hitungan bertumpu pada berapa lama sesi ini sudah berjalan.
-    var speed: Double = 1
-
     var plan: Charge.Plan {
         .init(capacityKWh: vehicle.batteryKWh,
               startSoC: startSoC, targetSoC: targetSoC,
@@ -28,7 +23,7 @@ struct ChargeSession: Codable, Identifiable, Hashable {
               taperFloor: unit.taperFloor,
               ratePerKwh: unit.ratePerKwh,
               serviceFee: unit.serviceFee,
-              speed: speed)
+              speed: Charge.demoSpeed)
     }
 
     func elapsed(at now: Date = Date()) -> TimeInterval {
@@ -106,10 +101,6 @@ final class ChargeStore: ObservableObject {
     @Published var targetSoC: Double = 90                  { didSet { persistPrefs() } }
     @Published var tileStyle: TileStyle = .dark            { didSet { persistPrefs() } }
 
-    /// Pemadat waktu untuk sesi berikutnya. Sesi yang sedang berjalan tidak
-    /// ikut berubah — kecepatannya sudah dikunci saat dimulai.
-    @Published var speed: ChargeSpeed = .demo             { didSet { persistPrefs() } }
-
     /// Bahasa antarmuka. Menyetel `Loc.lang` adalah yang membuat seluruh
     /// teks berganti; sesi yang sedang berjalan langsung didorong ulang
     /// supaya kartu di layar kunci ikut berganti tanpa menunggu detak.
@@ -172,7 +163,7 @@ final class ChargeStore: ObservableObject {
         .init(capacityKWh: vehicle.batteryKWh, startSoC: startSoC, targetSoC: targetSoC,
               ratedKW: vehicle.effectiveKW(on: unit), taperFloor: unit.taperFloor,
               ratePerKwh: unit.ratePerKwh, serviceFee: unit.serviceFee,
-              speed: speed.rawValue)
+              speed: Charge.demoSpeed)
     }
 
     func estimate(for unit: ChargerUnit) -> (duration: TimeInterval?, energy: Double, cost: Int, km: Int) {
@@ -253,7 +244,7 @@ final class ChargeStore: ObservableObject {
         guard active == nil, targetSoC > startSoC, vehicle.accepts(unit) else { return }
         let session = ChargeSession(
             startedAt: Date(), place: place, unit: unit, vehicle: vehicle,
-            startSoC: startSoC, targetSoC: targetSoC, speed: speed.rawValue)
+            startSoC: startSoC, targetSoC: targetSoC)
         active = session
         now = Date()
         announcedFull = false
@@ -440,7 +431,6 @@ final class ChargeStore: ObservableObject {
         d.set(targetSoC, forKey: "pref.targetSoC")
         d.set(tileStyle.rawValue, forKey: "pref.tiles")
         d.set(lang.rawValue, forKey: "pref.lang")
-        d.set(speed.rawValue, forKey: "pref.speed")
     }
 
     private func loadPrefs() {
@@ -448,9 +438,6 @@ final class ChargeStore: ObservableObject {
         // bahasanya dulu, supaya nilai lain yang ikut diformat sudah benar
         lang = Lang(rawValue: d.string(forKey: "pref.lang") ?? "") ?? .indonesian
         Loc.lang = lang
-        if d.object(forKey: "pref.speed") != nil {
-            speed = ChargeSpeed(rawValue: d.double(forKey: "pref.speed")) ?? .demo
-        }
         vehicleID = d.string(forKey: "pref.vehicle") ?? Catalog.fallback.id
         nickname = d.string(forKey: "pref.nickname") ?? ""
         if d.object(forKey: "pref.startSoC") != nil { startSoC = d.double(forKey: "pref.startSoC") }

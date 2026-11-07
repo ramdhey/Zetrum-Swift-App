@@ -165,10 +165,6 @@ enum Str {
         "home.disclaimer":      ("Lokasi SPKLU di aplikasi ini contoh, bukan data operasional PLN.",
                                  "Station locations in this app are samples, not PLN operational data."),
         "home.language":        ("Bahasa", "Language"),
-        "speed.caption":        ("Kecepatan %@", "Speed %@"),
-        "speed.badge":          ("%@ cepat", "%@ speed"),
-        "speed.note":           ("Jam pengisiannya dipadatkan %@ supaya enak ditonton. Daya, kWh dan rupiahnya tetap angka yang sebenarnya — pilih 1× untuk waktu sungguhan.",
-                                 "The charging clock is compressed %@ so it's watchable. Power, kWh and rupiah stay the real figures — pick 1× for true timing."),
 
         // MARK: Baris SPKLU
         "place.connectors":     ("%1$d/%2$d konektor", "%1$d/%2$d connectors"),

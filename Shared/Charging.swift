@@ -8,23 +8,15 @@ import Foundation
 /// Di bawah titik landai:   dSoC/dt = A
 /// Di atasnya:              dSoC/dt = A · (1 − b·u),  u = SoC − 80
 /// Jawabannya:              u(t) = (1/b)·(1 − e^(−A·b·t))
-/// Seberapa cepat jam pengisian berjalan dibanding jam dinding.
-///
-/// Ini aplikasi contoh: mengisi mobil sungguhan makan berjam-jam, dan tidak
-/// ada yang mau menontonnya. Yang dipadatkan cuma waktunya — daya, kWh dan
-/// rupiah tetap angka yang sebenarnya.
-enum ChargeSpeed: Double, Codable, Hashable, CaseIterable, Identifiable {
-    case real = 1
-    case fast = 10
-    case demo = 60
-
-    var id: Double { rawValue }
-    var label: String { "\(Int(rawValue))×" }
-}
-
 enum Charge {
 
     static let knee: Double = 80
+
+    /// Ini aplikasi contoh, bukan meteran SPKLU sungguhan: mengisi mobil
+    /// betulan makan berjam-jam dan tidak ada yang mau menontonnya. Jam
+    /// dindingnya dipadatkan segini. Daya, kWh dan rupiahnya tidak ikut —
+    /// semuanya diturunkan dari persen baterai, bukan dari jam.
+    static let demoSpeed: Double = 60
 
     struct Plan: Codable, Hashable {
         var capacityKWh: Double
@@ -36,10 +28,9 @@ enum Charge {
         var taperFloor: Double
         var ratePerKwh: Double
         var serviceFee: Int
-        /// Pemadat waktu. 1 berarti waktu sungguhan; 60 berarti satu jam
-        /// pengisian lewat dalam satu menit. Yang dipadatkan cuma jamnya —
-        /// daya, kWh dan rupiahnya tetap angka yang sebenarnya, karena
-        /// semuanya diturunkan dari persen baterai, bukan dari jam dinding.
+        /// Pemadat waktu. Tetap 1 untuk tabel spesifikasi yang memang
+        /// harus menyebut durasi sungguhan; sesi pengisian memakai
+        /// `Charge.demoSpeed`.
         var speed: Double = 1
 
         /// Persen per jam saat daya penuh.

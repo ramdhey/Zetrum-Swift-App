@@ -98,10 +98,13 @@ tetap pasangan balikan yang tepat, jadi jam selesai yang dipakai Live
 Activity tetap benar.
 
 Yang **tidak** ikut dipadatkan: daya, kWh, rupiah dan bentuk kurvanya.
-Semuanya diturunkan dari persen baterai, bukan dari jam dinding. Pilihannya
-1×, 10× dan 60× ada di kepala Beranda, dan kecepatannya dikunci ke sesi saat
-sesi itu dimulai — kalau tidak, persen baterainya akan melompat di tengah
-jalan. Layar pengisian menandai sesi yang dipadatkan dengan lencana `60×`.
+Semuanya diturunkan dari persen baterai, bukan dari jam dinding — jadi
+angka di layar tetap angka yang sebenarnya.
+
+Pemadatnya satu tetapan, `Charge.demoSpeed`, tanpa pilihan di antarmuka:
+ini aplikasi contoh dan tidak ada gunanya menunggu empat jam. Tabel
+spesifikasi di layar kendaraan memakai `speed: 1` supaya tetap menyebut
+durasi sungguhan.
 
 ## Data
 
