@@ -361,6 +361,8 @@ enum Str {
         "la.done":              ("sudah penuh", "fully charged"),
         "la.fullIn":            ("penuh dalam", "full in"),
         "la.charging":          ("mengisi…", "charging…"),
+        "la.compactDone":       ("PENUH", "FULL"),
+        "la.alertBody":         ("%1$@ sudah %2$@%% — boleh dicabut.", "%1$@ reached %2$@%% — ready to unplug."),
 
         // MARK: Pemberitahuan
         "notify.title":         ("Pengisian selesai", "Charging complete"),

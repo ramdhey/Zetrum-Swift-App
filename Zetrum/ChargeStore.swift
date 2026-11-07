@@ -119,6 +119,8 @@ final class ChargeStore: ObservableObject {
     var vehicleLabel: String { nickname.isEmpty ? vehicle.displayName : nickname }
 
     private var timer: AnyCancellable?
+    private var lifecycle: [AnyCancellable] = []
+    private var bgTask: UIBackgroundTaskIdentifier = .invalid
     private var activity: Activity<ZetrumAttributes>?
     private var lastPushedSoC: Double = -1
     private var lastPushedAt: Date = .distantPast
@@ -135,6 +137,40 @@ final class ChargeStore: ObservableObject {
         timer = Timer.publish(every: 1, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] date in self?.tick(date) }
+        watchLifecycle()
+    }
+
+    // MARK: Tetap hidup sebentar setelah ditinggal
+
+    /// Live Activity cuma bergerak kalau ada yang mengirim kabar, dan yang
+    /// mengirim kabar itu aplikasinya sendiri — tidak ada server di proyek
+    /// ini. Begitu iOS menidurkan prosesnya, persennya membeku.
+    ///
+    /// Jadi selama masih ada sesi berjalan, aplikasinya minta tetap hidup
+    /// setelah ditinggal. iOS memberi sekitar setengah menit; selama itu
+    /// detaknya jalan terus dan persennya ikut naik seperti waktu dibuka.
+    private func watchLifecycle() {
+        let c = NotificationCenter.default
+        c.publisher(for: UIApplication.didEnterBackgroundNotification)
+            .sink { [weak self] _ in self?.holdBackground() }
+            .store(in: &lifecycle)
+        c.publisher(for: UIApplication.willEnterForegroundNotification)
+            .sink { [weak self] _ in self?.releaseBackground() }
+            .store(in: &lifecycle)
+    }
+
+    private func holdBackground() {
+        guard active != nil, bgTask == .invalid else { return }
+        bgTask = UIApplication.shared.beginBackgroundTask(withName: "zetrum.charging") {
+            [weak self] in
+            Task { @MainActor in self?.releaseBackground() }
+        }
+    }
+
+    private func releaseBackground() {
+        guard bgTask != .invalid else { return }
+        UIApplication.shared.endBackgroundTask(bgTask)
+        bgTask = .invalid
     }
 
     // MARK: Daftar SPKLU, sudah diurutkan dari yang terdekat
@@ -267,6 +303,7 @@ final class ChargeStore: ObservableObject {
         Haptic.ok()
         cancelFullNotification()
         endActivity(final: session)
+        releaseBackground()
         return session
     }
 
@@ -285,7 +322,13 @@ final class ChargeStore: ObservableObject {
         if !announcedFull && Charge.isDone(session.plan, at: s) {
             announcedFull = true
             Haptic.ok()
-            pushActivity(session, soc: s)
+            // Kartunya diminta *berbunyi*, bukan cuma berganti isi: Dynamic
+            // Island-nya terbuka sendiri dan di layar kunci muncul seperti
+            // notifikasi. Pemberitahuan terjadwalnya dibatalkan supaya
+            // kabarnya tidak datang dua kali.
+            cancelFullNotification()
+            pushActivity(session, soc: s, announce: true)
+            releaseBackground()
             return
         }
         // dorong kabar baru tiap seperempat persen, atau paling lambat semenit
@@ -337,14 +380,23 @@ final class ChargeStore: ObservableObject {
         }
     }
 
-    private func pushActivity(_ session: ChargeSession, soc s: Double) {
+    private func pushActivity(_ session: ChargeSession, soc s: Double,
+                              announce: Bool = false) {
         lastPushedSoC = s
         lastPushedAt = Date()
         guard let activity else { return }
         let state = contentState(session, soc: s)
+        let name = nickname.isEmpty ? session.vehicle.displayName : nickname
+        let alert: AlertConfiguration? = announce
+            ? .init(title: .init(stringLiteral: T("notify.title")),
+                    body: .init(stringLiteral: T("la.alertBody", name,
+                                                 Energi.persen(session.targetSoC))),
+                    sound: .default)
+            : nil
         Task {
             await activity.update(.init(state: state,
-                                        staleDate: state.isDone ? nil : session.finishAt))
+                                        staleDate: state.isDone ? nil : session.finishAt),
+                                  alertConfiguration: alert)
         }
     }
 

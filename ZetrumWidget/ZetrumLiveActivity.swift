@@ -104,32 +104,23 @@ private func settled(_ s: ZetrumAttributes.ContentState,
 
 // MARK: - Angka di pil kanan
 
-/// Persen tidak bisa berjalan sendiri di Live Activity — cuma tanggal yang
-/// bisa. Jadi selama mengisi yang ditampilkan hitung mundur, yang benar
-/// setiap detik tanpa aplikasi perlu bangun; persennya pindah ke tampilan
-/// melebar dan kartu layar kunci, tempat ada ruang untuk menyebut kapan
-/// angkanya terakhir diperbarui.
+/// Persennya, yang memang jadi inti kartunya. Begitu selesai, angkanya
+/// diganti kata "penuh" — supaya sekali lirik langsung terbaca, bukan
+/// menyuruh orang menafsirkan angka 90%.
 private struct CompactValue: View {
     let state: ZetrumAttributes.ContentState
     let tint: Color
 
     var body: some View {
         if state.isDone {
-            Text("\(Energi.persen(state.soc))%")
-                .font(.meter(13, .bold))
+            Text(T("la.compactDone"))
+                .font(.label(12, .bold))
                 .foregroundStyle(tint)
-                .contentTransition(.numericText())
-        } else if let finish = state.finishAt, finish > Date() {
-            Text(timerInterval: Date()...finish, countsDown: true)
-                .font(.meter(13, .bold))
-                .monospacedDigit()
-                .multilineTextAlignment(.trailing)
-                .foregroundStyle(tint)
-                .frame(width: 44)
         } else {
             Text("\(Energi.persen(state.soc))%")
                 .font(.meter(13, .bold))
                 .foregroundStyle(tint)
+                .contentTransition(.numericText())
         }
     }
 }
