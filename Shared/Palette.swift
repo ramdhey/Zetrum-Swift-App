@@ -101,12 +101,23 @@ struct BoltMark: View {
 // MARK: - Pak baterai
 
 /// Deretan sel seperti indikator baterai di dasbor mobil, bukan batang polos.
-/// Sel paling depan berdenyut selama arus masih masuk.
+///
+/// Dua cara menunjukkan arus sedang masuk, karena keduanya tidak bisa dipakai
+/// di tempat yang sama:
+///
+/// - Di dalam aplikasi, sel paling depan berdenyut (`pulse`).
+/// - Di Live Activity, animasi berulang tidak dijalankan sistem sama sekali,
+///   jadi `pulse` dimatikan dan yang dipakai isian separuh sel terdepan —
+///   tingginya ikut pecahan persen, jadi tiap kabar baru datang selnya
+///   terlihat bertambah, bukan melompat.
 struct BatteryPack: View {
     var soc: Double
     var target: Double
     var tint: Color = Pal.volt
     var charging: Bool = true
+    /// Matikan di widget: denyut berulang tidak jalan di Live Activity dan
+    /// malah membekukan sel terdepan di opasitas sembarang.
+    var pulse: Bool = true
     var cells: Int = 24
     var height: CGFloat = 34
 
@@ -119,13 +130,12 @@ struct BatteryPack: View {
             let gap: CGFloat = 3
             let w = (geo.size.width - gap * CGFloat(cells - 1)) / CGFloat(cells)
             let head = Int(filled.rounded(.down))
+            let frac = filled - filled.rounded(.down)
 
             ZStack(alignment: .leading) {
                 HStack(spacing: gap) {
                     ForEach(0..<cells, id: \.self) { i in
-                        RoundedRectangle(cornerRadius: 2.5, style: .continuous)
-                            .fill(fill(for: i, head: head))
-                            .opacity(charging && i == head ? (breathe ? 0.3 : 1) : 1)
+                        cell(i, head: head, frac: frac)
                             .frame(width: w)
                     }
                 }
@@ -139,15 +149,30 @@ struct BatteryPack: View {
             }
             .frame(height: height)
             .animation(.easeInOut(duration: 1.1).repeatForever(autoreverses: true), value: breathe)
-            .onAppear { breathe = charging }
-            .onChange(of: charging) { _, now in breathe = now }
+            // tiap kabar baru datang, selnya menyala berangsur, tidak kedip
+            .animation(.easeOut(duration: 0.55), value: soc)
+            .animation(.easeInOut(duration: 0.6), value: tint)
+            .onAppear { breathe = pulse && charging }
+            .onChange(of: charging) { _, now in breathe = pulse && now }
         }
         .frame(height: height + 7)
     }
 
-    private func fill(for i: Int, head: Int) -> Color {
-        if i < head { return tint }
-        if i == head { return tint.opacity(0.55) }
-        return Pal.slab
+    @ViewBuilder
+    private func cell(_ i: Int, head: Int, frac: Double) -> some View {
+        let shape = RoundedRectangle(cornerRadius: 2.5, style: .continuous)
+        if i < head {
+            shape.fill(tint)
+        } else if i == head {
+            // sel terdepan: terisi sebagian dari bawah, sisanya redup
+            shape
+                .fill(tint.opacity(pulse ? 0.55 : 0.22))
+                .overlay(alignment: .bottom) {
+                    shape.fill(tint).frame(height: height * max(0.12, frac))
+                }
+                .opacity(charging && pulse && breathe ? 0.3 : 1)
+        } else {
+            shape.fill(Pal.slab)
+        }
     }
 }
