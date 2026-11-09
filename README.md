@@ -1,146 +1,167 @@
 # Zetrum
 
-Meteran pengisian mobil dan motor listrik. Pilih kendaraanmu, cari SPKLU di
-peta, pindai konektornya, setujui, lalu tinggalkan kendaraannya — persen
-baterai, kWh yang masuk, biaya berjalan dan hitung mundur sampai penuh
-terus terlihat di layar kunci lewat Live Activity.
+A charging meter for electric cars and motorbikes. Pick your vehicle, find a
+charging station on the map, scan the connector, approve, then walk away —
+battery percentage, kWh delivered, running cost and the countdown to full
+stay visible on the Lock Screen through a Live Activity.
 
-Aplikasi contoh, bukan produk PLN. Lokasi SPKLU-nya memakai koordinat tempat
-yang nyata, tapi merek, nomor kotak pengisian dan keadaannya karangan.
+A sample app, not a PLN product. The station coordinates are real places, but
+the charger brands, bay numbers and availability are invented.
 
-## Menjalankan
+## Running it
 
 ```bash
-python3 Tools/genproj.py          # menyusun ulang Zetrum.xcodeproj
-open Zetrum.xcodeproj             # ▶︎ ke simulator mana pun, iOS 17+
+python3 Tools/genproj.py          # regenerates Zetrum.xcodeproj
+open Zetrum.xcodeproj             # ▶︎ to any simulator, iOS 17+
 ```
 
-Live Activity-nya baru kelihatan utuh setelah pengisian dimulai: kunci layar
-(`Cmd+L`) untuk kartu layar kunci, atau pakai simulator dengan Dynamic Island.
+The Live Activity only shows up in full once a session has started: lock the
+screen (`Cmd+L`) for the Lock Screen card, or use a simulator with a Dynamic
+Island.
 
-## Alurnya
+## The flow
 
-1. **Garasi** — 57 mobil dan 30 motor listrik yang dijual di Indonesia,
-   lengkap dengan kapasitas baterai, soket, daya terima AC/DC dan tabel
-   lama isi 20→80% di tiap kelas charger. Pilih satu sebagai kendaraanmu.
-2. **SPKLU** — peta OpenStreetMap dengan penanda di rumah sakit, stadion,
-   stasiun, mal, rest area, bandara, kantor dan kampus. Bisa disaring per
-   jenis tempat, ketersediaan, dan jenis konektor.
-3. **Detail stasiun** — tiap kotak pengisian ditulis apa adanya: merek
-   charger, soket, daya, tarif, biaya layanan dan keadaannya (tersedia /
-   sedang digunakan / dalam perbaikan). Ada ulasan dan fasilitas umum.
-4. **Pindai** — tombol tengah membuka kamera untuk kode QR di badan charger.
-   Memindai **tidak** langsung mengisi: hasilnya membuka lembar persetujuan.
-5. **Setujui** — periksa kendaraan, konektor, persen sekarang, target dan
-   perkiraan biaya, lalu **tahan** tombolnya. Baru di detik itu listrik
-   dianggap mengalir.
-6. **Mengisi / penuh** — satu layar penuh yang berubah dari hijau setrum ke
-   biru es begitu target tercapai.
+1. **Garage** — 57 electric cars and 30 motorbikes sold in Indonesia, each
+   with battery capacity, socket type, AC/DC intake and a 20→80% table per
+   charger class. Pick one as your vehicle.
+2. **Stations** — an OpenStreetMap view with pins at hospitals, stadiums,
+   train stations, malls, rest areas, airports, offices and campuses.
+   Filterable by venue type, availability and connector.
+3. **Station detail** — every bay written out plainly: charger brand, socket,
+   power, tariff, service fee and status (available / in use / under repair).
+   Plus reviews and on-site facilities.
+4. **Scan** — the centre button opens the camera for the QR code on the
+   charger. Scanning does **not** start charging: it opens an approval sheet.
+5. **Approve** — check the vehicle, connector, current percentage, target and
+   estimated cost, then **hold** the button. Only then is current considered
+   to be flowing.
+6. **Charging / full** — a single screen that shifts from volt green to ice
+   blue the moment the target is reached.
 
-## Isi
+## What's inside
 
-| Berkas | Isinya |
+| File | Contents |
 | --- | --- |
-| `Shared/Charging.swift` | Kurva pengisian bentuk tertutup, biaya, daya |
-| `Shared/Places.swift` | Soket, kotak pengisian, jenis tempat, fasilitas |
-| `Shared/PlaceData.swift` | 26 lokasi SPKLU Zetrum dengan koordinat sebenarnya |
-| `Shared/Vehicles.swift` | Bentuk data kendaraan |
-| `Shared/Catalog.swift` | Katalog 87 model EV Indonesia |
-| `Shared/Glyphs.swift` | Gambar soket (Type 2, CCS2, CHAdeMO, GB/T) dan siluet kendaraan |
-| `Shared/Palette.swift` | Warna, kilat Zetrum, indikator sel baterai |
-| `Shared/Odometer.swift` | Angka berguling seperti meteran listrik |
-| `Shared/TicketShape.swift` | Bentuk karcis untuk struk |
-| `Zetrum/ChargeStore.swift` | Satu-satunya sumber keadaan + Live Activity |
-| `Zetrum/Components/OSMMapView.swift` | MKMapView dengan ubin OpenStreetMap |
-| `Zetrum/Views/` | Sembilan layar aplikasi |
-| `ZetrumWidget/` | Live Activity: layar kunci + Dynamic Island |
-| `Tools/genproj.py` | Penyusun `project.pbxproj` |
-| `Tools/fetchphotos.py` | Pengambil foto kendaraan dari Wikimedia Commons |
+| `Shared/Charging.swift` | Closed-form charging curve, cost, power |
+| `Shared/Places.swift` | Sockets, bays, venue types, facilities |
+| `Shared/PlaceData.swift` | 26 Zetrum station locations with real coordinates |
+| `Shared/Vehicles.swift` | Vehicle data shape |
+| `Shared/Catalog.swift` | Catalogue of 87 Indonesian EV models |
+| `Shared/Strings.swift` | Runtime translation table (Indonesian / English) |
+| `Shared/Glyphs.swift` | Socket drawings (Type 2, CCS2, CHAdeMO, GB/T) and vehicle silhouettes |
+| `Shared/Palette.swift` | Colours, the Zetrum bolt, battery cell indicator |
+| `Shared/Odometer.swift` | Rolling digits, like an electricity meter |
+| `Shared/TicketShape.swift` | Ticket shape for the receipt |
+| `Zetrum/ChargeStore.swift` | The single source of state + the Live Activity |
+| `Zetrum/Components/OSMMapView.swift` | MKMapView with OpenStreetMap tiles |
+| `Zetrum/Views/` | The nine app screens |
+| `ZetrumWidget/` | Live Activity: Lock Screen + Dynamic Island |
+| `Tools/genproj.py` | `project.pbxproj` generator |
+| `Tools/fetchphotos.py` | Pulls vehicle photos from Wikimedia Commons |
 
-## Kurva pengisian
+## The charging curve
 
-Daya tidak rata. Sampai 80% arusnya penuh, di atas itu melandai supaya sel
-tidak rusak:
+Power is not flat. Below 80% the current runs at full rate; above it the
+curve tapers so the cells aren't damaged:
 
 ```
-di bawah 80%:  dSoC/dt = A
-di atasnya:    dSoC/dt = A · (1 − b·u),   u = SoC − 80
-jawabannya:    u(t) = (1/b)·(1 − e^(−A·b·t))
+below 80%:   dSoC/dt = A
+above it:    dSoC/dt = A · (1 − b·u),   u = SoC − 80
+solution:    u(t) = (1/b)·(1 − e^(−A·b·t))
 ```
 
-`A = 100·kW/kWh` dan `b = (1 − lantai)/20`. Lantainya ikut daya kotaknya —
-pengisian 200 kW melandai jauh lebih tajam daripada wallbox 7,4 kW.
+`A = 100·kW/kWh` and `b = (1 − floor)/20`. The floor follows the bay's power —
+a 200 kW charger tapers far more sharply than a 7.4 kW wallbox.
 
-Bentuk tertutup ini dipilih bukan karena rapi, tapi karena bisa dibalik:
-waktu selesai diketahui **sejak detik pertama**. Akibatnya hitung mundur di
-layar kunci berjalan sendiri tanpa aplikasi perlu dibangunkan, dan kabar
-"sudah penuh" bisa dijadwalkan di depan.
+The closed form was chosen not because it is tidy but because it inverts: the
+finish time is known **from the first second**. That is what lets the Lock
+Screen countdown run on its own without waking the app, and lets the "fully
+charged" notification be scheduled up front.
 
-Daya yang betul-betul dipakai adalah yang terkecil antara kemampuan kotak
-pengisian dan kemampuan kendaraannya menerima. Jadi Wuling Air ev di kotak
-200 kW tetap mengisi di 6,6 kW — seperti aslinya.
+The power actually used is the smaller of what the bay can deliver and what
+the vehicle can take. So a Wuling Air ev on a 200 kW charger still charges at
+6.6 kW — exactly as it would in real life.
 
-Contoh, BYD Atto 3 Superior (60,48 kWh) dari 20% ke 80%:
+For example, a BYD Atto 3 Superior (60.48 kWh) from 20% to 80%:
 
-| Kotak | Daya nyata | Lama |
+| Bay | Real power | Duration |
 | --- | --- | --- |
-| Wallbox rumah 7,4 kW | 7,4 kW | 4 j 54 m |
-| AC Type 2 22 kW | 7 kW | 5 j 11 m |
+| Home wallbox 7.4 kW | 7.4 kW | 4 h 54 m |
+| AC Type 2 22 kW | 7 kW | 5 h 11 m |
 | DC 60 kW | 60 kW | 36 m |
 | DC 200 kW | 88 kW | 24 m |
 
-### Pemadat waktu
+### Time compression
 
-Angka di tabel itu waktu sungguhan, dan tidak ada yang mau menonton empat
-jam pengisian. `Charge.Plan.speed` memadatkan **jam dindingnya saja**:
-`soc()` mengalikan waktu yang sudah lewat, `time()` membaginya. Keduanya
-tetap pasangan balikan yang tepat, jadi jam selesai yang dipakai Live
-Activity tetap benar.
+Those are real-world durations, and nobody wants to watch four hours of
+charging. `Charge.Plan.speed` compresses **the wall clock only**: `soc()`
+multiplies the elapsed time, `time()` divides it. The two remain exact
+inverses, so the finish time the Live Activity relies on stays correct.
 
-Yang **tidak** ikut dipadatkan: daya, kWh, rupiah dan bentuk kurvanya.
-Semuanya diturunkan dari persen baterai, bukan dari jam dinding — jadi
-angka di layar tetap angka yang sebenarnya.
+What is **not** compressed: power, kWh, rupiah and the shape of the curve.
+All of them are derived from battery percentage rather than from the clock,
+so the numbers on screen are the real ones.
 
-Pemadatnya satu tetapan, `Charge.demoSpeed`, tanpa pilihan di antarmuka:
-ini aplikasi contoh dan tidak ada gunanya menunggu empat jam. Tabel
-spesifikasi di layar kendaraan memakai `speed: 1` supaya tetap menyebut
-durasi sungguhan.
+The compressor is a single constant, `Charge.demoSpeed`, with no control in
+the interface: this is a sample app and there is nothing to gain from waiting
+four hours. The spec table on the vehicle screen uses `speed: 1` so it still
+quotes genuine durations.
 
-## Data
+## Language
 
-**Kendaraan.** Kapasitas baterai memakai angka kotor (nominal) pabrikan —
-tidak ada satu pun sumber Indonesia yang menerbitkan kapasitas bersih, jadi
-lebih jujur konsisten pakai satu jenis angka daripada mencampur keduanya.
-Daya pengisian mobil memakai spesifikasi global pabrikan kalau versi
-Indonesia tidak menerbitkannya. Untuk motor, hampir tidak ada yang
-mengumumkan daya chargernya, jadi angkanya dihitung dari waktu pengisian
-penuh yang diumumkan — anggap perkiraan, bukan kutipan.
+Indonesian and English, switchable at runtime from the `ID | EN` pill in the
+Home header. The choice is not Apple's String Catalog but a plain table in
+`Shared/Strings.swift`, for two reasons: the switch has to take effect
+instantly without relaunching, and the widget runs in its own process with no
+App Group, so it cannot read the app's settings — the language travels with
+each Live Activity update instead.
 
-Yang sengaja tidak dimasukkan: **Tesla** (tidak ada agen resmi di Indonesia,
-hanya impor umum), **Yamaha E01** dan **NEO's** (tidak pernah dijual di
-sini), dan **Yamaha Fazzio Hybrid** — itu motor bensin 124,8 cc dengan
-bantuan start listrik tiga detik, bukan EV.
+Numbers, dates and durations follow suit: `Rp 20.000` / `Rp 20,000`,
+`19,0 kWh` / `19.0 kWh`, `2j 15m` / `2h 15m`.
 
-**Tarif.** Memakai skema PLN: Rp 2.466,78/kWh, ditambah biaya layanan untuk
-kotak di atas 50 kW.
+## The data
 
-**Foto.** Diambil dari Wikimedia Commons dengan `Tools/fetchphotos.py` dan
-dipakai sesuai lisensinya; daftarnya ada di `CREDITS-PHOTOS.md`. Model yang
-tidak punya foto berlisensi bebas — kebanyakan motor listrik lokal —
-digambar sebagai siluet per bentuk bodi. Jadi kalau yang muncul gambar,
-memang tidak ada fotonya, bukan gagal memuat.
+**Vehicles.** Battery capacity uses the manufacturers' gross (nominal)
+figures — not one Indonesian source publishes usable capacity, so being
+consistent about which kind of number is used is more honest than mixing the
+two. Car charging power uses the manufacturer's global spec where the
+Indonesian arm doesn't publish one. For motorbikes, almost nobody states
+charger power, so the figures are derived from the published full-charge
+time — treat them as estimates, not quotes.
 
-**Peta.** Ubin OpenStreetMap, dua gaya: gelap (CARTO di atas data OSM) dan
-terang (ubin resmi OSM). Bisa diganti dari tombol di peta. Permintaan ubin
-memakai User-Agent yang jelas sesuai aturan pakai OSM, dan sumbernya
-dicantumkan di pojok peta.
+Deliberately left out: **Tesla** (no official distributor in Indonesia, grey
+imports only), the **Yamaha E01** and **NEO's** (never sold here), and the
+**Yamaha Fazzio Hybrid** — that is a 124.8 cc petrol bike with a three-second
+electric start assist, not an EV.
 
-## Yang jujur perlu diketahui
+**Tariffs.** Follows the PLN scheme: Rp 2,466.78/kWh, plus a service fee for
+bays above 50 kW.
 
-Live Activity di sini diperbarui dari dalam aplikasi (`activity.update`),
-bukan lewat push notification. Selama aplikasi masih hidup di latar
-belakang, angkanya ikut bergerak. Kalau iOS mematikan prosesnya, persen,
-kWh dan biaya berhenti di angka terakhir — tapi **hitung mundurnya tetap
-benar**, karena yang digambar `Text(timerInterval:)` ke tanggal selesai yang
-sudah dihitung sejak awal. Aplikasi SPKLU sungguhan memakai push
-notification dari servernya untuk ini.
+**Photos.** Taken from Wikimedia Commons via `Tools/fetchphotos.py` and used
+under their licences; the list is in `CREDITS-PHOTOS.md`. Models with no
+freely licensed photo — mostly local electric motorbikes — are drawn as
+silhouettes by body shape. So if you see a drawing, there genuinely is no
+photo; it isn't a failed load.
+
+**Maps.** OpenStreetMap tiles in two styles: dark (CARTO over OSM data) and
+light (official OSM tiles). Switchable from a button on the map. Tile
+requests carry a clear User-Agent as the OSM usage policy requires, and the
+attribution sits in the map's corner.
+
+## Worth knowing
+
+The Live Activity here is updated from inside the app (`activity.update`),
+not over push notifications. While the app is still alive in the background
+the numbers keep moving — and when charging finishes it fires an
+`AlertConfiguration`, so the Dynamic Island expands by itself with a
+notification-style banner.
+
+iOS grants roughly 30 seconds of background runtime after the app is
+backgrounded. A DC session at the compressed clock finishes well inside that
+window. If iOS does kill the process first, the percentage, kWh and cost stop
+at their last values — but **the countdown stays correct**, because it is
+drawn by `Text(timerInterval:)` against a finish date computed up front, and
+the card still learns it is done through its `staleDate` (the system
+re-renders it lazily, measured at roughly 90 seconds after the finish time).
+
+A real charging app uses push notifications from its own server for this.
